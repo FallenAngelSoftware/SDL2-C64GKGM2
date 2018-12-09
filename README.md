@@ -8,6 +8,6 @@ Windows(R)/Linux desktops & notebooks
 More to come...  
   
 JeZxLee  
-www.FallenAngelSoftware.com__
-__
+www.FallenAngelSoftware.com
+
 ![GitHubPromo](GitHubPromo.png)
