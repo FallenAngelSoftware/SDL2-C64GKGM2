@@ -4,7 +4,7 @@
 (straight up SDL2 with no support libs)
 
 
-Windows(R)/Linux
+Windows(R)/Linux desktops & notebooks
 
 (makefile included for easy building on any Linux)
 
