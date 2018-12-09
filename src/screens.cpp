@@ -131,7 +131,7 @@ ScreenIsDirty = true;
 //sprintf(temp, "%d", interface->Buttons[0].SpriteIndex);
 //strcat(visuals->VariableText, temp);
 
-    visuals->DrawSentenceOntoScreenBuffer(visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1.1, 1.1);
+    visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1.1, 1.1);
 
     if (ScreenIsDirty == true)
     {
@@ -213,13 +213,30 @@ void Screens::DisplaySDL_Screen(void)
         ScreenToDisplay = Main_Screen;
     }
 }
+
 //-------------------------------------------------------------------------------------------------
 void Screens::DisplayMain_Screen(void)
 {
     if (ScreenTransitionStatus == FadeAll)
     {
-
-interface->CreateButtonWithText("Button", 1200, 320, 240, 255, 255, 255, 255, 1.0, 1.0);
+        int buttonScreenX = 595;
+        int buttonScreenY = 40;
+        int buttonOffsetY = 57;
+        interface->CreateButtonWithText("MENU", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->CreateButtonWithText("FILE", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->CreateButtonWithText("CLEAR", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->CreateButtonWithText("RUN", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->CreateButtonWithText("INSERT", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->CreateButtonWithText("DELETE", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->CreateButtonWithText("FIND", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->CreateButtonWithText("COPY", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
 
         ScreenTransitionStatus = FadeIn;
     }
@@ -227,6 +244,10 @@ interface->CreateButtonWithText("Button", 1200, 320, 240, 255, 255, 255, 255, 1.
 //    if (ScreenIsDirty == true)
     {
         visuals->ClearScreenBufferWithColor(100, 100, 100, 255);
+
+        visuals->Sprites[100].ScreenX = 320;
+        visuals->Sprites[100].ScreenY = 240;
+        visuals->DrawSpriteOntoScreenBuffer(100);
     }
 
     if (ScreenTransitionStatus == FadeOut && ScreenFadeTransparency == 255)

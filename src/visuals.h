@@ -48,7 +48,7 @@ public:
     #define NumberOfFontChars   256
     struct FontChar
     {
-        SDL_Texture *Texture;
+        SDL_Texture *Texture[2];
         int ScreenX;
         int ScreenY;
         float ScaleX;
@@ -71,13 +71,13 @@ public:
     int FontBMPsCharWidth;
     int FontBMPsCharHeight;
     bool LoadFontBMPs(void);
-    void DrawCharOntoScreenBuffer(Uint16 index);
+    void DrawCharOntoScreenBuffer(int tileSet, Uint16 index);
 
     #define JustifyLeft                 0
     #define JustifyCenter               1
     #define JustifyRight                2
     #define JustifyCenterOnPoint        3
-    void DrawSentenceOntoScreenBuffer(const char *textToDisplay, int screenX, int screenY, int justificationHorizontal, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparancy, float scaleX, float scaleY);
+    void DrawSentenceOntoScreenBuffer(int tileSet, const char *textToDisplay, int screenX, int screenY, int justificationHorizontal, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparancy, float scaleX, float scaleY);
 
     char VariableText[64];
 

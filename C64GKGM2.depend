@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1544364613 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
+1544386563 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
 	"SDL.h"
 	<stdio.h>
 	"visuals.h"
@@ -350,13 +350,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1544366542 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
+1544386643 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
 	"visuals.h"
 
-1544371943 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1544386529 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -374,7 +374,7 @@
 
 1544229448 c:\users\jlp\desktop\c64gkgm2\src\input.h
 
-1544363536 c:\users\jlp\desktop\c64gkgm2\src\visuals.h
+1544385572 c:\users\jlp\desktop\c64gkgm2\src\visuals.h
 
 1544370559 c:\users\jlp\desktop\c64gkgm2\src\screens.h
 
@@ -388,7 +388,7 @@
 
 1544282470 c:\users\jlp\desktop\c64gkgm2\src\audio.h
 
-1544371881 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
+1544385908 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
 	"SDL.h"
 	"interface.h"
 	"visuals.h"

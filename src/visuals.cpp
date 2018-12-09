@@ -73,9 +73,14 @@ Visuals::~Visuals(void)
 
     for (int index = 0; index < NumberOfFontChars; index++)
     {
-        if (FontChars[index].Texture != NULL)
+        if (FontChars[index].Texture[0] != NULL)
         {
-            SDL_DestroyTexture(FontChars[index].Texture);
+            SDL_DestroyTexture(FontChars[index].Texture[0]);
+        }
+
+        if (FontChars[index].Texture[1] != NULL)
+        {
+            SDL_DestroyTexture(FontChars[index].Texture[1]);
         }
     }
 
@@ -114,6 +119,10 @@ int textureHeight;
 
             case 20:
                 strcpy(filePath, "data/visuals/SDL-Logo.bmp");
+                break;
+
+            case 100:
+                strcpy(filePath, "data/visuals/Editor-BG.bmp");
                 break;
 
             case 1200:
@@ -183,6 +192,8 @@ int textureHeight;
 
     for (int index = 32; index < 127; index++)
     {
+        srcRect.y = 1;
+
         boxTemp = SDL_LoadBMP("data/font/CharTemp.bmp");
         if (!boxTemp)
         {
@@ -191,15 +202,40 @@ int textureHeight;
             return(false);
         }
 
-        SDL_SetColorKey( boxTemp, true, SDL_MapRGB(boxTemp->format, 255, 0, 0) );
+        SDL_SetColorKey( boxTemp, true, SDL_MapRGB(boxTemp->format, 0, 0, 0) );
+
+        SDL_BlitSurface(spriteSheet, &srcRect, boxTemp, &dstRect);
+
+//        srcRect.x+=(FontBMPsCharWidth+1);
+
+        FontChars[index].Texture[0] = SDL_CreateTextureFromSurface(Renderer, boxTemp);
+
+        SDL_QueryTexture(FontChars[index].Texture[0], &textureFormat, &textureAccess, &textureWidth, &textureHeight);
+        FontChars[index].TextureWidthOriginal = textureWidth;
+        FontChars[index].TextureHeightOriginal = textureHeight;
+
+        SDL_FreeSurface(boxTemp);
+
+
+        srcRect.y = 11;
+
+        boxTemp = SDL_LoadBMP("data/font/CharTemp.bmp");
+        if (!boxTemp)
+        {
+            printf( "SDL2 load BMP failed: %s\n", SDL_GetError() );
+            CoreFailure = true;
+            return(false);
+        }
+
+        SDL_SetColorKey( boxTemp, true, SDL_MapRGB(boxTemp->format, 0, 0, 0) );
 
         SDL_BlitSurface(spriteSheet, &srcRect, boxTemp, &dstRect);
 
         srcRect.x+=(FontBMPsCharWidth+1);
 
-        FontChars[index].Texture = SDL_CreateTextureFromSurface(Renderer, boxTemp);
+        FontChars[index].Texture[1] = SDL_CreateTextureFromSurface(Renderer, boxTemp);
 
-        SDL_QueryTexture(FontChars[index].Texture, &textureFormat, &textureAccess, &textureWidth, &textureHeight);
+        SDL_QueryTexture(FontChars[index].Texture[1], &textureFormat, &textureAccess, &textureWidth, &textureHeight);
         FontChars[index].TextureWidthOriginal = textureWidth;
         FontChars[index].TextureHeightOriginal = textureHeight;
 
@@ -212,7 +248,7 @@ int textureHeight;
 }
 
 //-------------------------------------------------------------------------------------------------
-void Visuals::DrawCharOntoScreenBuffer(Uint16 index)
+void Visuals::DrawCharOntoScreenBuffer(int tileSet, Uint16 index)
 {
 SDL_Rect destinationRect;
 Uint32 textureFormat;
@@ -220,7 +256,7 @@ int textureAccess;
 int textureWidth;
 int textureHeight;
 
-    SDL_QueryTexture(FontChars[index].Texture, &textureFormat, &textureAccess, &textureWidth, &textureHeight);
+    SDL_QueryTexture(FontChars[index].Texture[tileSet], &textureFormat, &textureAccess, &textureWidth, &textureHeight);
 
     float winWidthFixed = (float)WindowWidthCurrent / 640;
     float winHeightFixed = (float)WindowHeightCurrent / 480;
@@ -232,35 +268,35 @@ int textureHeight;
     destinationRect.w = textureWidth * FontChars[index].ScaleX * (winWidthFixed);
     destinationRect.h = textureHeight * FontChars[index].ScaleY * (winHeightFixed);
 
-    SDL_SetTextureColorMod(FontChars[index].Texture, FontChars[index].RedHue, FontChars[index].GreenHue, FontChars[index].BlueHue);
-    SDL_SetTextureAlphaMod(FontChars[index].Texture, FontChars[index].Transparency);
+    SDL_SetTextureColorMod(FontChars[index].Texture[tileSet], FontChars[index].RedHue, FontChars[index].GreenHue, FontChars[index].BlueHue);
+    SDL_SetTextureAlphaMod(FontChars[index].Texture[tileSet], FontChars[index].Transparency);
 
     if (FontChars[index].FlipX == false && FontChars[index].FlipY == false)
     {
-        SDL_RenderCopyEx(Renderer, FontChars[index].Texture, NULL, &destinationRect, FontChars[index].RotationDegree
+        SDL_RenderCopyEx(Renderer, FontChars[index].Texture[tileSet], NULL, &destinationRect, FontChars[index].RotationDegree
                          , NULL, SDL_FLIP_NONE);
     }
     else if (FontChars[index].FlipX == true && FontChars[index].FlipY == false)
     {
-        SDL_RenderCopyEx(Renderer, FontChars[index].Texture, NULL, &destinationRect, FontChars[index].RotationDegree
+        SDL_RenderCopyEx(Renderer, FontChars[index].Texture[tileSet], NULL, &destinationRect, FontChars[index].RotationDegree
                          , NULL, SDL_FLIP_HORIZONTAL);
     }
     else if (FontChars[index].FlipX == false && FontChars[index].FlipY == true)
     {
-        SDL_RenderCopyEx(Renderer, FontChars[index].Texture, NULL, &destinationRect, FontChars[index].RotationDegree
+        SDL_RenderCopyEx(Renderer, FontChars[index].Texture[tileSet], NULL, &destinationRect, FontChars[index].RotationDegree
                          , NULL, SDL_FLIP_VERTICAL);
     }
     else if (FontChars[index].FlipX == true && FontChars[index].FlipY == true)
     {
         double flipHorizontallyAndVerticallyDegreeFix = FontChars[index].RotationDegree+180;
 
-        SDL_RenderCopyEx(Renderer, FontChars[index].Texture, NULL, &destinationRect, flipHorizontallyAndVerticallyDegreeFix
+        SDL_RenderCopyEx(Renderer, FontChars[index].Texture[tileSet], NULL, &destinationRect, flipHorizontallyAndVerticallyDegreeFix
                          , NULL, SDL_FLIP_NONE);
     }
 }
 
 //-------------------------------------------------------------------------------------------------
-void Visuals::DrawSentenceOntoScreenBuffer(const char *textToDisplay, int screenX, int screenY, int justificationHorizontal, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparancy, float scaleX, float scaleY)
+void Visuals::DrawSentenceOntoScreenBuffer(int tileSet, const char *textToDisplay, int screenX, int screenY, int justificationHorizontal, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparancy, float scaleX, float scaleY)
 {
 int charScreenX = screenX;
 
@@ -293,7 +329,7 @@ int charScreenX = screenX;
             FontChars[int(textToDisplay[index])].Transparency = transparancy;
             FontChars[int(textToDisplay[index])].ScaleX = scaleX;
             FontChars[int(textToDisplay[index])].ScaleY = scaleY;
-            DrawCharOntoScreenBuffer( int(textToDisplay[index]) );
+            DrawCharOntoScreenBuffer( tileSet, int(textToDisplay[index]) );
 
             charScreenX+=(FontBMPsCharWidth*scaleX);
         }

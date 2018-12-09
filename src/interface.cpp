@@ -93,9 +93,7 @@ float animScale;
             visuals->Sprites[ Buttons[index].SpriteIndex ].Transparency = Buttons[index].Transparency;
             visuals->DrawSpriteOntoScreenBuffer(Buttons[index].SpriteIndex);
 
-            visuals->DrawSentenceOntoScreenBuffer( Buttons[index].Text, Buttons[index].ScreenX, Buttons[index].ScreenY, JustifyCenterOnPoint, 255, 255, 255, 255, (3.0*Buttons[index].ScaleX*animScale), (3.0*Buttons[index].ScaleX*animScale) );
-
-            break;
+            visuals->DrawSentenceOntoScreenBuffer( 1, Buttons[index].Text, Buttons[index].ScreenX, Buttons[index].ScreenY, JustifyCenterOnPoint, 255, 255, 255, 255, (4.4*Buttons[index].ScaleX*animScale), (5.5*Buttons[index].ScaleX*animScale) );
         }
     }
 }
