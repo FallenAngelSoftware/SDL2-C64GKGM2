@@ -91,8 +91,12 @@ void Input::GetAllUserInput(void)
 
     for (int index = 0; index < 2; index++)
     {
+        MouseButtonsRaw[index] = false;
+
         if ( SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(index+1) )
         {
+            MouseButtonsRaw[index] = true;
+
             if (MouseButtonWasClicked[index] == false)
             {
                 MouseButtonPressed[index] = true;

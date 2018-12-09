@@ -18,6 +18,7 @@ Interface::Interface(void)
 {
     for (int index = 0; index < NumberOfButtons; index++)
     {
+        Buttons[index].OneClick = true;
         Buttons[index].SpriteIndex = -1;
         Buttons[index].Text = " ";
         Buttons[index].ScreenIndex = -1;
@@ -44,7 +45,7 @@ Interface::~Interface(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Interface::CreateButtonWithText(const char *textToDisplay, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY)
+void Interface::CreateButtonWithText(bool oneClick, const char *textToDisplay, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY)
 {
 int freeButton = 0;
 
@@ -57,6 +58,7 @@ int freeButton = 0;
         }
     }
 
+    Buttons[freeButton].OneClick = oneClick;
     Buttons[freeButton].SpriteIndex = spriteIndex;
     Buttons[freeButton].Text = textToDisplay;
     Buttons[freeButton].ScreenIndex = freeButton;
@@ -107,18 +109,22 @@ void Interface::ProcessAllButtons(void)
     {
         if (Buttons[index].SpriteIndex > -1)
         {
-            if (input->MouseButtonPressed[0] == true)
+            if ( (input->MouseButtonPressed[0] == true && Buttons[index].OneClick == true) || (input->MouseButtonsRaw[0] == true && Buttons[index].OneClick == false) )
             {
                 if (   (  input->MouseY > ( Buttons[index].ScreenY - ((visuals->Sprites[ Buttons[index].SpriteIndex ].TextureHeightOriginal*Buttons[index].ScaleY) / 2) )  )
                    && (  input->MouseY < ( Buttons[index].ScreenY + ((visuals->Sprites[ Buttons[index].SpriteIndex ].TextureHeightOriginal*Buttons[index].ScaleY) / 2) )  )
                    && (  input->MouseX > ( Buttons[index].ScreenX - ((visuals->Sprites[ Buttons[index].SpriteIndex ].TextureWidthOriginal*Buttons[index].ScaleX) / 2) )  )
                    && (  input->MouseX < ( Buttons[index].ScreenX + ((visuals->Sprites[ Buttons[index].SpriteIndex ].TextureWidthOriginal*Buttons[index].ScaleX) / 2) )  )   )
                 {
-
-                    audio->PlayAudio(0);
-
                     Buttons[index].AnimationScale = 0.85;
                     Buttons[index].AnimationTimer = 10;
+
+                    if (Buttons[index].OneClick == true)  audio->PlayAudio(0);
+                    else
+                    {
+                        ThisButtonWasPressed = Buttons[index].ScreenIndex;
+                        Buttons[index].AnimationTimer+=1;
+                    }
                 }
             }
         }
@@ -135,7 +141,7 @@ void Interface::ProcessAllButtons(void)
                 if (Buttons[index].AnimationTimer == 1)
                 {
                     Buttons[index].AnimationScale = 1.0;
-                    ThisButtonWasPressed = Buttons[index].ScreenIndex;
+                    if (Buttons[index].OneClick == true)  ThisButtonWasPressed = Buttons[index].ScreenIndex;
                 }
             }
         }
@@ -147,6 +153,7 @@ void Interface::DestroyAllButtons(void)
 {
     for (int index = 0; index < NumberOfButtons; index++)
     {
+        Buttons[index].OneClick = true;
         Buttons[index].SpriteIndex = -1;
         Buttons[index].Text = " ";
         Buttons[index].ScreenIndex = -1;

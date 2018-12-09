@@ -222,21 +222,27 @@ void Screens::DisplayMain_Screen(void)
         int buttonScreenX = 595;
         int buttonScreenY = 40;
         int buttonOffsetY = 57;
-        interface->CreateButtonWithText("MENU", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        interface->CreateButtonWithText(true, "MENU", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
         buttonScreenY+=buttonOffsetY;
-        interface->CreateButtonWithText("FILE", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        interface->CreateButtonWithText(true, "FILE", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
         buttonScreenY+=buttonOffsetY;
-        interface->CreateButtonWithText("CLEAR", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        interface->CreateButtonWithText(true, "CLEAR", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
         buttonScreenY+=buttonOffsetY;
-        interface->CreateButtonWithText("RUN", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        interface->CreateButtonWithText(true, "RUN", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
         buttonScreenY+=buttonOffsetY;
-        interface->CreateButtonWithText("INSERT", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        interface->CreateButtonWithText(true, "INSERT", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
         buttonScreenY+=buttonOffsetY;
-        interface->CreateButtonWithText("DELETE", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        interface->CreateButtonWithText(true, "DELETE", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
         buttonScreenY+=buttonOffsetY;
-        interface->CreateButtonWithText("FIND", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        interface->CreateButtonWithText(true, "FIND", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
         buttonScreenY+=buttonOffsetY;
-        interface->CreateButtonWithText("COPY", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        interface->CreateButtonWithText(true, "COPY", 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+
+        interface->CreateButtonWithText(false, "", 1210, 21, 132, 255, 255, 255, 255, 0.5, 1.2);
+        interface->CreateButtonWithText(false, "", 1215, 21, 132+90, 255, 255, 255, 255, 0.5, 1.2);
+
+        interface->CreateButtonWithText(false, "", 1210, 21, 132+199, 255, 255, 255, 255, 0.5, 1.2);
+        interface->CreateButtonWithText(false, "", 1215, 21, 132+90+199, 255, 255, 255, 255, 0.5, 1.2);
 
         ScreenTransitionStatus = FadeIn;
     }
@@ -248,6 +254,24 @@ void Screens::DisplayMain_Screen(void)
         visuals->Sprites[100].ScreenX = 320;
         visuals->Sprites[100].ScreenY = 240;
         visuals->DrawSpriteOntoScreenBuffer(100);
+
+        visuals->Sprites[1250].ScreenX = 320-25;
+        visuals->Sprites[1250].ScreenY = 47;
+        visuals->Sprites[1250].ScaleX = 2.0;
+        visuals->Sprites[1250].ScaleY = 1.4;
+        visuals->DrawSpriteOntoScreenBuffer(1250);
+
+        visuals->Sprites[1250].ScreenX = 320-25;
+        visuals->Sprites[1250].ScreenY = 47+130;
+        visuals->Sprites[1250].ScaleX = 2.0;
+        visuals->Sprites[1250].ScaleY = 4.75;
+        visuals->DrawSpriteOntoScreenBuffer(1250);
+
+        visuals->Sprites[1251].ScreenX = 320-25;
+        visuals->Sprites[1251].ScreenY = 47+130+200;
+        visuals->Sprites[1251].ScaleX = 2.0;
+        visuals->Sprites[1251].ScaleY = 4.75;
+        visuals->DrawSpriteOntoScreenBuffer(1251);
     }
 
     if (ScreenTransitionStatus == FadeOut && ScreenFadeTransparency == 255)

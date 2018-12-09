@@ -350,13 +350,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1544386643 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
+1544391657 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
 	"visuals.h"
 
-1544386529 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1544392577 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -366,13 +366,13 @@
 	"audio.h"
 	"interface.h"
 
-1544231397 source:c:\users\jlp\desktop\c64gkgm2\src\input.cpp
+1544393855 source:c:\users\jlp\desktop\c64gkgm2\src\input.cpp
 	"SDL.h"
 	"input.h"
 	"screens.h"
 	"visuals.h"
 
-1544229448 c:\users\jlp\desktop\c64gkgm2\src\input.h
+1544393855 c:\users\jlp\desktop\c64gkgm2\src\input.h
 
 1544385572 c:\users\jlp\desktop\c64gkgm2\src\visuals.h
 
@@ -388,12 +388,12 @@
 
 1544282470 c:\users\jlp\desktop\c64gkgm2\src\audio.h
 
-1544385908 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
+1544393977 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
 	"SDL.h"
 	"interface.h"
 	"visuals.h"
 	"input.h"
 	"audio.h"
 
-1544370044 c:\users\jlp\desktop\c64gkgm2\src\interface.h
+1544392616 c:\users\jlp\desktop\c64gkgm2\src\interface.h
 

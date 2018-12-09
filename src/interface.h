@@ -14,6 +14,7 @@ public:
     #define NumberOfButtons     100
     struct Button
     {
+        bool OneClick;
         int SpriteIndex;
         const char *Text;
         Sint8 ScreenIndex;
@@ -31,7 +32,7 @@ public:
 
     int ThisButtonWasPressed;
 
-    void CreateButtonWithText(const char *textToDisplay, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY);
+    void CreateButtonWithText(bool oneClick, const char *textToDisplay, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY);
     void DisplayAllButtonsOnScreenBuffer(void);
     void ProcessAllButtons(void);
     void DestroyAllButtons(void);

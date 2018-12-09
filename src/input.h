@@ -12,6 +12,7 @@ public:
 
     bool ScreenIsDirty;
 
+    bool MouseButtonsRaw[2];
     bool MouseButtonPressed[2];
     bool MouseButtonWasClicked[2];
     int MouseX, MouseY;
