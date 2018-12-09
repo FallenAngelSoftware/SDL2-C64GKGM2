@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1544306693 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
+1544364613 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
 	"SDL.h"
 	<stdio.h>
 	"visuals.h"
 	"input.h"
 	"screens.h"
 	"audio.h"
+	"interface.h"
 
 1540998544 c:\users\jlp\desktop\c64gkgm2\sdl2-2.0.9\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -349,13 +350,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1544363544 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
+1544366542 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
 	"visuals.h"
 
-1544363385 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1544371943 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -363,6 +364,7 @@
 	"visuals.h"
 	"input.h"
 	"audio.h"
+	"interface.h"
 
 1544231397 source:c:\users\jlp\desktop\c64gkgm2\src\input.cpp
 	"SDL.h"
@@ -374,7 +376,7 @@
 
 1544363536 c:\users\jlp\desktop\c64gkgm2\src\visuals.h
 
-1544214807 c:\users\jlp\desktop\c64gkgm2\src\screens.h
+1544370559 c:\users\jlp\desktop\c64gkgm2\src\screens.h
 
 1509896994 source:c:\users\jlp\desktop\c64gkgm2\src\resources.rc
 
@@ -385,4 +387,13 @@
 	"visuals.h"
 
 1544282470 c:\users\jlp\desktop\c64gkgm2\src\audio.h
+
+1544371881 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
+	"SDL.h"
+	"interface.h"
+	"visuals.h"
+	"input.h"
+	"audio.h"
+
+1544370044 c:\users\jlp\desktop\c64gkgm2\src\interface.h
 

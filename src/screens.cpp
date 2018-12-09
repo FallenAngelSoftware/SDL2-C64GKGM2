@@ -8,10 +8,12 @@
 #include "visuals.h"
 #include "input.h"
 #include "audio.h"
+#include "interface.h"
 
 extern Visuals* visuals;
 extern Input* input;
 extern Audio* audio;
+extern Interface* interface;
 
 //-------------------------------------------------------------------------------------------------
 Screens::Screens(void)
@@ -57,6 +59,9 @@ void Screens::ApplyScreenFadeTransition(void)
         else
         {
             ScreenFadeTransparency = 255;
+
+            interface->DestroyAllButtons();
+
             ScreenIsDirty = true;
         }
     }
@@ -87,6 +92,8 @@ ScreenIsDirty = true;
         ScreenIsDirty = true;
     }
 
+    interface->ProcessAllButtons();
+
     switch(ScreenToDisplay)
     {
         case FAS_Screen:
@@ -97,9 +104,15 @@ ScreenIsDirty = true;
             DisplaySDL_Screen();
             break;
 
+        case Main_Screen:
+            DisplayMain_Screen();
+            break;
+
         default:
             break;
     }
+
+    interface->DisplayAllButtonsOnScreenBuffer();
 
     ApplyScreenFadeTransition();
 
@@ -114,6 +127,10 @@ ScreenIsDirty = true;
     sprintf(temp, "%d", visuals->AverageFPS);
     strcat(visuals->VariableText, temp);
     strcat(visuals->VariableText, "/60");
+
+//sprintf(temp, "%d", interface->Buttons[0].SpriteIndex);
+//strcat(visuals->VariableText, temp);
+
     visuals->DrawSentenceOntoScreenBuffer(visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1.1, 1.1);
 
     if (ScreenIsDirty == true)
@@ -193,6 +210,28 @@ void Screens::DisplaySDL_Screen(void)
     if (ScreenTransitionStatus == FadeOut && ScreenFadeTransparency == 255)
     {
         ScreenTransitionStatus = FadeAll;
-        ScreenToDisplay = FAS_Screen;
+        ScreenToDisplay = Main_Screen;
+    }
+}
+//-------------------------------------------------------------------------------------------------
+void Screens::DisplayMain_Screen(void)
+{
+    if (ScreenTransitionStatus == FadeAll)
+    {
+
+interface->CreateButtonWithText("Button", 1200, 320, 240, 255, 255, 255, 255, 1.0, 1.0);
+
+        ScreenTransitionStatus = FadeIn;
+    }
+
+//    if (ScreenIsDirty == true)
+    {
+        visuals->ClearScreenBufferWithColor(100, 100, 100, 255);
+    }
+
+    if (ScreenTransitionStatus == FadeOut && ScreenFadeTransparency == 255)
+    {
+        ScreenTransitionStatus = FadeAll;
+        ScreenToDisplay = SDL_Screen;
     }
 }

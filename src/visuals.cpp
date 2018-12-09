@@ -116,6 +116,10 @@ int textureHeight;
                 strcpy(filePath, "data/visuals/SDL-Logo.bmp");
                 break;
 
+            case 1200:
+                strcpy(filePath, "data/visuals/Button.bmp");
+                break;
+
             default:
                 break;
         }

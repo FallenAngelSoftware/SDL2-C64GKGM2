@@ -19,11 +19,13 @@
 #include "input.h"
 #include "screens.h"
 #include "audio.h"
+#include "interface.h"
 
 Visuals *visuals;
 Input *input;
 Screens *screens;
 Audio *audio;
+Interface *interface;
 
 //-------------------------------------------------------------------------------------------------
 int main( int argc, char* args[] )
@@ -50,6 +52,8 @@ int main( int argc, char* args[] )
     audio = new Audio();
     if (audio->SetupAudio() != true)  visuals->CoreFailure = true;
 
+    interface = new Interface();
+
     while (input->EXIT_Game == false && visuals->CoreFailure == false)
     {
         input->GetAllUserInput();
@@ -58,6 +62,7 @@ int main( int argc, char* args[] )
         visuals->ProcessFramerate();
     }
 
+    delete interface;
     delete audio;
     delete screens;
     delete input;

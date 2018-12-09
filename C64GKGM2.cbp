@@ -43,6 +43,8 @@
 		<Unit filename="src/audio.h" />
 		<Unit filename="src/input.cpp" />
 		<Unit filename="src/input.h" />
+		<Unit filename="src/interface.cpp" />
+		<Unit filename="src/interface.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/resources.rc">
 			<Option compilerVar="WINDRES" />
