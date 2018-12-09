@@ -15,17 +15,20 @@ SDL_LIBS = $(shell sdl2-config --libs)
 OBJECTS = src/main.o \
           src/audio.o \
           src/input.o \
+          src/interface.o \
           src/screens.o \
           src/visuals.o
 
 SOURCES = src/main.cpp \
           src/audio.cpp \
           src/input.cpp \
+          src/interface.cpp \
           src/screens.cpp \
           src/visuals.cpp
 
 HEADERS = src/audio.h \
           src/input.h \
+          src/interface.h \
           src/screens.h \
           src/visuals.h
 
