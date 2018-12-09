@@ -1,7 +1,7 @@
+#include "SDL.h"
+
 #include <stdio.h>
 #include <cstring>
-
-#include "SDL.h"
 
 #include "screens.h"
 

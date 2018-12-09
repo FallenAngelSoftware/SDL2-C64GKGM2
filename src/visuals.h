@@ -68,6 +68,8 @@ public:
 
     bool LoadSpritesAndInitialize(void);
 
+    int FontBMPsCharWidth;
+    int FontBMPsCharHeight;
     bool LoadFontBMPs(void);
     void DrawCharOntoScreenBuffer(Uint16 index);
 

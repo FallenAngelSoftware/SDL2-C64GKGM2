@@ -1,7 +1,7 @@
+#include "SDL.h"
+
 #include <stdio.h>
 #include <cstring>
-
-#include "SDL.h"
 
 #include "visuals.h"
 
@@ -151,6 +151,9 @@ int textureAccess;
 int textureWidth;
 int textureHeight;
 
+    FontBMPsCharWidth = 9;
+    FontBMPsCharHeight = 9;
+
     SDL_Surface *spriteSheet = NULL;
     SDL_Surface *boxTemp = NULL;
     SDL_Rect dstRect;
@@ -166,13 +169,13 @@ int textureHeight;
 
     dstRect.x = 0;
     dstRect.y = 0;
-    dstRect.w = 9;
-    dstRect.h = 9;
+    dstRect.w = FontBMPsCharWidth;
+    dstRect.h = FontBMPsCharHeight;
 
     srcRect.x = 1;
     srcRect.y = 1;
-    srcRect.w = 9;
-    srcRect.h = 9;
+    srcRect.w = FontBMPsCharWidth;
+    srcRect.h = FontBMPsCharHeight;
 
     for (int index = 32; index < 127; index++)
     {
@@ -188,7 +191,7 @@ int textureHeight;
 
         SDL_BlitSurface(spriteSheet, &srcRect, boxTemp, &dstRect);
 
-        srcRect.x+=10;
+        srcRect.x+=(FontBMPsCharWidth+1);
 
         FontChars[index].Texture = SDL_CreateTextureFromSurface(Renderer, boxTemp);
 
@@ -263,15 +266,15 @@ int charScreenX = screenX;
     }
     else if (justificationHorizontal == JustifyCenter)
     {
-        charScreenX = 320 - (  ( ( strlen(textToDisplay) - 1) * 9 * scaleX  ) / 2  );
+        charScreenX = 320 - (  ( ( strlen(textToDisplay) - 1) * FontBMPsCharWidth * scaleX  ) / 2  );
     }
     else if (justificationHorizontal == JustifyRight)
     {
-        charScreenX = screenX - (  ( ( strlen(textToDisplay) - 1) * 9 * scaleX  )  );
+        charScreenX = screenX - (  ( ( strlen(textToDisplay) - 1) * FontBMPsCharWidth * scaleX  )  );
     }
     else if (justificationHorizontal == JustifyCenterOnPoint)
     {
-        charScreenX = screenX - (  ( ( strlen(textToDisplay) - 1) * 9 * scaleX  ) / 2  );
+        charScreenX = screenX - (  ( ( strlen(textToDisplay) - 1) * FontBMPsCharWidth * scaleX  ) / 2  );
     }
 
     for (Uint8 index = 0; index < strlen(textToDisplay); index++)
@@ -288,7 +291,7 @@ int charScreenX = screenX;
             FontChars[int(textToDisplay[index])].ScaleY = scaleY;
             DrawCharOntoScreenBuffer( int(textToDisplay[index]) );
 
-            charScreenX+=(9*scaleX);
+            charScreenX+=(FontBMPsCharWidth*scaleX);
         }
     }
 }

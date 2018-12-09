@@ -349,16 +349,16 @@
 	"begin_code.h"
 	"close_code.h"
 
-1544318830 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
+1544363544 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
+	"SDL.h"
 	<stdio.h>
 	<cstring>
-	"SDL.h"
 	"visuals.h"
 
-1544314795 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1544363385 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+	"SDL.h"
 	<stdio.h>
 	<cstring>
-	"SDL.h"
 	"screens.h"
 	"visuals.h"
 	"input.h"
@@ -372,7 +372,7 @@
 
 1544229448 c:\users\jlp\desktop\c64gkgm2\src\input.h
 
-1544314327 c:\users\jlp\desktop\c64gkgm2\src\visuals.h
+1544363536 c:\users\jlp\desktop\c64gkgm2\src\visuals.h
 
 1544214807 c:\users\jlp\desktop\c64gkgm2\src\screens.h
 
