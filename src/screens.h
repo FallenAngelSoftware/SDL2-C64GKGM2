@@ -8,6 +8,8 @@ public:
 	Screens(void);
 	virtual ~Screens(void);
 
+    bool DEBUG;
+
     bool ScreenIsDirty;
 
     Uint8 ScreenFadeTransparency;

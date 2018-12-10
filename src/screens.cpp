@@ -20,6 +20,8 @@ extern Logic* logic;
 //-------------------------------------------------------------------------------------------------
 Screens::Screens(void)
 {
+    DEBUG = true;
+
     ScreenIsDirty = true;
     ScreenToDisplay = FAS_Screen;
 
@@ -83,7 +85,7 @@ void Screens::ProcessScreenToDisplay(void)
 int windowWidth;
 int windowHeight;
 
-ScreenIsDirty = true;
+    if (ScreenTransitionStatus != FadeNone)  ScreenIsDirty = true;
 
     SDL_GetWindowSize(visuals->Window, &windowWidth, &windowHeight);
     if (windowWidth != visuals->WindowWidthCurrent || windowHeight != visuals->WindowHeightCurrent)
@@ -118,25 +120,32 @@ ScreenIsDirty = true;
 
     ApplyScreenFadeTransition();
 
-    char temp[256];
-    strcpy(visuals->VariableText, "(");
-    sprintf(temp, "%i", input->MouseX);
-    strcat(visuals->VariableText, temp);
-    strcat(visuals->VariableText, ",");
-    sprintf(temp, "%i", input->MouseY);
-    strcat(visuals->VariableText, temp);
-    strcat(visuals->VariableText, ") FPS=");
-    sprintf(temp, "%d", visuals->AverageFPS);
-    strcat(visuals->VariableText, temp);
-    strcat(visuals->VariableText, "/60");
+    if (DEBUG == true)
+    {
+        visuals->Sprites[2].ScreenX = 320;
+        visuals->Sprites[2].ScreenY = 9;
+        visuals->DrawSpriteOntoScreenBuffer(2);
 
-strcat(visuals->VariableText, " ");
-sprintf(temp, "%d", logic->CommandScrollSpeed);
-strcat(visuals->VariableText, temp);
+        char temp[256];
+        strcpy(visuals->VariableText, "(");
+        sprintf(temp, "%i", input->MouseX);
+        strcat(visuals->VariableText, temp);
+        strcat(visuals->VariableText, ",");
+        sprintf(temp, "%i", input->MouseY);
+        strcat(visuals->VariableText, temp);
+        strcat(visuals->VariableText, ") FPS=");
+        sprintf(temp, "%d", visuals->AverageFPS);
+        strcat(visuals->VariableText, temp);
+        strcat(visuals->VariableText, "/60");
 
-    visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1.1, 1.1);
+//        strcat(visuals->VariableText, " ");
+//        sprintf(temp, "%d", logic->CommandScrollSpeed);
+//        strcat(visuals->VariableText, temp);
 
-    if (ScreenIsDirty == true)
+        visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1.1, 1.1);
+    }
+
+//    if (ScreenIsDirty == true)
     {
         SDL_RenderPresent(visuals->Renderer);
         ScreenIsDirty = false;
@@ -164,7 +173,7 @@ void Screens::DisplayFAS_Screen(void)
     if (ScreenDisplayTimer > 0)  ScreenDisplayTimer--;
     else if (ScreenTransitionStatus != FadeIn)  ScreenTransitionStatus = FadeOut;
 
-//    if (ScreenIsDirty == true)
+    if (ScreenIsDirty == true)
     {
         visuals->ClearScreenBufferWithColor(0, 0, 0, 255);
 
@@ -201,7 +210,7 @@ void Screens::DisplaySDL_Screen(void)
     if (ScreenDisplayTimer > 0)  ScreenDisplayTimer--;
     else if (ScreenTransitionStatus != FadeIn)  ScreenTransitionStatus = FadeOut;
 
-//    if (ScreenIsDirty == true)
+    if (ScreenIsDirty == true)
     {
         visuals->ClearScreenBufferWithColor(0, 0, 0, 255);
 
@@ -250,7 +259,7 @@ void Screens::DisplayMain_Screen(void)
         ScreenTransitionStatus = FadeIn;
     }
 
-//    if (ScreenIsDirty == true)
+    if (ScreenIsDirty == true)
     {
         visuals->ClearScreenBufferWithColor(100, 100, 100, 255);
 

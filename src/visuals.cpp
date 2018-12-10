@@ -113,6 +113,10 @@ int textureHeight;
                 strcpy(filePath, "data/visuals/Screen-Fade.bmp");
                 break;
 
+            case 2:
+                strcpy(filePath, "data/visuals/Debug-BG.bmp");
+                break;
+
             case 10:
                 strcpy(filePath, "data/visuals/FAS-Statue.bmp");
                 break;

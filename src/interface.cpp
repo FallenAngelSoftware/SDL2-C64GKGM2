@@ -6,11 +6,13 @@
 #include "input.h"
 #include "audio.h"
 #include "logic.h"
+#include "screens.h"
 
 extern Visuals* visuals;
 extern Input* input;
 extern Audio* audio;
 extern Logic* logic;
+extern Screens* screens;
 
 //            TM
 // "Neo's Kiss"
@@ -121,6 +123,8 @@ void Interface::ProcessAllButtons(void)
                     Buttons[index].AnimationScale = 0.85;
                     Buttons[index].AnimationTimer = 10;
 
+                    screens->ScreenIsDirty = true;
+
                     if (Buttons[index].OneClick == true)  audio->PlayAudio(0);
                     else
                     {
@@ -175,6 +179,7 @@ void Interface::ProcessAllButtons(void)
                 {
                     Buttons[index].AnimationScale = 1.0;
                     if (Buttons[index].OneClick == true)  ThisButtonWasPressed = Buttons[index].ScreenIndex;
+                    screens->ScreenIsDirty = true;
                 }
             }
         }
