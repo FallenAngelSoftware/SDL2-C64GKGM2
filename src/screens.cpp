@@ -9,11 +9,13 @@
 #include "input.h"
 #include "audio.h"
 #include "interface.h"
+#include "logic.h"
 
 extern Visuals* visuals;
 extern Input* input;
 extern Audio* audio;
 extern Interface* interface;
+extern Logic* logic;
 
 //-------------------------------------------------------------------------------------------------
 Screens::Screens(void)
@@ -275,17 +277,31 @@ visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 410+50, 35, JustifyLeft, 255, 
 visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 410, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
 visuals->DrawSentenceOntoScreenBuffer(1, "1999", 410+50, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
 
+if (interface->ThisButtonWasPressed == 8)
+{
+    if (logic->CommandDisplayStartIndex > 0)
+    {
+        logic->CommandDisplayStartIndex--;
+        logic->CommandDisplayEndIndex--;
+    }
+}
+else if (interface->ThisButtonWasPressed == 9)
+{
+    if (logic->CommandDisplayStartIndex < 98)
+    {
+        logic->CommandDisplayStartIndex++;
+        logic->CommandDisplayEndIndex++;
+    }
+}
+
+
 int commandScreenY = 109;
 int commandOffsetY = 32;
-visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[0].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
-commandScreenY+=commandOffsetY;
-visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[1].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
-commandScreenY+=commandOffsetY;
-visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[2].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
-commandScreenY+=commandOffsetY;
-visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[3].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
-commandScreenY+=commandOffsetY;
-visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[4].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+for (int index = logic->CommandDisplayStartIndex; index < logic->CommandDisplayEndIndex; index++)
+{
+    visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+    commandScreenY+=commandOffsetY;
+}
 
 
 

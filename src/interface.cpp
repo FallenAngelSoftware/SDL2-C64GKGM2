@@ -5,10 +5,12 @@
 #include "visuals.h"
 #include "input.h"
 #include "audio.h"
+#include "logic.h"
 
 extern Visuals* visuals;
 extern Input* input;
 extern Audio* audio;
+extern Logic* logic;
 
 //            TM
 // "Neo's Kiss"
@@ -122,8 +124,31 @@ void Interface::ProcessAllButtons(void)
                     if (Buttons[index].OneClick == true)  audio->PlayAudio(0);
                     else
                     {
-                        ThisButtonWasPressed = Buttons[index].ScreenIndex;
-                        Buttons[index].AnimationTimer+=1;
+                        if (input->DelayAllUserInput == 0)
+                        {
+                            ThisButtonWasPressed = Buttons[index].ScreenIndex;
+                            Buttons[index].AnimationTimer+=1;
+
+                            if (logic->CommandScrollNumberMoved > 10)
+                            {
+                                logic->CommandScrollSpeed = 2;
+                            }
+                            else if (logic->CommandScrollNumberMoved > 15)
+                            {
+                                logic->CommandScrollSpeed = 1;
+                            }
+                            else if (logic->CommandScrollNumberMoved > 22)
+                            {
+                                logic->CommandScrollSpeed = 0;
+                            }
+
+                            input->DelayAllUserInput = logic->CommandScrollSpeed;
+                            logic->CommandScrollNumberMoved++;
+                       }
+                        else
+                        {
+                            ThisButtonWasPressed = -1;
+                        }
                     }
                 }
             }

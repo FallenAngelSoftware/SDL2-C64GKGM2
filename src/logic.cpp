@@ -5,6 +5,11 @@
 //-------------------------------------------------------------------------------------------------
 Logic::Logic(void)
 {
+    CommandScrollNumberMoved = 0;
+    CommandScrollSpeed = 3;
+
+    CommandDisplayStartIndex = 0;
+    CommandDisplayEndIndex = 5;
 
 }
 

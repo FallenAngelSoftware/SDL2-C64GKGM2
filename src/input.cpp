@@ -4,9 +4,11 @@
 
 #include "screens.h"
 #include "visuals.h"
+#include "logic.h"
 
 extern Screens* screens;
 extern Visuals* visuals;
+extern Logic* logic;
 
 //-------------------------------------------------------------------------------------------------
 Input::Input(void)
@@ -26,6 +28,9 @@ Input::~Input(void)
 void Input::GetAllUserInput(void)
 {
     KeyOnKeyboardPressedByUser = -1;
+
+    MouseButtonsRaw[0] = false;
+    MouseButtonsRaw[1] = false;
 
     MouseButtonPressed[0] = false;
     MouseButtonPressed[1] = false;
@@ -106,6 +111,11 @@ void Input::GetAllUserInput(void)
         else  MouseButtonWasClicked[index] = false;
     }
 
+    if (MouseButtonsRaw[0] == false)
+    {
+        logic->CommandScrollNumberMoved = 0;
+        logic->CommandScrollSpeed = 3;
+    }
 //------------------------------------------------------------------------
 
 }

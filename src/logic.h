@@ -8,6 +8,12 @@ public:
 	Logic(void);
 	virtual ~Logic(void);
 
+    int CommandScrollNumberMoved;
+    int CommandScrollSpeed;
+
+    int CommandDisplayStartIndex;
+    int CommandDisplayEndIndex;
+
 };
 
 #endif
