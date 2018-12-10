@@ -16,6 +16,7 @@ OBJECTS = src/main.o \
           src/audio.o \
           src/input.o \
           src/interface.o \
+          src/logic.o \
           src/screens.o \
           src/visuals.o
 
@@ -23,12 +24,14 @@ SOURCES = src/main.cpp \
           src/audio.cpp \
           src/input.cpp \
           src/interface.cpp \
+          src/logic.cpp \
           src/screens.cpp \
           src/visuals.cpp
 
 HEADERS = src/audio.h \
           src/input.h \
           src/interface.h \
+          src/logic \
           src/screens.h \
           src/visuals.h
 

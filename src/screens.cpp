@@ -267,6 +267,28 @@ void Screens::DisplayMain_Screen(void)
         visuals->Sprites[1250].ScaleY = 4.75;
         visuals->DrawSpriteOntoScreenBuffer(1250);
 
+
+
+visuals->DrawSentenceOntoScreenBuffer(1, "NAME-", 410, 35, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
+visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 410+50, 35, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
+
+visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 410, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
+visuals->DrawSentenceOntoScreenBuffer(1, "1999", 410+50, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
+
+int commandScreenY = 109;
+int commandOffsetY = 32;
+visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[0].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+commandScreenY+=commandOffsetY;
+visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[1].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+commandScreenY+=commandOffsetY;
+visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[2].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+commandScreenY+=commandOffsetY;
+visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[3].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+commandScreenY+=commandOffsetY;
+visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[4].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+
+
+
         visuals->Sprites[1251].ScreenX = 320-25;
         visuals->Sprites[1251].ScreenY = 47+130+200;
         visuals->Sprites[1251].ScaleX = 2.0;

@@ -20,12 +20,14 @@
 #include "screens.h"
 #include "audio.h"
 #include "interface.h"
+#include "logic.h"
 
 Visuals *visuals;
 Input *input;
 Screens *screens;
 Audio *audio;
 Interface *interface;
+Logic *logic;
 
 //-------------------------------------------------------------------------------------------------
 int main( int argc, char* args[] )
@@ -45,6 +47,8 @@ int main( int argc, char* args[] )
     if ( visuals->LoadSpritesAndInitialize() != true ) visuals->CoreFailure = true;
     if ( visuals->LoadFontBMPs() != true ) visuals->CoreFailure = true;
 
+    visuals->CacheAllCommandTexts();
+
     input = new Input();
 
     screens = new Screens();
@@ -54,6 +58,8 @@ int main( int argc, char* args[] )
 
     interface = new Interface();
 
+    logic = new Logic();
+
     while (input->EXIT_Game == false && visuals->CoreFailure == false)
     {
         input->GetAllUserInput();
@@ -62,6 +68,7 @@ int main( int argc, char* args[] )
         visuals->ProcessFramerate();
     }
 
+    delete logic;
     delete interface;
     delete audio;
     delete screens;

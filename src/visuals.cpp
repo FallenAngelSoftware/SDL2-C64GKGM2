@@ -353,6 +353,19 @@ int charScreenX = screenX;
 }
 
 //-------------------------------------------------------------------------------------------------
+void Visuals::CacheAllCommandTexts(void)
+{
+    Commands[0].CommandTexts = "ADD 0000 TO SCORE1";
+    Commands[1].CommandTexts = "ADD 0000 TO SCORE[A]";
+    Commands[2].CommandTexts = "ADD [A] TO SCORE1";
+    Commands[3].CommandTexts = "ADD [A] TO SCORE[A]";
+    Commands[4].CommandTexts = "CLEAR SCENE 1";
+    Commands[5].CommandTexts = "CLEAR SCORE1";
+    Commands[6].CommandTexts = "CLEAR SCORE[A]";
+
+}
+
+//-------------------------------------------------------------------------------------------------
 bool Visuals::InitializeWindow(void)
 {
 SDL_Surface* windowIcon = SDL_LoadBMP("data/visuals/icon.bmp");

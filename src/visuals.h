@@ -81,6 +81,15 @@ public:
 
     char VariableText[64];
 
+    #define NumberOfCommands   110
+    struct Command
+    {
+        const char *CommandTexts;
+
+    } Commands[NumberOfCommands];
+
+    void CacheAllCommandTexts(void);
+
     bool InitializeWindow(void);
 
     void CalculateFramerate(void);
