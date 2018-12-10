@@ -14,6 +14,9 @@ public:
     int CommandDisplayStartIndex;
     int CommandDisplayEndIndex;
 
+    int CommandSelectedByMouseOld;
+    int CommandSelectedByMouse;
+
     void RunCodeEditor(void);
 
 };

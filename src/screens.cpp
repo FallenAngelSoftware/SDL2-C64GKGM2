@@ -87,6 +87,8 @@ int windowHeight;
 
     if (ScreenTransitionStatus != FadeNone)  ScreenIsDirty = true;
 
+    if (logic->CommandSelectedByMouseOld != logic->CommandSelectedByMouse)  ScreenIsDirty = true;
+
     SDL_GetWindowSize(visuals->Window, &windowWidth, &windowHeight);
     if (windowWidth != visuals->WindowWidthCurrent || windowHeight != visuals->WindowHeightCurrent)
     {
@@ -265,6 +267,8 @@ void Screens::DisplayCodeEditor_Screen(void)
         ScreenTransitionStatus = FadeIn;
     }
 
+    logic->RunCodeEditor();
+
     if (ScreenIsDirty == true)
     {
         visuals->ClearScreenBufferWithColor(100, 100, 100, 255);
@@ -293,13 +297,21 @@ visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 410+50, 35, JustifyLeft, 255, 
 visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 410, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
 visuals->DrawSentenceOntoScreenBuffer(1, "1999", 410+50, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
 
-    logic->RunCodeEditor();
-
 int commandScreenY = 109;
 int commandOffsetY = 32;
 for (int index = logic->CommandDisplayStartIndex; index < logic->CommandDisplayEndIndex; index++)
 {
-    visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+    if (logic->CommandSelectedByMouse == index)
+    {
+        visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 0, 255, 0, 255, 1.6, 2.0);
+    }
+    else
+    {
+        visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+    }
+
+    logic->CommandSelectedByMouseOld = logic->CommandSelectedByMouse;
+
     commandScreenY+=commandOffsetY;
 }
 
