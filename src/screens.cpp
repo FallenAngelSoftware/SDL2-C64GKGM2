@@ -108,8 +108,8 @@ int windowHeight;
             DisplaySDL_Screen();
             break;
 
-        case Main_Screen:
-            DisplayMain_Screen();
+        case CodeEditor_Screen:
+            DisplayCodeEditor_Screen();
             break;
 
         default:
@@ -222,12 +222,12 @@ void Screens::DisplaySDL_Screen(void)
     if (ScreenTransitionStatus == FadeOut && ScreenFadeTransparency == 255)
     {
         ScreenTransitionStatus = FadeAll;
-        ScreenToDisplay = Main_Screen;
+        ScreenToDisplay = CodeEditor_Screen;
     }
 }
 
 //-------------------------------------------------------------------------------------------------
-void Screens::DisplayMain_Screen(void)
+void Screens::DisplayCodeEditor_Screen(void)
 {
     if (ScreenTransitionStatus == FadeAll)
     {
@@ -255,6 +255,12 @@ void Screens::DisplayMain_Screen(void)
 
         interface->CreateButtonWithText(false, "", 1210, 21, 132+199, 255, 255, 255, 255, 0.5, 1.2);
         interface->CreateButtonWithText(false, "", 1215, 21, 132+90+199, 255, 255, 255, 255, 0.5, 1.2);
+
+        logic->CommandScrollNumberMoved = 0;
+        logic->CommandScrollSpeed = 3;
+
+        logic->CommandDisplayStartIndex = 0;
+        logic->CommandDisplayEndIndex = 5;
 
         ScreenTransitionStatus = FadeIn;
     }
@@ -287,23 +293,7 @@ visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 410+50, 35, JustifyLeft, 255, 
 visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 410, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
 visuals->DrawSentenceOntoScreenBuffer(1, "1999", 410+50, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
 
-if (interface->ThisButtonWasPressed == 8)
-{
-    if (logic->CommandDisplayStartIndex > 0)
-    {
-        logic->CommandDisplayStartIndex--;
-        logic->CommandDisplayEndIndex--;
-    }
-}
-else if (interface->ThisButtonWasPressed == 9)
-{
-    if (logic->CommandDisplayStartIndex < 98)
-    {
-        logic->CommandDisplayStartIndex++;
-        logic->CommandDisplayEndIndex++;
-    }
-}
-
+    logic->RunCodeEditor();
 
 int commandScreenY = 109;
 int commandOffsetY = 32;

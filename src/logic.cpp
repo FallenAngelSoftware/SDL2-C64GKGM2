@@ -2,6 +2,10 @@
 
 #include "logic.h"
 
+#include "interface.h"
+
+extern Interface* interface;
+
 //-------------------------------------------------------------------------------------------------
 Logic::Logic(void)
 {
@@ -20,3 +24,23 @@ Logic::~Logic(void)
 }
 
 //-------------------------------------------------------------------------------------------------
+void Logic::RunCodeEditor(void)
+{
+    if (interface->ThisButtonWasPressed == 8)
+    {
+        if (CommandDisplayStartIndex > 0)
+        {
+            CommandDisplayStartIndex--;
+            CommandDisplayEndIndex--;
+        }
+    }
+    else if (interface->ThisButtonWasPressed == 9)
+    {
+        if (CommandDisplayStartIndex < 98)
+        {
+            CommandDisplayStartIndex++;
+            CommandDisplayEndIndex++;
+        }
+    }
+
+}

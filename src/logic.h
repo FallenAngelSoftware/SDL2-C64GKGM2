@@ -14,6 +14,8 @@ public:
     int CommandDisplayStartIndex;
     int CommandDisplayEndIndex;
 
+    void RunCodeEditor(void);
+
 };
 
 #endif

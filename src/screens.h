@@ -22,7 +22,7 @@ public:
 
     #define FAS_Screen                   0
     #define SDL_Screen                   1
-    #define Main_Screen                  2
+    #define CodeEditor_Screen            2
     int ScreenToDisplay;
 
     void ApplyScreenFadeTransition(void);
@@ -30,7 +30,7 @@ public:
     void ProcessScreenToDisplay(void);
     void DisplayFAS_Screen(void);
     void DisplaySDL_Screen(void);
-    void DisplayMain_Screen(void);
+    void DisplayCodeEditor_Screen(void);
 
 };
 
