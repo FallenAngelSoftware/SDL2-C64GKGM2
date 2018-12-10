@@ -129,15 +129,23 @@ void Interface::ProcessAllButtons(void)
                             ThisButtonWasPressed = Buttons[index].ScreenIndex;
                             Buttons[index].AnimationTimer+=1;
 
-                            if (logic->CommandScrollNumberMoved > 10)
+                            if (logic->CommandScrollNumberMoved > 5)
+                            {
+                                logic->CommandScrollSpeed = 4;
+                            }
+                            else if (logic->CommandScrollNumberMoved > 9)
+                            {
+                                logic->CommandScrollSpeed = 3;
+                            }
+                            else if (logic->CommandScrollNumberMoved > 12)
                             {
                                 logic->CommandScrollSpeed = 2;
                             }
-                            else if (logic->CommandScrollNumberMoved > 15)
+                            else if (logic->CommandScrollNumberMoved > 14)
                             {
                                 logic->CommandScrollSpeed = 1;
                             }
-                            else if (logic->CommandScrollNumberMoved > 22)
+                            else if (logic->CommandScrollNumberMoved > 15)
                             {
                                 logic->CommandScrollSpeed = 0;
                             }

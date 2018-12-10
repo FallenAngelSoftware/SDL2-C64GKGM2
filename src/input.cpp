@@ -114,7 +114,7 @@ void Input::GetAllUserInput(void)
     if (MouseButtonsRaw[0] == false)
     {
         logic->CommandScrollNumberMoved = 0;
-        logic->CommandScrollSpeed = 3;
+        logic->CommandScrollSpeed = 5;
     }
 //------------------------------------------------------------------------
 
