@@ -357,7 +357,7 @@
 	<cstring>
 	"visuals.h"
 
-1544404645 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1544444597 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -391,7 +391,7 @@
 
 1544282470 c:\users\jlp\desktop\c64gkgm2\src\audio.h
 
-1544409412 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
+1544444776 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
 	"SDL.h"
 	"interface.h"
 	"visuals.h"
