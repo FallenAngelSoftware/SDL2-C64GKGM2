@@ -137,8 +137,20 @@ int textureHeight;
                 strcpy(filePath, "data/visuals/Up-Icon.bmp");
                 break;
 
+            case 1211:
+                strcpy(filePath, "data/visuals/Up-Icon-Inverted.bmp");
+                break;
+
             case 1215:
                 strcpy(filePath, "data/visuals/Down-Icon.bmp");
+                break;
+
+            case 1216:
+                strcpy(filePath, "data/visuals/Down-Icon-Inverted.bmp");
+                break;
+
+            case 1220:
+                strcpy(filePath, "data/visuals/Code-Select-Box.bmp");
                 break;
 
             case 1250:

@@ -28,6 +28,7 @@ public:
         float ScaleY;
         float AnimationScale;
         Sint16 AnimationTimer;
+        bool BlockPressing;
     } Buttons[NumberOfButtons];
 
     int ThisButtonWasPressed;

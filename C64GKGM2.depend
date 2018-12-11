@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1544399668 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
+1544489769 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
 	"SDL.h"
 	<stdio.h>
 	"visuals.h"
@@ -351,13 +351,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1544447435 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
+1544486644 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
 	"visuals.h"
 
-1544454296 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1544491921 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -368,7 +368,7 @@
 	"interface.h"
 	"logic.h"
 
-1544409412 source:c:\users\jlp\desktop\c64gkgm2\src\input.cpp
+1544466555 source:c:\users\jlp\desktop\c64gkgm2\src\input.cpp
 	"SDL.h"
 	"input.h"
 	"screens.h"
@@ -391,7 +391,7 @@
 
 1544282470 c:\users\jlp\desktop\c64gkgm2\src\audio.h
 
-1544446963 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
+1544492015 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
 	"SDL.h"
 	"interface.h"
 	"visuals.h"
@@ -400,13 +400,15 @@
 	"logic.h"
 	"screens.h"
 
-1544392616 c:\users\jlp\desktop\c64gkgm2\src\interface.h
+1544487324 c:\users\jlp\desktop\c64gkgm2\src\interface.h
 
-1544454291 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
+1544490728 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
 	"SDL.h"
 	"logic.h"
 	"interface.h"
 	"input.h"
+	"visuals.h"
+	"screens.h"
 
-1544453738 c:\users\jlp\desktop\c64gkgm2\src\logic.h
+1544484351 c:\users\jlp\desktop\c64gkgm2\src\logic.h
 

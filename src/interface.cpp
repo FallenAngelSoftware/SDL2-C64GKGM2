@@ -36,6 +36,7 @@ Interface::Interface(void)
         Buttons[index].ScaleY = 1.0;
         Buttons[index].AnimationScale = 1.0;
         Buttons[index].AnimationTimer = -1;
+        Buttons[index].BlockPressing = false;
     }
 
     ThisButtonWasPressed = -1;
@@ -76,6 +77,7 @@ int freeButton = 0;
     Buttons[freeButton].ScaleY = scaleY;
     Buttons[freeButton].AnimationScale = 1.0;
     Buttons[freeButton].AnimationTimer = -1;
+//    Buttons[freeButton].BlockPressing = false;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -99,7 +101,7 @@ float animScale;
             visuals->Sprites[ Buttons[index].SpriteIndex ].Transparency = Buttons[index].Transparency;
             visuals->DrawSpriteOntoScreenBuffer(Buttons[index].SpriteIndex);
 
-            visuals->DrawSentenceOntoScreenBuffer( 1, Buttons[index].Text, Buttons[index].ScreenX, Buttons[index].ScreenY, JustifyCenterOnPoint, 255, 255, 255, 255, (4.4*Buttons[index].ScaleX*animScale), (5.5*Buttons[index].ScaleX*animScale) );
+            visuals->DrawSentenceOntoScreenBuffer( 1, Buttons[index].Text, Buttons[index].ScreenX, Buttons[index].ScreenY, JustifyCenterOnPoint, 255, 255, 255, 255, (5.8*Buttons[index].ScaleX*animScale), (6.8*Buttons[index].ScaleX*animScale) );
         }
     }
 }
@@ -113,7 +115,7 @@ void Interface::ProcessAllButtons(void)
     {
         if (Buttons[index].SpriteIndex > -1)
         {
-            if ( (input->MouseButtonPressed[0] == true && Buttons[index].OneClick == true) || (input->MouseButtonsRaw[0] == true && Buttons[index].OneClick == false) )
+            if (  (Buttons[index].BlockPressing == false) && ( (input->MouseButtonPressed[0] == true && Buttons[index].OneClick == true) || (input->MouseButtonsRaw[0] == true && Buttons[index].OneClick == false) )  )
             {
                 if (   (  input->MouseY > ( Buttons[index].ScreenY - ((visuals->Sprites[ Buttons[index].SpriteIndex ].TextureHeightOriginal*Buttons[index].ScaleY) / 2) )  )
                    && (  input->MouseY < ( Buttons[index].ScreenY + ((visuals->Sprites[ Buttons[index].SpriteIndex ].TextureHeightOriginal*Buttons[index].ScaleY) / 2) )  )
@@ -133,29 +135,29 @@ void Interface::ProcessAllButtons(void)
                             ThisButtonWasPressed = Buttons[index].ScreenIndex;
                             Buttons[index].AnimationTimer+=1;
 
-                            if (logic->CommandScrollNumberMoved > 5 && logic->CommandScrollNumberMoved < 10)
+                            if (logic->ScrollNumberMoved > 5 && logic->ScrollNumberMoved < 10)
                             {
-                                logic->CommandScrollSpeed = 4;
+                                logic->ScrollSpeed = 4;
                             }
-                            else if (logic->CommandScrollNumberMoved > 9 && logic->CommandScrollNumberMoved < 13)
+                            else if (logic->ScrollNumberMoved > 9 && logic->ScrollNumberMoved < 13)
                             {
-                                logic->CommandScrollSpeed = 3;
+                                logic->ScrollSpeed = 3;
                             }
-                            else if (logic->CommandScrollNumberMoved > 12 && logic->CommandScrollNumberMoved < 15)
+                            else if (logic->ScrollNumberMoved > 12 && logic->ScrollNumberMoved < 15)
                             {
-                                logic->CommandScrollSpeed = 2;
+                                logic->ScrollSpeed = 2;
                             }
-                            else if (logic->CommandScrollNumberMoved > 14 && logic->CommandScrollNumberMoved < 16)
+                            else if (logic->ScrollNumberMoved > 14 && logic->ScrollNumberMoved < 16)
                             {
-                                logic->CommandScrollSpeed = 1;
+                                logic->ScrollSpeed = 1;
                             }
-                            else if (logic->CommandScrollNumberMoved > 15)
+                            else if (logic->ScrollNumberMoved > 15)
                             {
-                                logic->CommandScrollSpeed = 0;
+                                logic->ScrollSpeed = 0;
                             }
 
-                            input->DelayAllUserInput = logic->CommandScrollSpeed;
-                            logic->CommandScrollNumberMoved++;
+                            input->DelayAllUserInput = logic->ScrollSpeed;
+                            logic->ScrollNumberMoved++;
                        }
                         else
                         {
@@ -205,6 +207,7 @@ void Interface::DestroyAllButtons(void)
         Buttons[index].ScaleY = 1.0;
         Buttons[index].AnimationScale = 1.0;
         Buttons[index].AnimationTimer = -1;
+        Buttons[index].BlockPressing = false;
     }
 
     ThisButtonWasPressed = -1;
