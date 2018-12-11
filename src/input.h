@@ -17,6 +17,11 @@ public:
     bool MouseButtonWasClicked[2];
     int MouseX, MouseY;
 
+    #define MouseWheelNothing       0
+    #define MouseWheelUp            1
+    #define MouseWheelDown          2
+    int MouseWheelStatus;
+
     SDL_Event Event;
 
     SDL_Keycode KeyOnKeyboardPressedByUser;

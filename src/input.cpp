@@ -35,6 +35,8 @@ void Input::GetAllUserInput(void)
     MouseButtonPressed[0] = false;
     MouseButtonPressed[1] = false;
 
+    MouseWheelStatus = MouseWheelNothing;
+
     if (DelayAllUserInput > 0)
     {
         DelayAllUserInput--;
@@ -65,6 +67,17 @@ void Input::GetAllUserInput(void)
 
                 if (KeyOnKeyboardPressedByUser == SDLK_LSHIFT || KeyOnKeyboardPressedByUser == SDLK_RSHIFT)
                     KeyOnKeyboardPressedByUser = -1;
+                break;
+
+            case SDL_MOUSEWHEEL:
+                if(Event.wheel.y > 0)
+                {
+                    MouseWheelStatus = MouseWheelUp;
+                }
+                else if(Event.wheel.y < 0)
+                {
+                    MouseWheelStatus = MouseWheelDown;
+                }
                 break;
 
             default:

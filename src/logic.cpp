@@ -170,6 +170,29 @@ void Logic::RunCodeEditor(void)
         }
     }
 
+    if (input->MouseWheelStatus == MouseWheelUp)
+    {
+        if (  ( input->MouseY > (91) )
+           && ( input->MouseY < (260) )
+           && ( input->MouseX > (32) )
+           && ( input->MouseX < (554) )  )
+        {
+            interface->ThisButtonWasPressed = 8;
+            screens->ScreenIsDirty = true;
+        }
+    }
+    else if (input->MouseWheelStatus == MouseWheelDown)
+    {
+        if (  ( input->MouseY > (91) )
+           && ( input->MouseY < (260) )
+           && ( input->MouseX > (32) )
+           && ( input->MouseX < (554) )  )
+        {
+            interface->ThisButtonWasPressed = 9;
+            screens->ScreenIsDirty = true;
+        }
+    }
+
     if (interface->ThisButtonWasPressed == 8)
     {
         if (CommandDisplayStartIndex > 0)
@@ -201,6 +224,29 @@ void Logic::RunCodeEditor(void)
         }
 
         commandScreenY+=commandOffsetY;
+    }
+
+    if (input->MouseWheelStatus == MouseWheelUp)
+    {
+        if (  ( input->MouseY > (291) )
+           && ( input->MouseY < (460) )
+           && ( input->MouseX > (32) )
+           && ( input->MouseX < (554) )  )
+        {
+            interface->ThisButtonWasPressed = 10;
+            screens->ScreenIsDirty = true;
+        }
+    }
+    else if (input->MouseWheelStatus == MouseWheelDown)
+    {
+        if (  ( input->MouseY > (291) )
+           && ( input->MouseY < (460) )
+           && ( input->MouseX > (32) )
+           && ( input->MouseX < (554) )  )
+        {
+            interface->ThisButtonWasPressed = 11;
+            screens->ScreenIsDirty = true;
+        }
     }
 
     if (interface->ThisButtonWasPressed == 10)
