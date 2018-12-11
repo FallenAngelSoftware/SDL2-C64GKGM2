@@ -147,7 +147,7 @@ int windowHeight;
         visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1.1, 1.1);
     }
 
-    if (ScreenIsDirty == true)
+    if (ScreenIsDirty == true || DEBUG == true)
     {
         SDL_RenderPresent(visuals->Renderer);
         ScreenIsDirty = false;
