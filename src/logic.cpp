@@ -195,7 +195,18 @@ void Logic::RunCodeEditor(void)
 
     if (interface->ThisButtonWasPressed == 8)
     {
-        if (CommandDisplayStartIndex > 0)
+        if (input->MouseWheelStatus == MouseWheelUp)
+        {
+            for (int index = 0; index < 3; index++)
+            {
+                if (CommandDisplayStartIndex > 0)
+                {
+                    CommandDisplayStartIndex--;
+                    CommandDisplayEndIndex--;
+                }
+            }
+        }
+        else if (CommandDisplayStartIndex > 0)
         {
             CommandDisplayStartIndex--;
             CommandDisplayEndIndex--;
@@ -203,7 +214,18 @@ void Logic::RunCodeEditor(void)
     }
     else if (interface->ThisButtonWasPressed == 9)
     {
-        if (CommandDisplayStartIndex < 98)
+        if (input->MouseWheelStatus == MouseWheelDown)
+        {
+            for (int index = 0; index < 3; index++)
+            {
+                if ( CommandDisplayEndIndex < (98+5) )
+                {
+                    CommandDisplayStartIndex++;
+                    CommandDisplayEndIndex++;
+                }
+            }
+        }
+        else if (CommandDisplayStartIndex < 98)
         {
             CommandDisplayStartIndex++;
             CommandDisplayEndIndex++;
@@ -251,7 +273,18 @@ void Logic::RunCodeEditor(void)
 
     if (interface->ThisButtonWasPressed == 10)
     {
-        if (CodeDisplayStartIndex > 0)
+        if (input->MouseWheelStatus == MouseWheelUp)
+        {
+            for (int index = 0; index < 3; index++)
+            {
+                if (CodeDisplayStartIndex > 0)
+                {
+                    CodeDisplayStartIndex--;
+                    CodeDisplayEndIndex--;
+                }
+            }
+        }
+        else if (CodeDisplayStartIndex > 0)
         {
             CodeDisplayStartIndex--;
             CodeDisplayEndIndex--;
@@ -269,7 +302,18 @@ void Logic::RunCodeEditor(void)
     }
     else if (interface->ThisButtonWasPressed == 11 && CodeDisplayEndIndex < (65000-5) )
     {
-        if ( CodeDisplayStartIndex < (CodeLastLine-1) )
+        if (input->MouseWheelStatus == MouseWheelDown)
+        {
+            for (int index = 0; index < 3; index++)
+            {
+                if ( CodeDisplayEndIndex < (CodeLastLine+4) )
+                {
+                    CodeDisplayStartIndex++;
+                    CodeDisplayEndIndex++;
+                }
+            }
+        }
+        else if ( CodeDisplayStartIndex < (CodeLastLine-1) )
         {
             CodeDisplayStartIndex++;
             CodeDisplayEndIndex++;
