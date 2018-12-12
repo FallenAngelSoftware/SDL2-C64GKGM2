@@ -36,6 +36,8 @@ public:
     bool ThisLineNumberIsAvailable(int lineNumber);
     void ShowLineNumberSelectionDialog(void);
 
+    void ClearCodeDialog(void);
+
     void DisplayCodeEditor_Screen(void);
 
 };

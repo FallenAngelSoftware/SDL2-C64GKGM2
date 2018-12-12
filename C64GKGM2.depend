@@ -351,13 +351,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1544544165 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
+1544648040 source:c:\users\jlp\desktop\c64gkgm2\src\visuals.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
 	"visuals.h"
 
-1544616284 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1544648040 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -380,7 +380,7 @@
 
 1544397093 c:\users\jlp\desktop\c64gkgm2\src\visuals.h
 
-1544613574 c:\users\jlp\desktop\c64gkgm2\src\screens.h
+1544622895 c:\users\jlp\desktop\c64gkgm2\src\screens.h
 
 1509896994 source:c:\users\jlp\desktop\c64gkgm2\src\resources.rc
 
@@ -403,7 +403,7 @@
 
 1544610041 c:\users\jlp\desktop\c64gkgm2\src\interface.h
 
-1544616164 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
+1544648040 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
 	"SDL.h"
 	"logic.h"
 	"interface.h"
@@ -411,5 +411,5 @@
 	"visuals.h"
 	"screens.h"
 
-1544616164 c:\users\jlp\desktop\c64gkgm2\src\logic.h
+1544646034 c:\users\jlp\desktop\c64gkgm2\src\logic.h
 

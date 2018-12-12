@@ -384,7 +384,7 @@ void Visuals::CacheAllCommandTexts(void)
     Commands[  6].CommandTexts = "CLEAR SCORE[A]";
     Commands[  7].CommandTexts = "CLEAR SPRITE";
     Commands[  8].CommandTexts = "/ COMMENT";
-    Commands[  9].CommandTexts = "DATA TABLE AT 1001";
+    Commands[  9].CommandTexts = "DATA TABLE AT L001";
     Commands[ 10].CommandTexts = "DATA VALUES - 000 000";
     Commands[ 11].CommandTexts = "DISPLAY OTHER SCENE";
     Commands[ 12].CommandTexts = "DISPLAY SCENE 1";
@@ -478,7 +478,6 @@ void Visuals::CacheAllCommandTexts(void)
     Commands[100].CommandTexts = "SPRITE  Y POSITION =[A]";
     Commands[101].CommandTexts = "STOP PROGRAM";
     Commands[102].CommandTexts = "TRACE OF [A] ON";
-
 }
 
 //-------------------------------------------------------------------------------------------------

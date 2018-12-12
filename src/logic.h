@@ -42,10 +42,12 @@ public:
 
     void CalculateCodeLastLine(void);
 
+    bool ThereIsCodeAfterThisLine(int line);
     void ShowHideCodeSelectLineNumberBoxes(void);
 
     #define Nothing                 0
     #define LineNumberSelect        1
+    #define ClearCode               2
     int DialogToShow;
     int DialogToShowOld;
 

@@ -91,9 +91,24 @@ void Logic::CalculateCodeLastLine(void)
 }
 
 //-------------------------------------------------------------------------------------------------
+bool Logic::ThereIsCodeAfterThisLine(int line)
+{
+    for (int index = line; index < 65000; index++)
+    {
+        if (Codes[index].CodeCommandIndex > -1)
+        {
+            return(true);
+            break;
+        }
+    }
+
+    return(false);
+}
+
+//-------------------------------------------------------------------------------------------------
 void Logic::ShowHideCodeSelectLineNumberBoxes(void)
 {
-    if (Codes[CodeDisplayStartIndex].CodeCommandIndex > -1)
+    if ( (Codes[CodeDisplayStartIndex].CodeCommandIndex > -1) || (Codes[CodeDisplayStartIndex].CodeCommandIndex == -1 && CodeDisplayStartIndex < CodeLastLine && ThereIsCodeAfterThisLine(CodeDisplayStartIndex+1) == true) )
     {
         interface->Buttons[12].ScreenX = 43;
         interface->Buttons[17].ScreenX = 73;
@@ -104,7 +119,7 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
         interface->Buttons[17].ScreenX = -999;
     }
 
-    if (Codes[CodeDisplayStartIndex+1].CodeCommandIndex > -1)
+    if ( (Codes[CodeDisplayStartIndex+1].CodeCommandIndex > -1) || (Codes[CodeDisplayStartIndex+1].CodeCommandIndex == -1 && CodeDisplayStartIndex < CodeLastLine && ThereIsCodeAfterThisLine(CodeDisplayStartIndex+2) == true) )
     {
         interface->Buttons[12+1].ScreenX = 43;
         interface->Buttons[17+1].ScreenX = 73;
@@ -115,7 +130,7 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
         interface->Buttons[17+1].ScreenX = -999;
     }
 
-    if (Codes[CodeDisplayStartIndex+2].CodeCommandIndex > -1)
+    if ( (Codes[CodeDisplayStartIndex+2].CodeCommandIndex > -1) || (Codes[CodeDisplayStartIndex+2].CodeCommandIndex == -1 && CodeDisplayStartIndex < CodeLastLine && ThereIsCodeAfterThisLine(CodeDisplayStartIndex+3) == true) )
     {
         interface->Buttons[12+2].ScreenX = 43;
         interface->Buttons[17+2].ScreenX = 73;
@@ -126,7 +141,7 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
         interface->Buttons[17+2].ScreenX = -999;
     }
 
-    if (Codes[CodeDisplayStartIndex+3].CodeCommandIndex > -1)
+    if ( (Codes[CodeDisplayStartIndex+3].CodeCommandIndex > -1) || (Codes[CodeDisplayStartIndex+3].CodeCommandIndex == -1 && CodeDisplayStartIndex < CodeLastLine && ThereIsCodeAfterThisLine(CodeDisplayStartIndex+4) == true) )
     {
         interface->Buttons[12+3].ScreenX = 43;
         interface->Buttons[17+3].ScreenX = 73;
@@ -137,7 +152,7 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
         interface->Buttons[17+3].ScreenX = -999;
     }
 
-    if (Codes[CodeDisplayStartIndex+4].CodeCommandIndex > -1)
+    if ( (Codes[CodeDisplayStartIndex+4].CodeCommandIndex > -1) || (Codes[CodeDisplayStartIndex+4].CodeCommandIndex == -1 && CodeDisplayStartIndex < CodeLastLine && ThereIsCodeAfterThisLine(CodeDisplayStartIndex+5) == true) )
     {
         interface->Buttons[12+4].ScreenX = 43;
         interface->Buttons[17+4].ScreenX = 73;
@@ -163,11 +178,59 @@ void Logic::RunCodeEditor(void)
         interface->Buttons[5].BlockPressing = true;
     }
 
-    if (interface->ThisButtonWasPressed == 5)
+    if (interface->ThisButtonWasPressed == 2)
+    {
+        bool thereIsCode = false;
+        for (int index = 0; index < 65000; index++)
+        {
+            if (Codes[index].CodeCommandIndex > -1)
+            {
+                thereIsCode = true;
+                break;
+            }
+        }
+
+        if (thereIsCode == true)
+        {
+            interface->CurrentInterfaceLevel = 1;
+
+            DialogToShow = ClearCode;
+            DialogToShowOld = ClearCode;
+        }
+    }
+
+    if (interface->ThisButtonWasPressed == 4 && CodeSelectedForEdit > -1)
+    {
+        if (interface->Buttons[5].RedHue != 255 && interface->Buttons[5].BlueHue != 255)
+        {
+            for ( int index = (CodeLastLine+1); index > CodeSelectedForEdit; index-- )
+            {
+                Codes[index].CodeCommandIndex = Codes[index-1].CodeCommandIndex;
+                Codes[index].CodeCommandLineNumber = Codes[index-1].CodeCommandLineNumber;
+            }
+
+            Codes[CodeSelectedForEdit].CodeCommandIndex = -1;
+            Codes[CodeSelectedForEdit].CodeCommandLineNumber = -1;
+
+            if (CodeLastLine < 65000)  CodeLastLine++;
+
+            interface->Buttons[4].RedHue = 150;
+            interface->Buttons[4].BlueHue = 150;
+
+            interface->Buttons[5].RedHue = 150;
+            interface->Buttons[5].BlueHue = 150;
+
+            ShowHideCodeSelectLineNumberBoxes();
+            screens->ScreenIsDirty = true;
+        }
+    }
+
+    if (interface->ThisButtonWasPressed == 5 && CodeSelectedForEdit > -1)
     {
         if (interface->Buttons[5].RedHue != 255 && interface->Buttons[5].BlueHue != 255)
         {
             Codes[CodeSelectedForEdit].CodeCommandIndex = -1;
+            Codes[CodeSelectedForEdit].CodeCommandLineNumber = -1;
 
             for (int index = CodeSelectedForEdit; index < CodeLastLine; index++)
             {
@@ -177,25 +240,11 @@ void Logic::RunCodeEditor(void)
 
             if (CodeLastLine > 0)  CodeLastLine--;
 
-            if (Codes[CodeSelectedForEdit].CodeCommandIndex == -1 && CodeSelectedForEdit > 0)
+            if (CodeLastLine == 0)
             {
-                if (CodeSelectorSelected > 0)
-                {
-                    for (int index = 12; index < 17; index++)
-                    {
-                        interface->Buttons[index].RedHue = 255;
-                        interface->Buttons[index].BlueHue = 255;
-                    }
-
-                    CodeSelectedForEdit--;
-                    CodeSelectorSelected--;
-
-                    interface->Buttons[CodeSelectorSelected+12].RedHue = 0;
-                    interface->Buttons[CodeSelectorSelected+12].BlueHue = 0;
-                }
+                CodeSelectedForEdit = -1;
+                CodeSelectorSelected = -1;
             }
-
-            if (CodeLastLine == 0)  CodeSelectedForEdit = -1;
 
             Codes[CodeLastLine].CodeCommandIndex = -1;
             Codes[CodeLastLine].CodeCommandLineNumber = -1;
@@ -204,6 +253,25 @@ void Logic::RunCodeEditor(void)
             {
                 CodeDisplayStartIndex--;
                 CodeDisplayEndIndex--;
+            }
+            else
+            {
+                if (CodeSelectorSelected > 0)
+                {
+                    bool thereIsCodePastBottom = false;
+                    for ( int index = (CodeDisplayStartIndex+CodeSelectorSelected); index < 65000; index++ )
+                    {
+                        if (Codes[index].CodeCommandIndex > -1)  thereIsCodePastBottom = true;
+                    }
+
+                    if (thereIsCodePastBottom == false)
+                    {
+                            CodeSelectorSelected--;
+                            interface->Buttons[12+CodeSelectorSelected].RedHue = 0;
+                            interface->Buttons[12+CodeSelectorSelected].GreenHue = 255;
+                            interface->Buttons[12+CodeSelectorSelected].BlueHue = 0;
+                    }
+                }
             }
 
             ShowHideCodeSelectLineNumberBoxes();
