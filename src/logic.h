@@ -20,6 +20,7 @@ public:
     #define NumberOfCodes     65000
     struct Code
     {
+        int CodeCommandLineNumber;
         int CodeCommandIndex;
 
     } Codes[NumberOfCodes];
@@ -37,9 +38,18 @@ public:
     int CodeSelectedForEdit;
     int CodeSelectorSelected;
 
+    int CodeSelectedForLineNumberEdit;
+
     void CalculateCodeLastLine(void);
 
-    void ShowHideCodeSelectBoxes(void);
+    void ShowHideCodeSelectLineNumberBoxes(void);
+
+    #define Nothing                 0
+    #define LineNumberSelect        1
+    int DialogToShow;
+    int DialogToShowOld;
+
+    int LineNumberArray[3];
 
     void RunCodeEditor(void);
 

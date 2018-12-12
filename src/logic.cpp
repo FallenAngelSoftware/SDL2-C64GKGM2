@@ -26,6 +26,8 @@ Logic::Logic(void)
 
     for (int index = 0; index < NumberOfCodes; index++)
     {
+        Codes[index].CodeCommandLineNumber = -1;
+
         Codes[index].CodeCommandIndex = -1;
 
     }
@@ -52,7 +54,19 @@ Codes[9].CodeCommandIndex = 9;
     CodeSelectedForEdit = -1;
     CodeSelectorSelected = -1;
 
+    CodeSelectedForLineNumberEdit = -1;
+
     CalculateCodeLastLine();
+
+    interface->CurrentInterfaceLevel = 0;
+
+    DialogToShow = Nothing;
+    DialogToShowOld = DialogToShow;
+
+    for (int index = 0; index < 3; index++)
+    {
+        LineNumberArray[index] = -1;
+    }
 
 }
 
@@ -77,37 +91,62 @@ void Logic::CalculateCodeLastLine(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::ShowHideCodeSelectBoxes(void)
+void Logic::ShowHideCodeSelectLineNumberBoxes(void)
 {
     if (Codes[CodeDisplayStartIndex].CodeCommandIndex > -1)
     {
         interface->Buttons[12].ScreenX = 43;
+        interface->Buttons[17].ScreenX = 73;
     }
-    else  interface->Buttons[12].ScreenX = -999;
+    else
+    {
+        interface->Buttons[12].ScreenX = -999;
+        interface->Buttons[17].ScreenX = -999;
+    }
 
     if (Codes[CodeDisplayStartIndex+1].CodeCommandIndex > -1)
     {
         interface->Buttons[12+1].ScreenX = 43;
+        interface->Buttons[17+1].ScreenX = 73;
     }
-    else  interface->Buttons[12+1].ScreenX = -999;
+    else
+    {
+        interface->Buttons[12+1].ScreenX = -999;
+        interface->Buttons[17+1].ScreenX = -999;
+    }
 
     if (Codes[CodeDisplayStartIndex+2].CodeCommandIndex > -1)
     {
         interface->Buttons[12+2].ScreenX = 43;
+        interface->Buttons[17+2].ScreenX = 73;
     }
-    else  interface->Buttons[12+2].ScreenX = -999;
+    else
+    {
+        interface->Buttons[12+2].ScreenX = -999;
+        interface->Buttons[17+2].ScreenX = -999;
+    }
 
     if (Codes[CodeDisplayStartIndex+3].CodeCommandIndex > -1)
     {
         interface->Buttons[12+3].ScreenX = 43;
+        interface->Buttons[17+3].ScreenX = 73;
     }
-    else  interface->Buttons[12+3].ScreenX = -999;
+    else
+    {
+        interface->Buttons[12+3].ScreenX = -999;
+        interface->Buttons[17+3].ScreenX = -999;
+    }
 
     if (Codes[CodeDisplayStartIndex+4].CodeCommandIndex > -1)
     {
         interface->Buttons[12+4].ScreenX = 43;
+        interface->Buttons[17+4].ScreenX = 73;
     }
-    else  interface->Buttons[12+4].ScreenX = -999;
+    else
+    {
+        interface->Buttons[12+4].ScreenX = -999;
+        interface->Buttons[17+4].ScreenX = -999;
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -133,6 +172,7 @@ void Logic::RunCodeEditor(void)
             for (int index = CodeSelectedForEdit; index < CodeLastLine; index++)
             {
                 Codes[index].CodeCommandIndex = Codes[index+1].CodeCommandIndex;
+                Codes[index].CodeCommandLineNumber = Codes[index+1].CodeCommandLineNumber;
             }
 
             if (CodeLastLine > 0)  CodeLastLine--;
@@ -158,6 +198,7 @@ void Logic::RunCodeEditor(void)
             if (CodeLastLine == 0)  CodeSelectedForEdit = -1;
 
             Codes[CodeLastLine].CodeCommandIndex = -1;
+            Codes[CodeLastLine].CodeCommandLineNumber = -1;
 
             if (CodeDisplayStartIndex > 0)
             {
@@ -165,31 +206,34 @@ void Logic::RunCodeEditor(void)
                 CodeDisplayEndIndex--;
             }
 
-            ShowHideCodeSelectBoxes();
+            ShowHideCodeSelectLineNumberBoxes();
             screens->ScreenIsDirty = true;
         }
     }
 
-    if (input->MouseWheelStatus == MouseWheelUp)
+    if (interface->CurrentInterfaceLevel == 0)
     {
-        if (  ( input->MouseY > (91) )
-           && ( input->MouseY < (260) )
-           && ( input->MouseX > (32) )
-           && ( input->MouseX < (554) )  )
+        if (input->MouseWheelStatus == MouseWheelUp)
         {
-            interface->ThisButtonWasPressed = 8;
-            screens->ScreenIsDirty = true;
+            if (  ( input->MouseY > (91) )
+               && ( input->MouseY < (260) )
+               && ( input->MouseX > (32) )
+               && ( input->MouseX < (554) )  )
+            {
+                interface->ThisButtonWasPressed = 8;
+                screens->ScreenIsDirty = true;
+            }
         }
-    }
-    else if (input->MouseWheelStatus == MouseWheelDown)
-    {
-        if (  ( input->MouseY > (91) )
-           && ( input->MouseY < (260) )
-           && ( input->MouseX > (32) )
-           && ( input->MouseX < (554) )  )
+        else if (input->MouseWheelStatus == MouseWheelDown)
         {
-            interface->ThisButtonWasPressed = 9;
-            screens->ScreenIsDirty = true;
+            if (  ( input->MouseY > (91) )
+               && ( input->MouseY < (260) )
+               && ( input->MouseX > (32) )
+               && ( input->MouseX < (554) )  )
+            {
+                interface->ThisButtonWasPressed = 9;
+                screens->ScreenIsDirty = true;
+            }
         }
     }
 
@@ -232,42 +276,48 @@ void Logic::RunCodeEditor(void)
         }
     }
 
-    CommandSelectedByMouse = -1;
-    int commandScreenY = 109;
-    int commandOffsetY = 32;
-    for (int index = 0; index < 5; index++)
+    if (interface->CurrentInterfaceLevel == 0)
     {
-        if (  ( input->MouseY > (commandScreenY-20) )
-           && ( input->MouseY < (commandScreenY+20) )
-           && ( input->MouseX > (320-270) )
-           && ( input->MouseX < (320+200) )  )
+        CommandSelectedByMouse = -1;
+        int commandScreenY = 109;
+        int commandOffsetY = 32;
+        for (int index = 0; index < 5; index++)
         {
-            CommandSelectedByMouse = (CommandDisplayStartIndex+index);
-        }
+            if (  ( input->MouseY > (commandScreenY-20) )
+               && ( input->MouseY < (commandScreenY+20) )
+               && ( input->MouseX > (320-270) )
+               && ( input->MouseX < (320+200) )  )
+            {
+                CommandSelectedByMouse = (CommandDisplayStartIndex+index);
+            }
 
-        commandScreenY+=commandOffsetY;
-    }
-
-    if (input->MouseWheelStatus == MouseWheelUp)
-    {
-        if (  ( input->MouseY > (291) )
-           && ( input->MouseY < (460) )
-           && ( input->MouseX > (32) )
-           && ( input->MouseX < (554) )  )
-        {
-            interface->ThisButtonWasPressed = 10;
-            screens->ScreenIsDirty = true;
+            commandScreenY+=commandOffsetY;
         }
     }
-    else if (input->MouseWheelStatus == MouseWheelDown)
+
+    if (interface->CurrentInterfaceLevel == 0)
     {
-        if (  ( input->MouseY > (291) )
-           && ( input->MouseY < (460) )
-           && ( input->MouseX > (32) )
-           && ( input->MouseX < (554) )  )
+        if (input->MouseWheelStatus == MouseWheelUp)
         {
-            interface->ThisButtonWasPressed = 11;
-            screens->ScreenIsDirty = true;
+            if (  ( input->MouseY > (291) )
+               && ( input->MouseY < (460) )
+               && ( input->MouseX > (32) )
+               && ( input->MouseX < (554) )  )
+            {
+                interface->ThisButtonWasPressed = 10;
+                screens->ScreenIsDirty = true;
+            }
+        }
+        else if (input->MouseWheelStatus == MouseWheelDown)
+        {
+            if (  ( input->MouseY > (291) )
+               && ( input->MouseY < (460) )
+               && ( input->MouseX > (32) )
+               && ( input->MouseX < (554) )  )
+            {
+                interface->ThisButtonWasPressed = 11;
+                screens->ScreenIsDirty = true;
+            }
         }
     }
 
@@ -298,7 +348,7 @@ void Logic::RunCodeEditor(void)
 
         CodeSelectedForEdit = -1;
 
-        ShowHideCodeSelectBoxes();
+        ShowHideCodeSelectLineNumberBoxes();
     }
     else if (interface->ThisButtonWasPressed == 11 && CodeDisplayEndIndex < (65000-5) )
     {
@@ -327,7 +377,7 @@ void Logic::RunCodeEditor(void)
 
         CodeSelectedForEdit = -1;
 
-        ShowHideCodeSelectBoxes();
+        ShowHideCodeSelectLineNumberBoxes();
     }
 
     for (int index = 12; index < 17; index++)
@@ -360,6 +410,20 @@ void Logic::RunCodeEditor(void)
 
                 screens->ScreenIsDirty = true;
             }
+        }
+    }
+
+    for (int index = 17; index < 22; index++)
+    {
+        if (interface->ThisButtonWasPressed == index)
+        {
+            CodeSelectedForLineNumberEdit = CodeDisplayStartIndex+(index-17);
+
+            interface->CurrentInterfaceLevel = 1;
+
+            DialogToShow = LineNumberSelect;
+            DialogToShowOld = DialogToShow;
+
         }
     }
 

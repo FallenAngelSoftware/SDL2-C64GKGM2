@@ -25,6 +25,8 @@ Interface::Interface(void)
         Buttons[index].OneClick = true;
         Buttons[index].SpriteIndex = -1;
         Buttons[index].Text = " ";
+        Buttons[index].TextScaleX = 1.0;
+        Buttons[index].TextScaleY = 1.0;
         Buttons[index].ScreenIndex = -1;
         Buttons[index].ScreenX = 320;
         Buttons[index].ScreenY = 240;
@@ -37,9 +39,13 @@ Interface::Interface(void)
         Buttons[index].AnimationScale = 1.0;
         Buttons[index].AnimationTimer = -1;
         Buttons[index].BlockPressing = false;
+        Buttons[index].InterfaceLevel = 0;
+        Buttons[index].PlaySound = true;
     }
 
     ThisButtonWasPressed = -1;
+
+    CurrentInterfaceLevel = 0;
 
 }
 
@@ -50,7 +56,7 @@ Interface::~Interface(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Interface::CreateButtonWithText(bool oneClick, const char *textToDisplay, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY)
+void Interface::CreateButtonWithText(int level, bool oneClick, bool playSound, const char *textToDisplay, float textScaleX, float textScaleY, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY)
 {
 int freeButton = 0;
 
@@ -66,6 +72,8 @@ int freeButton = 0;
     Buttons[freeButton].OneClick = oneClick;
     Buttons[freeButton].SpriteIndex = spriteIndex;
     Buttons[freeButton].Text = textToDisplay;
+    Buttons[freeButton].TextScaleX = textScaleX;
+    Buttons[freeButton].TextScaleY = textScaleY;
     Buttons[freeButton].ScreenIndex = freeButton;
     Buttons[freeButton].ScreenX = screenX;
     Buttons[freeButton].ScreenY = screenY;
@@ -78,16 +86,20 @@ int freeButton = 0;
     Buttons[freeButton].AnimationScale = 1.0;
     Buttons[freeButton].AnimationTimer = -1;
 //    Buttons[freeButton].BlockPressing = false;
+    Buttons[freeButton].InterfaceLevel = level;
+    Buttons[freeButton].PlaySound = playSound;
 }
 
 //-------------------------------------------------------------------------------------------------
-void Interface::DisplayAllButtonsOnScreenBuffer(void)
+void Interface::DisplayAllButtonsOnScreenBuffer(int level)
 {
 float animScale;
 
+    if (screens->ScreenIsDirty ==  false)  return;
+
     for (int index = 0; index < NumberOfButtons; index++)
     {
-        if (Buttons[index].SpriteIndex > -1)
+        if (Buttons[index].SpriteIndex > -1 && Buttons[index].InterfaceLevel == level)
         {
             animScale = Buttons[index].AnimationScale;
 
@@ -101,7 +113,7 @@ float animScale;
             visuals->Sprites[ Buttons[index].SpriteIndex ].Transparency = Buttons[index].Transparency;
             visuals->DrawSpriteOntoScreenBuffer(Buttons[index].SpriteIndex);
 
-            visuals->DrawSentenceOntoScreenBuffer( 1, Buttons[index].Text, Buttons[index].ScreenX, Buttons[index].ScreenY, JustifyCenterOnPoint, 255, 255, 255, 255, (5.8*Buttons[index].ScaleX*animScale), (6.8*Buttons[index].ScaleX*animScale) );
+            visuals->DrawSentenceOntoScreenBuffer( 1, Buttons[index].Text, Buttons[index].ScreenX, Buttons[index].ScreenY, JustifyCenterOnPoint, Buttons[index].RedHue, Buttons[index].GreenHue, Buttons[index].BlueHue, 255, (Buttons[index].TextScaleX*Buttons[index].ScaleX*animScale), (Buttons[index].TextScaleY*Buttons[index].ScaleY*animScale) );
         }
     }
 }
@@ -115,7 +127,7 @@ void Interface::ProcessAllButtons(void)
     {
         if (Buttons[index].SpriteIndex > -1)
         {
-            if (  (Buttons[index].BlockPressing == false) && ( (input->MouseButtonPressed[0] == true && Buttons[index].OneClick == true) || (input->MouseButtonsRaw[0] == true && Buttons[index].OneClick == false) )  )
+            if (  (Buttons[index].BlockPressing == false && Buttons[index].InterfaceLevel == CurrentInterfaceLevel) && ( (input->MouseButtonPressed[0] == true && Buttons[index].OneClick == true) || (input->MouseButtonsRaw[0] == true && Buttons[index].OneClick == false) )  )
             {
                 if (   (  input->MouseY > ( Buttons[index].ScreenY - ((visuals->Sprites[ Buttons[index].SpriteIndex ].TextureHeightOriginal*Buttons[index].ScaleY) / 2) )  )
                    && (  input->MouseY < ( Buttons[index].ScreenY + ((visuals->Sprites[ Buttons[index].SpriteIndex ].TextureHeightOriginal*Buttons[index].ScaleY) / 2) )  )
@@ -127,7 +139,12 @@ void Interface::ProcessAllButtons(void)
 
                     screens->ScreenIsDirty = true;
 
-                    if (Buttons[index].OneClick == true)  audio->PlayAudio(0);
+                    if (CurrentInterfaceLevel == 1)  InterfaceLevelBackgroundShown = false;
+
+                    if (Buttons[index].OneClick == true)
+                    {
+                        if (Buttons[index].PlaySound == true)  audio->PlayAudio(0);
+                    }
                     else
                     {
                         if (input->DelayAllUserInput == 0)
@@ -177,12 +194,20 @@ void Interface::ProcessAllButtons(void)
             {
                 Buttons[index].AnimationTimer--;
 
-                if (Buttons[index].AnimationTimer == 1)
+                if (Buttons[index].AnimationTimer == 5)
                 {
                     Buttons[index].AnimationScale = 1.0;
+                    screens->ScreenIsDirty = true;
+
+                    if (CurrentInterfaceLevel == 1)  InterfaceLevelBackgroundShown = false;
+                }
+                else if (Buttons[index].AnimationTimer == 0)
+                {
                     if (Buttons[index].OneClick == true)  ThisButtonWasPressed = Buttons[index].ScreenIndex;
                     screens->ScreenIsDirty = true;
-                }
+
+                    if (CurrentInterfaceLevel == 1)  InterfaceLevelBackgroundShown = false;
+               }
             }
         }
     }
@@ -196,6 +221,8 @@ void Interface::DestroyAllButtons(void)
         Buttons[index].OneClick = true;
         Buttons[index].SpriteIndex = -1;
         Buttons[index].Text = " ";
+        Buttons[index].TextScaleX = 1.0;
+        Buttons[index].TextScaleY = 1.0;
         Buttons[index].ScreenIndex = -1;
         Buttons[index].ScreenX = 320;
         Buttons[index].ScreenY = 240;
@@ -208,6 +235,8 @@ void Interface::DestroyAllButtons(void)
         Buttons[index].AnimationScale = 1.0;
         Buttons[index].AnimationTimer = -1;
         Buttons[index].BlockPressing = false;
+        Buttons[index].InterfaceLevel = 0;
+        Buttons[index].PlaySound = true;
     }
 
     ThisButtonWasPressed = -1;

@@ -30,6 +30,12 @@ public:
     void ProcessScreenToDisplay(void);
     void DisplayFAS_Screen(void);
     void DisplaySDL_Screen(void);
+
+    void MoveSelectArrowsOffScreen(void);
+
+    bool ThisLineNumberIsAvailable(int lineNumber);
+    void ShowLineNumberSelectionDialog(void);
+
     void DisplayCodeEditor_Screen(void);
 
 };

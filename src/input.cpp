@@ -5,10 +5,12 @@
 #include "screens.h"
 #include "visuals.h"
 #include "logic.h"
+#include "interface.h"
 
 extern Screens* screens;
 extern Visuals* visuals;
 extern Logic* logic;
+extern Interface* interface;
 
 //-------------------------------------------------------------------------------------------------
 Input::Input(void)
@@ -58,6 +60,7 @@ void Input::GetAllUserInput(void)
             case SDL_WINDOWEVENT:
                 if (Event.window.event == SDL_WINDOWEVENT_RESIZED || Event.window.event == SDL_WINDOWEVENT_SHOWN)
                 {
+                    interface->InterfaceLevelBackgroundShown = false;
                     screens->ScreenIsDirty = true;
                 }
                 break;

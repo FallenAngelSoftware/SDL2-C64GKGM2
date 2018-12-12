@@ -153,6 +153,10 @@ int textureHeight;
                 strcpy(filePath, "data/visuals/Code-Select-Box.bmp");
                 break;
 
+            case 1221:
+                strcpy(filePath, "data/visuals/Line-Number-Button.bmp");
+                break;
+
             case 1250:
                 strcpy(filePath, "data/visuals/Command-List-Box.bmp");
                 break;
