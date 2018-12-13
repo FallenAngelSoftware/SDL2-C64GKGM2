@@ -249,7 +249,7 @@ void Logic::RunCodeEditor(void)
             Codes[CodeLastLine].CodeCommandIndex = -1;
             Codes[CodeLastLine].CodeCommandLineNumber = -1;
 
-            if (CodeDisplayStartIndex > 0)
+            if (CodeDisplayStartIndex > 0 && ThereIsCodeAfterThisLine(CodeSelectedForEdit) == false)
             {
                 CodeDisplayStartIndex--;
                 CodeDisplayEndIndex--;
@@ -258,18 +258,12 @@ void Logic::RunCodeEditor(void)
             {
                 if (CodeSelectorSelected > 0)
                 {
-                    bool thereIsCodePastBottom = false;
-                    for ( int index = (CodeDisplayStartIndex+CodeSelectorSelected); index < 65000; index++ )
+                    if ( ThereIsCodeAfterThisLine(CodeSelectedForEdit) == false )
                     {
-                        if (Codes[index].CodeCommandIndex > -1)  thereIsCodePastBottom = true;
-                    }
-
-                    if (thereIsCodePastBottom == false)
-                    {
-                            CodeSelectorSelected--;
-                            interface->Buttons[12+CodeSelectorSelected].RedHue = 0;
-                            interface->Buttons[12+CodeSelectorSelected].GreenHue = 255;
-                            interface->Buttons[12+CodeSelectorSelected].BlueHue = 0;
+                        CodeSelectorSelected--;
+                        interface->Buttons[12+CodeSelectorSelected].RedHue = 0;
+                        interface->Buttons[12+CodeSelectorSelected].GreenHue = 255;
+                        interface->Buttons[12+CodeSelectorSelected].BlueHue = 0;
                     }
                 }
             }
