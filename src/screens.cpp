@@ -164,8 +164,16 @@ int windowHeight;
         strcat(visuals->VariableText, temp);
         strcat(visuals->VariableText, "/60");
 
-        strcat(visuals->VariableText, " ");
+        strcat(visuals->VariableText, " SELECT=");
         sprintf(temp, "%d", logic->CodeSelectorSelected);
+        strcat(visuals->VariableText, temp);
+
+        strcat(visuals->VariableText, " EDIT=");
+        sprintf(temp, "%d", logic->CodeSelectedForEdit);
+        strcat(visuals->VariableText, temp);
+
+        strcat(visuals->VariableText, " LAST");
+        sprintf(temp, "%d", logic->CodeLastLine);
         strcat(visuals->VariableText, temp);
 
         visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1.1, 1.1);
