@@ -418,9 +418,10 @@ void Screens::ClearCodeDialog(void)
         for (int index = 0; index < NumberOfCodes; index++)
         {
             logic->Codes[index].CodeCommandLineNumber = -1;
-
             logic->Codes[index].CodeCommandIndex = -1;
+            logic->Codes[index].CodeCommandLineActive = false;
         }
+        logic->Codes[0].CodeCommandLineActive = true;
 
         logic->CurrentCodeLine = 0;
 

@@ -231,55 +231,62 @@ void Logic::RunCodeEditor(void)
     {
         if (interface->Buttons[5].RedHue != 255 && interface->Buttons[5].BlueHue != 255)
         {
-            for (int index = CodeSelectedForEdit; index < CodeLastLine; index++)
+            if (Codes[CodeSelectedForEdit].CodeCommandLineActive == true && ThereIsCodeAfterThisLine(CodeSelectedForEdit+1) == false)
             {
-                Codes[index].CodeCommandIndex = Codes[index+1].CodeCommandIndex;
-                Codes[index].CodeCommandLineNumber = Codes[index+1].CodeCommandLineNumber;
-                Codes[index].CodeCommandLineActive = Codes[index+1].CodeCommandLineActive;
-            }
 
-            Codes[CodeLastLine].CodeCommandIndex = -1;
-            Codes[CodeLastLine].CodeCommandLineNumber = -1;
-            Codes[CodeLastLine].CodeCommandLineActive = false;
-
-            CalculateCodeLastLine();
-
-            if (CodeLastLine == 0)
-            {
-                CodeSelectedForEdit = -1;
-                CodeSelectorSelected = -1;
-            }
-//Normal
-//visuals->Sprites[100].GreenHue = 255;
-//visuals->Sprites[100].BlueHue = 255;
-
-            if (CodeDisplayStartIndex > 0 && ThereIsCodeAfterThisLine(CodeSelectedForEdit+1) == false)
-            {
-                CodeDisplayStartIndex--;
-                CodeDisplayEndIndex--;
-
-                CodeSelectedForEdit--;
-//Purple
-//visuals->Sprites[100].GreenHue = 0;
-//visuals->Sprites[100].BlueHue = 255;
-            }
-            else if ( ThereIsCodeAfterThisLine(CodeSelectedForEdit+1) == false )
-            {
-                CodeSelectedForEdit--;
-                CodeSelectorSelected--;
-//Red
-//visuals->Sprites[100].GreenHue = 0;
-//visuals->Sprites[100].BlueHue = 0;
             }
             else
             {
-//Yellow
-//visuals->Sprites[100].GreenHue = 255;
-//visuals->Sprites[100].BlueHue = 0;
-            }
+                for (int index = CodeSelectedForEdit; index < CodeLastLine; index++)
+                {
+                    Codes[index].CodeCommandIndex = Codes[index+1].CodeCommandIndex;
+                    Codes[index].CodeCommandLineNumber = Codes[index+1].CodeCommandLineNumber;
+                    Codes[index].CodeCommandLineActive = Codes[index+1].CodeCommandLineActive;
+                }
 
-            ShowHideCodeSelectLineNumberBoxes();
-            screens->ScreenIsDirty = true;
+                Codes[CodeLastLine].CodeCommandIndex = -1;
+                Codes[CodeLastLine].CodeCommandLineNumber = -1;
+                Codes[CodeLastLine].CodeCommandLineActive = false;
+
+                CalculateCodeLastLine();
+
+                if (CodeLastLine == 0)
+                {
+                    CodeSelectedForEdit = -1;
+                    CodeSelectorSelected = -1;
+                }
+    //Normal
+    //visuals->Sprites[100].GreenHue = 255;
+    //visuals->Sprites[100].BlueHue = 255;
+
+                if (CodeDisplayStartIndex > 0 && ThereIsCodeAfterThisLine(CodeSelectedForEdit+1) == false)
+                {
+                    CodeDisplayStartIndex--;
+                    CodeDisplayEndIndex--;
+
+                    CodeSelectedForEdit--;
+    //Purple
+    //visuals->Sprites[100].GreenHue = 0;
+    //visuals->Sprites[100].BlueHue = 255;
+                }
+                else if ( ThereIsCodeAfterThisLine(CodeSelectedForEdit+1) == false )
+                {
+                    CodeSelectedForEdit--;
+                    CodeSelectorSelected--;
+    //Red
+    //visuals->Sprites[100].GreenHue = 0;
+    //visuals->Sprites[100].BlueHue = 0;
+                }
+                else
+                {
+    //Yellow
+    //visuals->Sprites[100].GreenHue = 255;
+    //visuals->Sprites[100].BlueHue = 0;
+                }
+
+                ShowHideCodeSelectLineNumberBoxes();
+                screens->ScreenIsDirty = true;
+            }
         }
     }
 
