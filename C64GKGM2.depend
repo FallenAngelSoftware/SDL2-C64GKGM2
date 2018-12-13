@@ -403,7 +403,7 @@
 
 1544610041 c:\users\jlp\desktop\c64gkgm2\src\interface.h
 
-1544703180 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
+1544710905 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
 	"SDL.h"
 	"logic.h"
 	"interface.h"
@@ -411,5 +411,5 @@
 	"visuals.h"
 	"screens.h"
 
-1544646034 c:\users\jlp\desktop\c64gkgm2\src\logic.h
+1544703873 c:\users\jlp\desktop\c64gkgm2\src\logic.h
 

@@ -22,6 +22,7 @@ public:
     {
         int CodeCommandLineNumber;
         int CodeCommandIndex;
+        bool CodeCommandLineActive;
 
     } Codes[NumberOfCodes];
 
