@@ -164,9 +164,9 @@ int windowHeight;
         strcat(visuals->VariableText, temp);
         strcat(visuals->VariableText, "/60");
 
-//        strcat(visuals->VariableText, " ");
-//        sprintf(temp, "%d", logic->CodeSelectedForLineNumberEdit);
-//        strcat(visuals->VariableText, temp);
+        strcat(visuals->VariableText, " ");
+        sprintf(temp, "%d", logic->CodeSelectorSelected);
+        strcat(visuals->VariableText, temp);
 
         visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1.1, 1.1);
     }
