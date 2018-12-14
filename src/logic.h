@@ -41,6 +41,9 @@ public:
 
     int CodeSelectedForLineNumberEdit;
 
+    int CommandBoxMaxY;
+    int CodeBoxMaxY;
+
     void CalculateCodeLastLine(void);
 
     bool ThereIsCodeAfterThisLine(int line);

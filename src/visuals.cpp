@@ -129,11 +129,15 @@ int textureHeight;
                 strcpy(filePath, "data/visuals/Editor-BG.bmp");
                 break;
 
+            case 1150:
+                strcpy(filePath, "data/visuals/Resize-Rectangle.bmp");
+                break;
+
             case 1200:
                 strcpy(filePath, "data/visuals/Button.bmp");
                 break;
 
-            case 1210:
+           case 1210:
                 strcpy(filePath, "data/visuals/Up-Icon.bmp");
                 break;
 
