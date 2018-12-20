@@ -467,7 +467,7 @@ void Logic::RunCodeEditor(void)
 
     for ( int index = 23; index < (23+CodeBoxMaxY); index++ )
     {
-        if (interface->ThisButtonWasPressed == index)
+        if (  interface->ThisButtonWasPressed == index && ThereIsCodeAfterThisLine( CodeDisplayStartIndex+(index-23) + 1 ) == true  )
         {
             CodeSelectedForLineNumberEdit = CodeDisplayStartIndex+(index-23);
 

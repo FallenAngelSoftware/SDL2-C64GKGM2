@@ -704,17 +704,7 @@ int codeScreenY = 109+200-2+logic->CodeBoxOffsetY;
 int codeOffsetY = 32-10;
 for (int index = logic->CodeDisplayStartIndex; index < logic->CodeDisplayEndIndex; index++)
 {
-    bool thereIsCode = false;
-    for ( int indexTwo = (logic->CodeDisplayStartIndex+logic->CodeSelectorSelected); indexTwo < NumberOfCodes; indexTwo++ )
-    {
-        if (logic->Codes[indexTwo].CodeCommandIndex > -1)
-        {
-            thereIsCode = true;
-            break;
-        }
-    }
-
-    if ( (logic->Codes[index].CodeCommandIndex > -1) || (logic->Codes[index].CodeCommandLineNumber > -1 && thereIsCode == true) )
+    if ( (logic->Codes[index].CodeCommandIndex > -1) || (logic->Codes[index].CodeCommandLineNumber > -1) )
     {
         if (logic->Codes[index].CodeCommandLineNumber > -1)
         {
