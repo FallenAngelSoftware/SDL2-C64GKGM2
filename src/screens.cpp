@@ -521,21 +521,11 @@ void Screens::DisplayCodeEditor_Screen(void)
         buttonScreenY+=buttonOffsetY;
         interface->CreateButtonWithText(0, true, true, "COPY", 5.0, 2.0, 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
 
-        interface->CommandUpArrayScreenY = 132;
-        interface->CommandUpArrowScaleY = 1.2;
-        interface->CommandDownArrowScreenY = 132+90;
-        interface->CommandDownArrowScaleY = 1.2;
+        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1210, 16, 132, 255, 255, 255, 255, 0.35, 1.2);
+        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1215, 16, 132+90, 255, 255, 255, 255, 0.35, 1.2);
 
-        interface->CodeUpArrowScreenY = 132+199;
-        interface->CodeUpArrowScaleY = 1.2;
-        interface->CodeDownArrowScreenY = 132+90+199;
-        interface->CodeDownArrowScaleY = 1.2;
-
-        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1210, 16, interface->CommandUpArrayScreenY, 255, 255, 255, 255, 0.35, interface->CommandUpArrowScaleY);
-        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1215, 16, interface->CommandDownArrowScreenY, 255, 255, 255, 255, 0.35, interface->CommandDownArrowScaleY);
-
-        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1211, 16, interface->CodeUpArrowScreenY, 255, 255, 255, 255, 0.35, interface->CodeUpArrowScaleY);
-        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1216, 16, interface->CodeDownArrowScreenY, 255, 255, 255, 255, 0.35, interface->CodeDownArrowScaleY);
+        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1211, 16, 132+199, 255, 255, 255, 255, 0.35, 1.2);
+        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1216, 16, 132+90+199, 255, 255, 255, 255, 0.35, 1.2);
 
         logic->ScrollNumberMoved = 0;
         logic->ScrollSpeed = 3;
@@ -668,6 +658,7 @@ void Screens::DisplayCodeEditor_Screen(void)
         visuals->Sprites[1250].ScreenY = 86;
         visuals->Sprites[1250].ScaleX = 2.1;
         visuals->Sprites[1250].ScaleY = interface->CommandBoxScaleY;
+        visuals->Sprites[1250].VerticalJustification = VertJustTop;
         visuals->DrawSpriteOntoScreenBuffer(1250);
 
 visuals->DrawSentenceOntoScreenBuffer(1, "NAME-", 435, 35, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
@@ -697,6 +688,7 @@ for (int index = logic->CommandDisplayStartIndex; index < logic->CommandDisplayE
         visuals->Sprites[1251].ScreenX = 320-26;
         visuals->Sprites[1251].ScreenY = interface->CodeBoxScreenY;//86+200;
         visuals->Sprites[1251].ScaleX = 2.1;
+        visuals->Sprites[1251].VerticalJustification = VertJustBottom;
         visuals->Sprites[1251].ScaleY = interface->CodeBoxScaleY;
         visuals->DrawSpriteOntoScreenBuffer(1251);
 

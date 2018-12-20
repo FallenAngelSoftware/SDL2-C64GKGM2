@@ -24,6 +24,10 @@ public:
     Uint32 NextSecondTick;
     Uint32 AverageFPS;
 
+    #define VertJustTop             -1
+    #define VertJustCentered        0
+    #define VertJustBottom          1
+
     #define NumberOfSprites     1300
     struct Sprite
     {
@@ -43,6 +47,7 @@ public:
         int TextureWidthOriginal;
         int TextureHeightOriginal;
         int AnimationTimer;
+        int VerticalJustification;
     } Sprites[NumberOfSprites];
 
     #define NumberOfFontChars   256

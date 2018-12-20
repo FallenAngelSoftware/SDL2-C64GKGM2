@@ -65,6 +65,16 @@ void Interface::SetupCodingWindows(void)
 {
     logic->CodeBoxOffsetY = 0 + (22*CodingWindowsValue);
 
+    Buttons[8].ScreenY = 132 + (CodingWindowsValue * 5);
+    Buttons[8].ScaleY = 1.2 + (CodingWindowsValue * 0.12);
+    Buttons[9].ScreenY = 132+90 + (CodingWindowsValue * 15);
+    Buttons[9].ScaleY = 1.2 + (CodingWindowsValue * 0.12);
+
+    Buttons[10].ScreenY = 132+199 + (CodingWindowsValue * 14);
+    Buttons[10].ScaleY = 1.2 - (CodingWindowsValue * 0.12);
+    Buttons[11].ScreenY = 132+90+199 + (CodingWindowsValue * 3);
+    Buttons[11].ScaleY = 1.2 - (CodingWindowsValue * 0.12);
+
     logic->CommandBoxMaxY = 7 + (CodingWindowsValue);
     logic->CommandDisplayEndIndex = logic->CommandBoxMaxY;
 

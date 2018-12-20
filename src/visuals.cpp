@@ -40,6 +40,7 @@ Visuals::Visuals(void)
         Sprites[index].FlipX = false;
         Sprites[index].FlipY = false;
         Sprites[index].AnimationTimer = 0;
+        Sprites[index].VerticalJustification = VertJustCentered;
     }
 
     for (int index = 0; index < NumberOfFontChars; index++)
@@ -581,11 +582,11 @@ int textureHeight;
     destinationRect.x = ( Sprites[index].ScreenX * (winWidthFixed) )
                         - (  ( (textureWidth * Sprites[index].ScaleX) * (winWidthFixed) ) / 2  );
 
-    if (index == 1250)
+    if (Sprites[index].VerticalJustification == VertJustTop)
     {
         destinationRect.y = ( Sprites[index].ScreenY * (winHeightFixed) );
     }
-    else if (index == 1251)
+    else if (Sprites[index].VerticalJustification == VertJustBottom)
     {
         destinationRect.y = ( Sprites[index].ScreenY * (winHeightFixed) )
                             - (  ( (textureHeight * Sprites[index].ScaleY) * (winHeightFixed) )  );

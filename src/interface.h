@@ -49,16 +49,6 @@ public:
     float CodeBoxScaleY;
     int CodeBoxScreenY;
 
-    int CommandUpArrayScreenY;
-    float CommandUpArrowScaleY;
-    int CommandDownArrowScreenY;
-    float CommandDownArrowScaleY;
-
-    int CodeUpArrowScreenY;
-    float CodeUpArrowScaleY;
-    int CodeDownArrowScreenY;
-    float CodeDownArrowScaleY;
-
     void SetupCodingWindows(void);
 
     void CreateButtonWithText(int level, bool oneClick, bool playSound, const char *textToDisplay, float textScaleX, float textScaleY, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY);
