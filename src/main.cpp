@@ -51,15 +51,14 @@ int main( int argc, char* args[] )
 
     input = new Input();
 
-    screens = new Screens();
-
-    audio = new Audio();
-    if (audio->SetupAudio() != true)  visuals->CoreFailure = true;
-
     interface = new Interface();
 
     logic = new Logic();
 
+    screens = new Screens();
+
+    audio = new Audio();
+    if (audio->SetupAudio() != true)  visuals->CoreFailure = true;
     while (input->EXIT_Game == false && visuals->CoreFailure == false)
     {
         input->GetAllUserInput();

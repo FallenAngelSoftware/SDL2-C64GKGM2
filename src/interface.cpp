@@ -47,12 +47,36 @@ Interface::Interface(void)
 
     CurrentInterfaceLevel = 0;
 
+    EditorResizeButtonOriginalPressY = -1;
+    EditorResizeButtonY = -1;
+    EditorResizeButtonYoffset = 0;
+    CodingWindowsValue = 0;
+
 }
 
 //-------------------------------------------------------------------------------------------------
 Interface::~Interface(void)
 {
 
+}
+
+//-------------------------------------------------------------------------------------------------
+void Interface::SetupCodingWindows(void)
+{
+    logic->CodeBoxOffsetY = 0 + (22*CodingWindowsValue);
+
+    logic->CommandBoxMaxY = 7 + (CodingWindowsValue);
+    logic->CommandDisplayEndIndex = logic->CommandBoxMaxY;
+
+    logic->CodeBoxMaxY = 7 - (CodingWindowsValue);
+    logic->CodeDisplayEndIndex = logic->CodeBoxMaxY;
+
+    CommandBoxScaleY = 5 + (CodingWindowsValue * 0.61);
+
+    CodeBoxScaleY = 5 + ( (CodingWindowsValue * -1) * 0.54 );
+
+    logic->ShowHideCodeSelectLineNumberBoxes();
+    screens->ScreenIsDirty = true;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -121,6 +145,9 @@ float animScale;
 //-------------------------------------------------------------------------------------------------
 void Interface::ProcessAllButtons(void)
 {
+    Buttons[34].RedHue = 255;
+    Buttons[34].BlueHue = 255;
+
     ThisButtonWasPressed = -1;
 
     for (int index = 0; index < NumberOfButtons; index++)
@@ -147,41 +174,115 @@ void Interface::ProcessAllButtons(void)
                     }
                     else
                     {
-                        if (input->DelayAllUserInput == 0)
+                        if (index > 7 && index < 12)
                         {
-                            ThisButtonWasPressed = Buttons[index].ScreenIndex;
-                            Buttons[index].AnimationTimer+=1;
+                            if (input->DelayAllUserInput == 0)
+                            {
+                                ThisButtonWasPressed = Buttons[index].ScreenIndex;
+                                Buttons[index].AnimationTimer+=1;
 
-                            if (logic->ScrollNumberMoved > 5 && logic->ScrollNumberMoved < 10)
-                            {
-                                logic->ScrollSpeed = 4;
-                            }
-                            else if (logic->ScrollNumberMoved > 9 && logic->ScrollNumberMoved < 13)
-                            {
-                                logic->ScrollSpeed = 3;
-                            }
-                            else if (logic->ScrollNumberMoved > 12 && logic->ScrollNumberMoved < 15)
-                            {
-                                logic->ScrollSpeed = 2;
-                            }
-                            else if (logic->ScrollNumberMoved > 14 && logic->ScrollNumberMoved < 16)
-                            {
-                                logic->ScrollSpeed = 1;
-                            }
-                            else if (logic->ScrollNumberMoved > 15)
-                            {
-                                logic->ScrollSpeed = 0;
-                            }
+                                if (logic->ScrollNumberMoved > 5 && logic->ScrollNumberMoved < 10)
+                                {
+                                    logic->ScrollSpeed = 4;
+                                }
+                                else if (logic->ScrollNumberMoved > 9 && logic->ScrollNumberMoved < 13)
+                                {
+                                    logic->ScrollSpeed = 3;
+                                }
+                                else if (logic->ScrollNumberMoved > 12 && logic->ScrollNumberMoved < 15)
+                                {
+                                    logic->ScrollSpeed = 2;
+                                }
+                                else if (logic->ScrollNumberMoved > 14 && logic->ScrollNumberMoved < 16)
+                                {
+                                    logic->ScrollSpeed = 1;
+                                }
+                                else if (logic->ScrollNumberMoved > 15)
+                                {
+                                    logic->ScrollSpeed = 0;
+                                }
 
-                            input->DelayAllUserInput = logic->ScrollSpeed;
-                            logic->ScrollNumberMoved++;
-                       }
+                                input->DelayAllUserInput = logic->ScrollSpeed;
+                                logic->ScrollNumberMoved++;
+                            }
+                            else
+                            {
+                                ThisButtonWasPressed = -1;
+                            }
+                        }
                         else
                         {
-                            ThisButtonWasPressed = -1;
+                            if (input->DelayAllUserInput == 0)
+                            {
+                                ThisButtonWasPressed = Buttons[index].ScreenIndex;
+                                Buttons[index].AnimationTimer+=1;
+
+                                Buttons[index].RedHue = 128;
+                                Buttons[index].BlueHue = 128;
+
+                                Buttons[index].AnimationScale = 1.0;
+
+                                if (EditorResizeButtonOriginalPressY == -1)
+                                {
+                                    EditorResizeButtonOriginalPressY = input->MouseY;
+                                    EditorResizeButtonY = (240+36);
+
+                                    if (EditorResizeButtonOriginalPressY < EditorResizeButtonY)
+                                    {
+                                        EditorResizeButtonYoffset = (EditorResizeButtonOriginalPressY - EditorResizeButtonY);
+                                    }
+                                    else if (EditorResizeButtonOriginalPressY > EditorResizeButtonY)
+                                    {
+                                        EditorResizeButtonYoffset = (EditorResizeButtonOriginalPressY - EditorResizeButtonY);
+                                    }
+                                }
+                                else if (input->MouseY < EditorResizeButtonOriginalPressY)
+                                {
+                                    if (CodingWindowsValue > -4)
+                                    {
+                                        Buttons[34].ScreenY = input->MouseY;
+                                        EditorResizeButtonY = input->MouseY;
+
+                                        if ( input->MouseY < (EditorResizeButtonOriginalPressY-21) )
+                                        {
+                                            EditorResizeButtonOriginalPressY-=21;
+                                            CodingWindowsValue--;
+
+                                            SetupCodingWindows();
+                                        }
+                                    }
+                                }
+                                else if (input->MouseY > EditorResizeButtonOriginalPressY)
+                                {
+                                    if (CodingWindowsValue < 0)
+                                    {
+                                        Buttons[34].ScreenY = input->MouseY;
+                                        EditorResizeButtonY = input->MouseY;
+
+                                        if ( input->MouseY > (EditorResizeButtonOriginalPressY+21) )
+                                        {
+                                            EditorResizeButtonOriginalPressY+=21;
+                                            CodingWindowsValue++;
+
+                                            SetupCodingWindows();
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                ThisButtonWasPressed = -1;
+                            }
                         }
                     }
                 }
+            }
+            else if (index == 34 && EditorResizeButtonOriginalPressY != -1 && Buttons[34].RedHue == 255 && Buttons[34].BlueHue == 255)
+            {
+                EditorResizeButtonOriginalPressY = -1;
+                EditorResizeButtonY = (240+36)+(21*CodingWindowsValue);
+                EditorResizeButtonYoffset = 0;
+                Buttons[34].ScreenY = EditorResizeButtonY;
             }
         }
     }
@@ -240,5 +341,4 @@ void Interface::DestroyAllButtons(void)
     }
 
     ThisButtonWasPressed = -1;
-
 }

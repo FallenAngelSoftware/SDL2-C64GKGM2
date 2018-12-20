@@ -44,6 +44,8 @@ public:
     int CommandBoxMaxY;
     int CodeBoxMaxY;
 
+    int CodeBoxOffsetY;
+
     void CalculateCodeLastLine(void);
 
     bool ThereIsCodeAfterThisLine(int line);

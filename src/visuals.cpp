@@ -161,6 +161,10 @@ int textureHeight;
                 strcpy(filePath, "data/visuals/Line-Number-Button.bmp");
                 break;
 
+            case 1249:
+                strcpy(filePath, "data/visuals/Command-List-Box.bmp");
+                break;
+
             case 1250:
                 strcpy(filePath, "data/visuals/Command-List-Box.bmp");
                 break;
@@ -576,8 +580,22 @@ int textureHeight;
 
     destinationRect.x = ( Sprites[index].ScreenX * (winWidthFixed) )
                         - (  ( (textureWidth * Sprites[index].ScaleX) * (winWidthFixed) ) / 2  );
-    destinationRect.y = ( Sprites[index].ScreenY * (winHeightFixed) )
-                        - (  ( (textureHeight * Sprites[index].ScaleY) * (winHeightFixed) ) / 2  );
+
+    if (index == 1250)
+    {
+        destinationRect.y = ( Sprites[index].ScreenY * (winHeightFixed) );
+    }
+    else if (index == 1251)
+    {
+        destinationRect.y = ( Sprites[index].ScreenY * (winHeightFixed) )
+                            - (  ( (textureHeight * Sprites[index].ScaleY) * (winHeightFixed) )  );
+    }
+    else
+    {
+        destinationRect.y = ( Sprites[index].ScreenY * (winHeightFixed) )
+                            - (  ( (textureHeight * Sprites[index].ScaleY) * (winHeightFixed) ) / 2  );
+    }
+
     destinationRect.w = textureWidth * Sprites[index].ScaleX * (winWidthFixed);
     destinationRect.h = textureHeight * Sprites[index].ScaleY * (winHeightFixed);
 

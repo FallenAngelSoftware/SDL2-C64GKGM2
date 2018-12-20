@@ -55,6 +55,8 @@ Codes[10].CodeCommandLineActive = true;
 
     CodeSelectedForLineNumberEdit = -1;
 
+    CodeBoxOffsetY = 0;
+
     CalculateCodeLastLine();
 
     interface->CurrentInterfaceLevel = 0;
@@ -66,7 +68,6 @@ Codes[10].CodeCommandLineActive = true;
     {
         LineNumberArray[index] = -1;
     }
-
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -126,12 +127,19 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
         interface->Buttons[23+index].ScreenX = -999;
     }
 
+    int codeEditScreenY = 109+200-2;
+    int codeEditOffsetY = 32-10;
     for (int index = 0; index < CodeBoxMaxY; index++)
     {
         if ( (Codes[CodeDisplayStartIndex+index].CodeCommandLineActive == true || ThereIsCodeAfterThisLine(CodeDisplayStartIndex+index) == true) )
         {
             interface->Buttons[12+index].ScreenX = 43;
             interface->Buttons[23+index].ScreenX = 73;
+
+            interface->Buttons[12+index].ScreenY = codeEditScreenY + CodeBoxOffsetY;
+            interface->Buttons[23+index].ScreenY = codeEditScreenY + CodeBoxOffsetY;
+
+            codeEditScreenY+=codeEditOffsetY;
         }
         else
         {
@@ -265,7 +273,7 @@ void Logic::RunCodeEditor(void)
         if (input->MouseWheelStatus == MouseWheelUp)
         {
             if (  ( input->MouseY > (91) )
-               && ( input->MouseY < (260) )
+               && ( input->MouseY < (260 + CodeBoxOffsetY) )
                && ( input->MouseX > (32) )
                && ( input->MouseX < (554) )  )
             {
@@ -276,7 +284,7 @@ void Logic::RunCodeEditor(void)
         else if (input->MouseWheelStatus == MouseWheelDown)
         {
             if (  ( input->MouseY > (91) )
-               && ( input->MouseY < (260) )
+               && ( input->MouseY < (260 + CodeBoxOffsetY) )
                && ( input->MouseX > (32) )
                && ( input->MouseX < (554) )  )
             {
@@ -325,7 +333,7 @@ void Logic::RunCodeEditor(void)
         }
     }
 
-    if (interface->CurrentInterfaceLevel == 0)
+    if (interface->CurrentInterfaceLevel == 0 && interface->EditorResizeButtonOriginalPressY == -1)
     {
         CommandSelectedByMouse = -1;
         int commandScreenY = 107;
@@ -348,7 +356,7 @@ void Logic::RunCodeEditor(void)
     {
         if (input->MouseWheelStatus == MouseWheelUp)
         {
-            if (  ( input->MouseY > (291) )
+            if (  ( input->MouseY > (291 + CodeBoxOffsetY) )
                && ( input->MouseY < (460) )
                && ( input->MouseX > (32) )
                && ( input->MouseX < (554) )  )
@@ -359,7 +367,7 @@ void Logic::RunCodeEditor(void)
         }
         else if (input->MouseWheelStatus == MouseWheelDown)
         {
-            if (  ( input->MouseY > (291) )
+            if (  ( input->MouseY > (291 + CodeBoxOffsetY) )
                && ( input->MouseY < (460) )
                && ( input->MouseX > (32) )
                && ( input->MouseX < (554) )  )
