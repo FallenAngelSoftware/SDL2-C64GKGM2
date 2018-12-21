@@ -164,11 +164,8 @@ bool Logic::ThereAreLineNumbers(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::RunCodeEditor(void)
+void Logic::SetupClickableButtons(void)
 {
-    CommandDisplayEndIndex = (CommandDisplayStartIndex+CommandBoxMaxY);
-    CodeDisplayEndIndex = (CodeDisplayStartIndex+CodeBoxMaxY);
-
     if ( ThereIsCodeAfterThisLine(1) == true )
     {
         interface->Buttons[2].BlockPressing = false;
@@ -197,7 +194,11 @@ void Logic::RunCodeEditor(void)
     {
         interface->Buttons[6].BlockPressing = false;
     }
+}
 
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForClearButton(void)
+{
     if (interface->ThisButtonWasPressed == 2)
     {
         if (ThereIsCodeAfterThisLine(-1) == true)
@@ -208,7 +209,11 @@ void Logic::RunCodeEditor(void)
             DialogToShowOld = ClearCode;
         }
     }
+}
 
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForInsertButton(void)
+{
     if (interface->ThisButtonWasPressed == 4 && CodeSelectedForEdit > -1)
     {
         if (interface->Buttons[5].RedHue != 255 && interface->Buttons[5].BlueHue != 255)
@@ -236,7 +241,11 @@ void Logic::RunCodeEditor(void)
             screens->ScreenIsDirty = true;
         }
     }
+}
 
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForDeleteButton(void)
+{
     if (interface->ThisButtonWasPressed == 5 && CodeSelectedForEdit > -1)
     {
         if (interface->Buttons[5].RedHue != 255 && interface->Buttons[5].BlueHue != 255)
@@ -265,9 +274,6 @@ void Logic::RunCodeEditor(void)
                     CodeSelectedForEdit = -1;
                     CodeSelectorSelected = -1;
                 }
-    //Normal
-    //visuals->Sprites[100].GreenHue = 255;
-    //visuals->Sprites[100].BlueHue = 255;
 
                 if (CodeDisplayStartIndex > 0 && ThereIsCodeAfterThisLine(CodeSelectedForEdit+1) == false)
                 {
@@ -275,23 +281,11 @@ void Logic::RunCodeEditor(void)
                     CodeDisplayEndIndex--;
 
                     CodeSelectedForEdit--;
-    //Purple
-    //visuals->Sprites[100].GreenHue = 0;
-    //visuals->Sprites[100].BlueHue = 255;
                 }
                 else if ( ThereIsCodeAfterThisLine(CodeSelectedForEdit+1) == false )
                 {
                     CodeSelectedForEdit--;
                     CodeSelectorSelected--;
-    //Red
-    //visuals->Sprites[100].GreenHue = 0;
-    //visuals->Sprites[100].BlueHue = 0;
-                }
-                else
-                {
-    //Yellow
-    //visuals->Sprites[100].GreenHue = 255;
-    //visuals->Sprites[100].BlueHue = 0;
                 }
 
                 ShowHideCodeSelectLineNumberBoxes();
@@ -299,7 +293,11 @@ void Logic::RunCodeEditor(void)
             }
         }
     }
+}
 
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForScrollArrowButtons(void)
+{
     if (interface->CurrentInterfaceLevel == 0)
     {
         if (input->MouseWheelStatus == MouseWheelUp)
@@ -470,7 +468,11 @@ void Logic::RunCodeEditor(void)
 
         ShowHideCodeSelectLineNumberBoxes();
     }
+}
 
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForCodeSelectButtons(void)
+{
     for ( int index = 12; index < (12+CodeBoxMaxY); index++ )
     {
         if (interface->ThisButtonWasPressed == index)
@@ -496,7 +498,11 @@ void Logic::RunCodeEditor(void)
             ShowHideCodeSelectLineNumberBoxes();
         }
     }
+}
 
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForCodeLineSelectButtons(void)
+{
     for ( int index = 24; index < (24+CodeBoxMaxY); index++ )
     {
         if (  interface->ThisButtonWasPressed == index && ThereIsCodeAfterThisLine( CodeDisplayStartIndex+(index-24) + 1 ) == true  )
@@ -527,6 +533,27 @@ void Logic::RunCodeEditor(void)
             }
         }
     }
+}
+
+//-------------------------------------------------------------------------------------------------
+void Logic::RunCodeEditor(void)
+{
+    CommandDisplayEndIndex = (CommandDisplayStartIndex+CommandBoxMaxY);
+    CodeDisplayEndIndex = (CodeDisplayStartIndex+CodeBoxMaxY);
+
+    SetupClickableButtons();
+
+    CheckForClearButton();
+
+    CheckForInsertButton();
+
+    CheckForDeleteButton();
+
+    CheckForScrollArrowButtons();
+
+    CheckForCodeSelectButtons();
+
+    CheckForCodeLineSelectButtons();
 
     if (CodeSelectedForEdit > -1)
     {

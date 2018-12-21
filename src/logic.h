@@ -61,6 +61,14 @@ public:
 
     bool ThereAreLineNumbers(void);
 
+    void SetupClickableButtons(void);
+    void CheckForClearButton(void);
+    void CheckForInsertButton(void);
+    void CheckForDeleteButton(void);
+    void CheckForScrollArrowButtons(void);
+    void CheckForCodeSelectButtons(void);
+    void CheckForCodeLineSelectButtons(void);
+
     void RunCodeEditor(void);
 
 };

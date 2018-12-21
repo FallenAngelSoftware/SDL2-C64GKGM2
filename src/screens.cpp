@@ -597,7 +597,7 @@ void Screens::DisplayCodeEditor_Screen(void)
         interface->CreateButtonWithText(1, true, false, "", 1.0, 1.0, 1215, -999, -999, 255, 255, 255, 255, 1.0, 1.0);
 
         interface->CreateButtonWithText(1, true, true, "OK", 4.0, 2.0, 1200, -999, -999, 100, 255, 100, 255, 1.0, 1.0);
-        interface->CreateButtonWithText(1, true, true, "DELETE", 4.0, 2.0, 1200, -999, -999, 255, 150, 100, 255, 1.0, 1.0);
+        interface->CreateButtonWithText(1, true, true, "DELETE", 4.0, 2.0, 1200, -999, -999, 255, 255, 100, 255, 1.0, 1.0);
         interface->CreateButtonWithText(1, true, true, "CANCEL", 4.0, 2.0, 1200, -999, -999, 255, 100, 100, 255, 1.0, 1.0);
 
         logic->DialogToShow = Nothing;
