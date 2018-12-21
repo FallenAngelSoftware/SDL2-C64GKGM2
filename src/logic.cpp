@@ -475,6 +475,24 @@ void Logic::RunCodeEditor(void)
 
             DialogToShow = LineNumberSelect;
             DialogToShowOld = DialogToShow;
+
+            LineNumberArray[0] = 0;
+            LineNumberArray[1] = 0;
+            LineNumberArray[2] = 0;
+            for ( int number = 0; number < Codes[CommandDisplayStartIndex+CodeSelectedForLineNumberEdit].CodeCommandLineNumber; number++ )
+            {
+                LineNumberArray[2]++;
+                if (LineNumberArray[2] > 9)
+                {
+                    LineNumberArray[2] = 0;
+                    LineNumberArray[1]++;
+                    if (LineNumberArray[1] > 9)
+                    {
+                        LineNumberArray[1] = 0;
+                        LineNumberArray[0]++;
+                    }
+                }
+            }
         }
     }
 
