@@ -626,9 +626,9 @@ void Screens::DisplayCodeEditor_Screen(void)
         visuals->DrawSpriteOntoScreenBuffer(100);
 
         visuals->Sprites[1249].ScreenX = 320-26;
-        visuals->Sprites[1249].ScreenY = 47;
+        visuals->Sprites[1249].ScreenY = 47+5;
         visuals->Sprites[1249].ScaleX = 2.1;
-        visuals->Sprites[1249].ScaleY = 1.4;
+        visuals->Sprites[1249].ScaleY = 1.8;
         visuals->DrawSpriteOntoScreenBuffer(1249);
 
         visuals->Sprites[1250].ScreenX = 320-26;
@@ -638,11 +638,11 @@ void Screens::DisplayCodeEditor_Screen(void)
         visuals->Sprites[1250].VerticalJustification = VertJustTop;
         visuals->DrawSpriteOntoScreenBuffer(1250);
 
-visuals->DrawSentenceOntoScreenBuffer(1, "NAME-", 435, 35, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
-visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 640-95, 35, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
+visuals->DrawSentenceOntoScreenBuffer(1, "NAME-", 435, 40, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
+visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 640-95, 40, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
 
-visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 435, 35+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
-visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 35+23, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
+visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 435, 40+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
+visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
 
 int commandScreenY = 107;
 int commandOffsetY = 32-10;
