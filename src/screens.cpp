@@ -612,6 +612,8 @@ void Screens::DisplayCodeEditor_Screen(void)
 
         logic->ShowHideCodeSelectLineNumberBoxes();
 
+        interface->SetupCodingWindows();
+
         ScreenTransitionStatus = FadeIn;
     }
 

@@ -63,6 +63,9 @@ Interface::~Interface(void)
 //-------------------------------------------------------------------------------------------------
 void Interface::SetupCodingWindows(void)
 {
+    logic->CommandDisplayEndIndex = (logic->CommandDisplayStartIndex+logic->CommandBoxMaxY);
+    logic->CodeDisplayEndIndex = (logic->CodeDisplayStartIndex+logic->CodeBoxMaxY);
+
     logic->CodeBoxOffsetY = 0 + (21*CodingWindowsValue);
 
     Buttons[8].ScreenY = 132 + (CodingWindowsValue * 5);

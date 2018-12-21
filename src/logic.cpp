@@ -498,6 +498,23 @@ void Logic::CheckForCodeSelectButtons(void)
             ShowHideCodeSelectLineNumberBoxes();
         }
     }
+
+    if (CodeSelectedForEdit > -1)
+    {
+        interface->Buttons[4].RedHue = 150;
+        interface->Buttons[4].BlueHue = 150;
+
+        interface->Buttons[5].RedHue = 150;
+        interface->Buttons[5].BlueHue = 150;
+    }
+    else if (CodeSelectedForEdit == -1)
+    {
+        interface->Buttons[4].RedHue = 255;
+        interface->Buttons[4].BlueHue = 255;
+
+        interface->Buttons[5].RedHue = 255;
+        interface->Buttons[5].BlueHue = 255;
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -538,9 +555,6 @@ void Logic::CheckForCodeLineSelectButtons(void)
 //-------------------------------------------------------------------------------------------------
 void Logic::RunCodeEditor(void)
 {
-    CommandDisplayEndIndex = (CommandDisplayStartIndex+CommandBoxMaxY);
-    CodeDisplayEndIndex = (CodeDisplayStartIndex+CodeBoxMaxY);
-
     SetupClickableButtons();
 
     CheckForClearButton();
@@ -555,20 +569,4 @@ void Logic::RunCodeEditor(void)
 
     CheckForCodeLineSelectButtons();
 
-    if (CodeSelectedForEdit > -1)
-    {
-        interface->Buttons[4].RedHue = 150;
-        interface->Buttons[4].BlueHue = 150;
-
-        interface->Buttons[5].RedHue = 150;
-        interface->Buttons[5].BlueHue = 150;
-    }
-    else if (CodeSelectedForEdit == -1)
-    {
-        interface->Buttons[4].RedHue = 255;
-        interface->Buttons[4].BlueHue = 255;
-
-        interface->Buttons[5].RedHue = 255;
-        interface->Buttons[5].BlueHue = 255;
-    }
 }
