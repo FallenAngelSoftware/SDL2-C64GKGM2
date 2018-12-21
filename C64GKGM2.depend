@@ -357,7 +357,7 @@
 	<cstring>
 	"visuals.h"
 
-1545418886 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1545423523 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -403,7 +403,7 @@
 
 1545403716 c:\users\jlp\desktop\c64gkgm2\src\interface.h
 
-1545419058 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
+1545423726 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
 	"SDL.h"
 	"logic.h"
 	"interface.h"
@@ -411,5 +411,5 @@
 	"visuals.h"
 	"screens.h"
 
-1545321275 c:\users\jlp\desktop\c64gkgm2\src\logic.h
+1545423090 c:\users\jlp\desktop\c64gkgm2\src\logic.h
 

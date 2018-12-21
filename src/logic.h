@@ -59,6 +59,8 @@ public:
 
     int LineNumberArray[3];
 
+    bool ThereAreLineNumbers(void);
+
     void RunCodeEditor(void);
 
 };

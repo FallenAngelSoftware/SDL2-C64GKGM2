@@ -150,10 +150,33 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
 }
 
 //-------------------------------------------------------------------------------------------------
+bool Logic::ThereAreLineNumbers(void)
+{
+    for (int index = 0; index < NumberOfCodes; index++)
+    {
+        if (Codes[index].CodeCommandLineNumber > -1)
+        {
+            return(true);
+        }
+    }
+
+    return(false);
+}
+
+//-------------------------------------------------------------------------------------------------
 void Logic::RunCodeEditor(void)
 {
     CommandDisplayEndIndex = (CommandDisplayStartIndex+CommandBoxMaxY);
     CodeDisplayEndIndex = (CodeDisplayStartIndex+CodeBoxMaxY);
+
+    if ( ThereIsCodeAfterThisLine(1) == true )
+    {
+        interface->Buttons[2].BlockPressing = false;
+    }
+    else
+    {
+        interface->Buttons[2].BlockPressing = true;
+    }
 
     if (CodeSelectedForEdit > -1)
     {
@@ -164,6 +187,15 @@ void Logic::RunCodeEditor(void)
     {
         interface->Buttons[4].BlockPressing = true;
         interface->Buttons[5].BlockPressing = true;
+    }
+
+    if ( ThereAreLineNumbers() == false )
+    {
+        interface->Buttons[6].BlockPressing = true;
+    }
+    else
+    {
+        interface->Buttons[6].BlockPressing = false;
     }
 
     if (interface->ThisButtonWasPressed == 2)

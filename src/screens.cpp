@@ -412,7 +412,17 @@ void Screens::ClearCodeDialog(void)
     interface->Buttons[51].ScreenY = 240+210;
 
     visuals->DrawSentenceOntoScreenBuffer(0, "CLEAR ALL SOURCE CODE?", 320, 65, JustifyCenter, 255, 0, 0, 255, 2.5, 5.0);
-    visuals->DrawSentenceOntoScreenBuffer(0, "(WARNING: THIS CAN'T BE UNDONE!)", 320, 65+45, JustifyCenter, 255, 0, 0, 255, 1.5, 1.5);
+    int textY = 65+60;
+    int textYoffset = 45;
+    visuals->DrawSentenceOntoScreenBuffer(0, " WARNING:", 320, textY, JustifyCenter, 255, 0, 0, 255, 2.5, 2.5);
+    textY+=textYoffset;
+    visuals->DrawSentenceOntoScreenBuffer(0, "THIS", 320, textY, JustifyCenter, 255, 0, 0, 255, 2.5, 2.5);
+    textY+=textYoffset;
+    visuals->DrawSentenceOntoScreenBuffer(0, "CAN'T", 320, textY, JustifyCenter, 255, 0, 0, 255, 2.5, 2.5);
+    textY+=textYoffset;
+    visuals->DrawSentenceOntoScreenBuffer(0, "BE", 320, textY, JustifyCenter, 255, 0, 0, 255, 2.5, 2.5);
+    textY+=textYoffset;
+    visuals->DrawSentenceOntoScreenBuffer(0, "UNDONE", 320, textY, JustifyCenter, 255, 0, 0, 255, 2.5, 2.5);
 
     if ( interface->ThisButtonWasPressed == 49)
     {
