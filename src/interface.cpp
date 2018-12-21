@@ -63,17 +63,17 @@ Interface::~Interface(void)
 //-------------------------------------------------------------------------------------------------
 void Interface::SetupCodingWindows(void)
 {
-    logic->CodeBoxOffsetY = 0 + (22*CodingWindowsValue);
+    logic->CodeBoxOffsetY = 0 + (21*CodingWindowsValue);
 
     Buttons[8].ScreenY = 132 + (CodingWindowsValue * 5);
-    Buttons[8].ScaleY = 1.2 + (CodingWindowsValue * 0.12);
-    Buttons[9].ScreenY = 132+90 + (CodingWindowsValue * 15);
-    Buttons[9].ScaleY = 1.2 + (CodingWindowsValue * 0.12);
+    Buttons[8].ScaleY = 1.2 + (CodingWindowsValue * 0.15);
+    Buttons[9].ScreenY = 132+90 + (CodingWindowsValue * 16);
+    Buttons[9].ScaleY = 1.2 + (CodingWindowsValue * 0.15);
 
-    Buttons[10].ScreenY = 132+199 + (CodingWindowsValue * 14);
-    Buttons[10].ScaleY = 1.2 - (CodingWindowsValue * 0.12);
-    Buttons[11].ScreenY = 132+90+199 + (CodingWindowsValue * 3);
-    Buttons[11].ScaleY = 1.2 - (CodingWindowsValue * 0.12);
+    Buttons[10].ScreenY = 132+199 + (CodingWindowsValue * 15);
+    Buttons[10].ScaleY = 1.2 - (CodingWindowsValue * 0.16);
+    Buttons[11].ScreenY = 132+90+199 + (CodingWindowsValue * 4);
+    Buttons[11].ScaleY = 1.2 - (CodingWindowsValue * 0.16);
 
     logic->CommandBoxMaxY = 7 + (CodingWindowsValue);
     logic->CommandDisplayEndIndex = logic->CommandBoxMaxY;
@@ -155,8 +155,8 @@ float animScale;
 //-------------------------------------------------------------------------------------------------
 void Interface::ProcessAllButtons(void)
 {
-    Buttons[34].RedHue = 255;
-    Buttons[34].BlueHue = 255;
+    Buttons[36].RedHue = 255;
+    Buttons[36].BlueHue = 255;
 
     ThisButtonWasPressed = -1;
 
@@ -237,6 +237,8 @@ void Interface::ProcessAllButtons(void)
                                     EditorResizeButtonOriginalPressY = input->MouseY;
                                     EditorResizeButtonY = (240+36);
 
+                                    Buttons[36].ScaleY = 2.5;
+
                                     if (EditorResizeButtonOriginalPressY < EditorResizeButtonY)
                                     {
                                         EditorResizeButtonYoffset = (EditorResizeButtonOriginalPressY - EditorResizeButtonY);
@@ -248,9 +250,9 @@ void Interface::ProcessAllButtons(void)
                                 }
                                 else if (input->MouseY < EditorResizeButtonOriginalPressY)
                                 {
-                                    if (CodingWindowsValue > -4)
+                                    if (CodingWindowsValue > -5)
                                     {
-                                        Buttons[34].ScreenY = input->MouseY;
+                                        Buttons[36].ScreenY = input->MouseY;
                                         EditorResizeButtonY = input->MouseY;
 
                                         if ( input->MouseY < (EditorResizeButtonOriginalPressY-21) )
@@ -266,7 +268,7 @@ void Interface::ProcessAllButtons(void)
                                 {
                                     if (CodingWindowsValue < 0)
                                     {
-                                        Buttons[34].ScreenY = input->MouseY;
+                                        Buttons[36].ScreenY = input->MouseY;
                                         EditorResizeButtonY = input->MouseY;
 
                                         if ( input->MouseY > (EditorResizeButtonOriginalPressY+21) )
@@ -287,12 +289,14 @@ void Interface::ProcessAllButtons(void)
                     }
                 }
             }
-            else if (index == 34 && EditorResizeButtonOriginalPressY != -1 && Buttons[34].RedHue == 255 && Buttons[34].BlueHue == 255)
+            else if (index == 36 && EditorResizeButtonOriginalPressY != -1 && Buttons[34].RedHue == 255 && Buttons[34].BlueHue == 255)
             {
+                SetupCodingWindows();
+                Buttons[36].ScaleY = 1.0;
                 EditorResizeButtonOriginalPressY = -1;
                 EditorResizeButtonY = (240+36)+(21*CodingWindowsValue);
                 EditorResizeButtonYoffset = 0;
-                Buttons[34].ScreenY = EditorResizeButtonY;
+                Buttons[36].ScreenY = EditorResizeButtonY;
             }
         }
     }

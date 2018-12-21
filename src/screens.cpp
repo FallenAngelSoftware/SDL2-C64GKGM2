@@ -267,12 +267,6 @@ void Screens::DisplaySDL_Screen(void)
 //-------------------------------------------------------------------------------------------------
 void Screens::MoveSelectArrowsOffScreen(void)
 {
-    interface->Buttons[35].ScreenX = -999;
-    interface->Buttons[35].ScreenY = -999;
-
-    interface->Buttons[36].ScreenX = -999;
-    interface->Buttons[36].ScreenY = -999;
-
     interface->Buttons[37].ScreenX = -999;
     interface->Buttons[37].ScreenY = -999;
 
@@ -303,6 +297,12 @@ void Screens::MoveSelectArrowsOffScreen(void)
     interface->Buttons[46].ScreenX = -999;
     interface->Buttons[46].ScreenY = -999;
 
+    interface->Buttons[47].ScreenX = -999;
+    interface->Buttons[47].ScreenY = -999;
+
+    interface->Buttons[48].ScreenX = -999;
+    interface->Buttons[48].ScreenY = -999;
+
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -321,42 +321,42 @@ void Screens::ShowLineNumberSelectionDialog(void)
 {
 int lineNumberTotal = 0;
 
-    interface->Buttons[47].ScreenX = 320;
-    interface->Buttons[47].ScreenY = 240+130;
+    interface->Buttons[49].ScreenX = 320;
+    interface->Buttons[49].ScreenY = 240+130;
 
-    interface->Buttons[48].ScreenX = 320;
-    interface->Buttons[48].ScreenY = 240+180;
+    interface->Buttons[50].ScreenX = 320;
+    interface->Buttons[50].ScreenY = 240+180;
 
 
-    interface->Buttons[35].ScreenX = 320-105;
-    interface->Buttons[35].ScreenY = (240-20)-75;
-
-    interface->Buttons[36].ScreenX = 320-105;
-    interface->Buttons[36].ScreenY = (240-20)+75;
-
-    interface->Buttons[37].ScreenX = 320;
+    interface->Buttons[37].ScreenX = 320-105;
     interface->Buttons[37].ScreenY = (240-20)-75;
 
-    interface->Buttons[38].ScreenX = 320;
+    interface->Buttons[38].ScreenX = 320-105;
     interface->Buttons[38].ScreenY = (240-20)+75;
 
-    interface->Buttons[39].ScreenX = 320+105;
+    interface->Buttons[39].ScreenX = 320;
     interface->Buttons[39].ScreenY = (240-20)-75;
 
-    interface->Buttons[40].ScreenX = 320+105;
+    interface->Buttons[40].ScreenX = 320;
     interface->Buttons[40].ScreenY = (240-20)+75;
+
+    interface->Buttons[41].ScreenX = 320+105;
+    interface->Buttons[41].ScreenY = (240-20)-75;
+
+    interface->Buttons[42].ScreenX = 320+105;
+    interface->Buttons[42].ScreenY = (240-20)+75;
 
     visuals->DrawSentenceOntoScreenBuffer(0, "ENTER NEW LINE NUMBER:", 320, 65, JustifyCenter, 255, 255, 255, 255, 2.5, 5.0);
 
     lineNumberTotal = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
 
-    if ( interface->ThisButtonWasPressed == 47 && ThisLineNumberIsAvailable(lineNumberTotal) == true )
+    if ( interface->ThisButtonWasPressed == 49 && ThisLineNumberIsAvailable(lineNumberTotal) == true )
     {
-        interface->Buttons[47].ScreenX = -999;
-        interface->Buttons[47].ScreenY = -999;
+        interface->Buttons[49].ScreenX = -999;
+        interface->Buttons[49].ScreenY = -999;
 
-        interface->Buttons[48].ScreenX = -999;
-        interface->Buttons[48].ScreenY = -999;
+        interface->Buttons[50].ScreenX = -999;
+        interface->Buttons[50].ScreenY = -999;
 
         MoveSelectArrowsOffScreen();
 
@@ -368,13 +368,13 @@ int lineNumberTotal = 0;
 
         logic->Codes[logic->CommandDisplayStartIndex+logic->CodeSelectedForLineNumberEdit].CodeCommandLineNumber = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
     }
-    else if (interface->ThisButtonWasPressed == 48)
+    else if (interface->ThisButtonWasPressed == 50)
     {
-        interface->Buttons[47].ScreenX = -999;
-        interface->Buttons[47].ScreenY = -999;
+        interface->Buttons[49].ScreenX = -999;
+        interface->Buttons[49].ScreenY = -999;
 
-        interface->Buttons[48].ScreenX = -999;
-        interface->Buttons[48].ScreenY = -999;
+        interface->Buttons[50].ScreenX = -999;
+        interface->Buttons[50].ScreenY = -999;
 
         MoveSelectArrowsOffScreen();
 
@@ -389,12 +389,12 @@ int lineNumberTotal = 0;
 
     for (int index = 0; index < 3; index++)
     {
-        if ( interface->ThisButtonWasPressed == 35+(2*index) )
+        if ( interface->ThisButtonWasPressed == 37+(2*index) )
         {
             if (logic->LineNumberArray[index] < 9)  logic->LineNumberArray[index]++;
             else  logic->LineNumberArray[index] = 0;
         }
-        else if ( interface->ThisButtonWasPressed == 36+(2*index) )
+        else if ( interface->ThisButtonWasPressed == 38+(2*index) )
         {
             if (logic->LineNumberArray[index] > 0)  logic->LineNumberArray[index]--;
             else  logic->LineNumberArray[index] = 9;
@@ -427,16 +427,16 @@ int lineNumberTotal = 0;
 //-------------------------------------------------------------------------------------------------
 void Screens::ClearCodeDialog(void)
 {
-    interface->Buttons[47].ScreenX = 320;
-    interface->Buttons[47].ScreenY = 240+130;
+    interface->Buttons[49].ScreenX = 320;
+    interface->Buttons[49].ScreenY = 240+130;
 
-    interface->Buttons[48].ScreenX = 320;
-    interface->Buttons[48].ScreenY = 240+180;
+    interface->Buttons[50].ScreenX = 320;
+    interface->Buttons[50].ScreenY = 240+180;
 
     visuals->DrawSentenceOntoScreenBuffer(0, "CLEAR ALL SOURCE CODE?", 320, 65, JustifyCenter, 255, 0, 0, 255, 2.5, 5.0);
     visuals->DrawSentenceOntoScreenBuffer(0, "(WARNING: THIS CAN'T BE UNDONE!)", 320, 65+45, JustifyCenter, 255, 0, 0, 255, 1.5, 1.5);
 
-    if ( interface->ThisButtonWasPressed == 47)
+    if ( interface->ThisButtonWasPressed == 49)
     {
         for (int index = 0; index < NumberOfCodes; index++)
         {
@@ -463,11 +463,11 @@ void Screens::ClearCodeDialog(void)
 
         logic->ShowHideCodeSelectLineNumberBoxes();
 
-        interface->Buttons[47].ScreenX = -999;
-        interface->Buttons[47].ScreenY = -999;
+        interface->Buttons[49].ScreenX = -999;
+        interface->Buttons[49].ScreenY = -999;
 
-        interface->Buttons[48].ScreenX = -999;
-        interface->Buttons[48].ScreenY = -999;
+        interface->Buttons[50].ScreenX = -999;
+        interface->Buttons[50].ScreenY = -999;
 
         MoveSelectArrowsOffScreen();
 
@@ -477,13 +477,13 @@ void Screens::ClearCodeDialog(void)
 
         interface->InterfaceLevelBackgroundShown = false;
     }
-    else if (interface->ThisButtonWasPressed == 48)
+    else if (interface->ThisButtonWasPressed == 50)
     {
-        interface->Buttons[47].ScreenX = -999;
-        interface->Buttons[47].ScreenY = -999;
+        interface->Buttons[49].ScreenX = -999;
+        interface->Buttons[49].ScreenY = -999;
 
-        interface->Buttons[48].ScreenX = -999;
-        interface->Buttons[48].ScreenY = -999;
+        interface->Buttons[50].ScreenX = -999;
+        interface->Buttons[50].ScreenY = -999;
 
         MoveSelectArrowsOffScreen();
 
@@ -551,7 +551,7 @@ void Screens::DisplayCodeEditor_Screen(void)
             logic->LineNumberArray[index] = 0;
         }
 
-        int codeEditScreenY = 109+200-2;
+        int codeEditScreenY = 109+200-2+5;
         int codeEditOffsetY = 32-10;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
         codeEditScreenY+=codeEditOffsetY;
@@ -575,9 +575,11 @@ void Screens::DisplayCodeEditor_Screen(void)
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
         codeEditScreenY+=codeEditOffsetY;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
 
 
-        codeEditScreenY = 109+200-2;
+        codeEditScreenY = 109+200-2+5;
         codeEditOffsetY = 32-10;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
         codeEditScreenY+=codeEditOffsetY;
@@ -589,6 +591,8 @@ void Screens::DisplayCodeEditor_Screen(void)
         codeEditScreenY+=codeEditOffsetY;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
 
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
         codeEditScreenY+=codeEditOffsetY;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
         codeEditScreenY+=codeEditOffsetY;
@@ -630,8 +634,6 @@ void Screens::DisplayCodeEditor_Screen(void)
 
         interface->CommandBoxScaleY = 5;
         interface->CodeBoxScaleY = 5;
-
-        interface->CodeBoxScreenY = 473;
 
         logic->ShowHideCodeSelectLineNumberBoxes();
 
@@ -686,13 +688,13 @@ for (int index = logic->CommandDisplayStartIndex; index < logic->CommandDisplayE
     commandScreenY+=commandOffsetY;
 }
         visuals->Sprites[1251].ScreenX = 320-26;
-        visuals->Sprites[1251].ScreenY = interface->CodeBoxScreenY;//86+200;
+        visuals->Sprites[1251].ScreenY = 473;
         visuals->Sprites[1251].ScaleX = 2.1;
         visuals->Sprites[1251].VerticalJustification = VertJustBottom;
         visuals->Sprites[1251].ScaleY = interface->CodeBoxScaleY;
         visuals->DrawSpriteOntoScreenBuffer(1251);
 
-int codeScreenY = 109+200-2+logic->CodeBoxOffsetY;
+int codeScreenY = 109+200-2+logic->CodeBoxOffsetY + 5;
 int codeOffsetY = 32-10;
 for (int index = logic->CodeDisplayStartIndex; index < logic->CodeDisplayEndIndex; index++)
 {

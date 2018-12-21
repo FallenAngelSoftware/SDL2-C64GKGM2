@@ -47,7 +47,6 @@ public:
 
     float CommandBoxScaleY;
     float CodeBoxScaleY;
-    int CodeBoxScreenY;
 
     void SetupCodingWindows(void);
 
