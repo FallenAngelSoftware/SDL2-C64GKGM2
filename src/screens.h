@@ -31,7 +31,7 @@ public:
     void DisplayFAS_Screen(void);
     void DisplaySDL_Screen(void);
 
-    void MoveSelectArrowsOffScreen(void);
+    void MoveSelectArrowsAndButtonsOffScreen(void);
 
     bool ThisLineNumberIsAvailable(int lineNumber);
     void ShowLineNumberSelectionDialog(void);
