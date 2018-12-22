@@ -569,6 +569,8 @@ int lineNumberTotal = 0;
             logic->CodeDisplayEndIndex = logic->CodeDisplayStartIndex+logic->CodeBoxMaxY;
 
             LineNumberFoundNew = index;
+
+            logic->ShowHideCodeSelectLineNumberBoxes();
         }
     }
 }
