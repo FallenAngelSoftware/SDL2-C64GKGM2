@@ -459,6 +459,8 @@ void Screens::ShowClearCodeDialog(void)
 
         logic->CalculateCodeLastLine();
 
+        interface->SetupCodingWindows();
+
         logic->ShowHideCodeSelectLineNumberBoxes();
 
         MoveSelectArrowsAndButtonsOffScreen();
