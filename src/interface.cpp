@@ -45,6 +45,11 @@ Interface::Interface(void)
 
     ThisButtonWasPressed = -1;
 
+    CodeSelectorButtonsStart = -1;
+    CodeSelectorButtonsEnd = -1;
+    CodeLineSelectorButtonsStart = -1;
+    CodeLineSelectorButtonsEnd = -1;
+
     CurrentInterfaceLevel = 0;
 
     EditorResizeButtonOriginalPressY = -1;
@@ -93,7 +98,7 @@ void Interface::SetupCodingWindows(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Interface::CreateButtonWithText(int level, bool oneClick, bool playSound, const char *textToDisplay, float textScaleX, float textScaleY, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY)
+int Interface::CreateButtonWithText(int level, bool oneClick, bool playSound, const char *textToDisplay, float textScaleX, float textScaleY, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY)
 {
 int freeButton = 0;
 
@@ -125,6 +130,8 @@ int freeButton = 0;
 //    Buttons[freeButton].BlockPressing = false;
     Buttons[freeButton].InterfaceLevel = level;
     Buttons[freeButton].PlaySound = playSound;
+
+    return(freeButton);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -158,8 +165,8 @@ float animScale;
 //-------------------------------------------------------------------------------------------------
 void Interface::ProcessAllButtons(void)
 {
-    Buttons[36].RedHue = 255;
-    Buttons[36].BlueHue = 255;
+    Buttons[CodeLineSelectorButtonsEnd+1].RedHue = 255;
+    Buttons[CodeLineSelectorButtonsEnd+1].BlueHue = 255;
 
     ThisButtonWasPressed = -1;
 
@@ -240,7 +247,7 @@ void Interface::ProcessAllButtons(void)
                                     EditorResizeButtonOriginalPressY = input->MouseY;
                                     EditorResizeButtonY = (240+36);
 
-                                    Buttons[36].ScaleY = 2.5;
+                                    Buttons[CodeLineSelectorButtonsEnd+1].ScaleY = 2.5;
 
                                     if (EditorResizeButtonOriginalPressY < EditorResizeButtonY)
                                     {
@@ -255,7 +262,7 @@ void Interface::ProcessAllButtons(void)
                                 {
                                     if (CodingWindowsValue > -5)
                                     {
-                                        Buttons[36].ScreenY = input->MouseY;
+                                        Buttons[CodeLineSelectorButtonsEnd+1].ScreenY = input->MouseY;
                                         EditorResizeButtonY = input->MouseY;
 
                                         if ( input->MouseY < (EditorResizeButtonOriginalPressY-21) )
@@ -271,7 +278,7 @@ void Interface::ProcessAllButtons(void)
                                 {
                                     if (CodingWindowsValue < 0)
                                     {
-                                        Buttons[36].ScreenY = input->MouseY;
+                                        Buttons[CodeLineSelectorButtonsEnd+1].ScreenY = input->MouseY;
                                         EditorResizeButtonY = input->MouseY;
 
                                         if ( input->MouseY > (EditorResizeButtonOriginalPressY+21) )
@@ -292,14 +299,14 @@ void Interface::ProcessAllButtons(void)
                     }
                 }
             }
-            else if (index == 36 && EditorResizeButtonOriginalPressY != -1 && Buttons[34].RedHue == 255 && Buttons[34].BlueHue == 255)
+            else if ( index == (CodeLineSelectorButtonsEnd+1) && EditorResizeButtonOriginalPressY != -1 && Buttons[34].RedHue == 255 && Buttons[34].BlueHue == 255 )
             {
                 SetupCodingWindows();
-                Buttons[36].ScaleY = 1.0;
+                Buttons[CodeLineSelectorButtonsEnd+1].ScaleY = 1.0;
                 EditorResizeButtonOriginalPressY = -1;
                 EditorResizeButtonY = (240+36)+(21*CodingWindowsValue);
                 EditorResizeButtonYoffset = 0;
-                Buttons[36].ScreenY = EditorResizeButtonY;
+                Buttons[CodeLineSelectorButtonsEnd+1].ScreenY = EditorResizeButtonY;
             }
         }
     }

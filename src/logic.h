@@ -69,6 +69,7 @@ public:
     void CheckForInsertButton(void);
     void CheckForDeleteButton(void);
     void CheckForFindButton(void);
+    void CheckForEditButton(void);
     void CheckForScrollArrowButtons(void);
     void CheckForCodeSelectButtons(void);
     void CheckForCodeLineSelectButtons(void);

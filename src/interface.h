@@ -37,6 +37,11 @@ public:
 
     int ThisButtonWasPressed;
 
+    int CodeSelectorButtonsStart;
+    int CodeSelectorButtonsEnd;
+    int CodeLineSelectorButtonsStart;
+    int CodeLineSelectorButtonsEnd;
+
     int CurrentInterfaceLevel;
     bool InterfaceLevelBackgroundShown;
 
@@ -50,7 +55,7 @@ public:
 
     void SetupCodingWindows(void);
 
-    void CreateButtonWithText(int level, bool oneClick, bool playSound, const char *textToDisplay, float textScaleX, float textScaleY, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY);
+    int CreateButtonWithText(int level, bool oneClick, bool playSound, const char *textToDisplay, float textScaleX, float textScaleY, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY);
     void DisplayAllButtonsOnScreenBuffer(int level);
     void ProcessAllButtons(void);
     void DestroyAllButtons(void);

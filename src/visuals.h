@@ -84,7 +84,7 @@ public:
     #define JustifyCenterOnPoint        3
     void DrawSentenceOntoScreenBuffer(int tileSet, const char *textToDisplay, int screenX, int screenY, int justificationHorizontal, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparancy, float scaleX, float scaleY);
 
-    char VariableText[64];
+    char VariableText[256];
 
     #define NumberOfCommands   110
     struct Command

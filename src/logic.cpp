@@ -15,7 +15,6 @@ extern Screens* screens;
 //-------------------------------------------------------------------------------------------------
 Logic::Logic(void)
 {
-
     CommandBoxMaxY = 7;
     CodeBoxMaxY = 7;
 
@@ -109,22 +108,22 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
 {
     for (int index = 0; index < CodeBoxMaxY; index++)
     {
-        interface->Buttons[12+index].RedHue = 255;
-        interface->Buttons[12+index].GreenHue = 255;
-        interface->Buttons[12+index].BlueHue = 255;
+        interface->Buttons[interface->CodeSelectorButtonsStart+index].RedHue = 255;
+        interface->Buttons[interface->CodeSelectorButtonsStart+index].GreenHue = 255;
+        interface->Buttons[interface->CodeSelectorButtonsStart+index].BlueHue = 255;
     }
 
     if (CodeSelectorSelected > -1)
     {
-        interface->Buttons[12+CodeSelectorSelected].RedHue = 0;
-        interface->Buttons[12+CodeSelectorSelected].GreenHue = 255;
-        interface->Buttons[12+CodeSelectorSelected].BlueHue = 0;
+        interface->Buttons[interface->CodeSelectorButtonsStart+CodeSelectorSelected].RedHue = 0;
+        interface->Buttons[interface->CodeSelectorButtonsStart+CodeSelectorSelected].GreenHue = 255;
+        interface->Buttons[interface->CodeSelectorButtonsStart+CodeSelectorSelected].BlueHue = 0;
     }
 
     for (int index = 0; index < 12; index++)
     {
-        interface->Buttons[12+index].ScreenX = -999;
-        interface->Buttons[24+index].ScreenX = -999;
+        interface->Buttons[interface->CodeSelectorButtonsStart+index].ScreenX = -999;
+        interface->Buttons[interface->CodeLineSelectorButtonsStart+index].ScreenX = -999;
     }
 
     int codeEditScreenY = 109+200-2+5;
@@ -133,18 +132,18 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
     {
         if ( (Codes[CodeDisplayStartIndex+index].CodeCommandLineActive == true || ThereIsCodeAfterThisLine(CodeDisplayStartIndex+index) == true) )
         {
-            interface->Buttons[12+index].ScreenX = 43;
-            interface->Buttons[24+index].ScreenX = 73;
+            interface->Buttons[interface->CodeSelectorButtonsStart+index].ScreenX = 43;
+            interface->Buttons[interface->CodeLineSelectorButtonsStart+index].ScreenX = 73;
 
-            interface->Buttons[12+index].ScreenY = codeEditScreenY + CodeBoxOffsetY;
-            interface->Buttons[24+index].ScreenY = codeEditScreenY + CodeBoxOffsetY;
+            interface->Buttons[interface->CodeSelectorButtonsStart+index].ScreenY = codeEditScreenY + CodeBoxOffsetY;
+            interface->Buttons[interface->CodeLineSelectorButtonsStart+index].ScreenY = codeEditScreenY + CodeBoxOffsetY;
 
             codeEditScreenY+=codeEditOffsetY;
         }
         else
         {
-            interface->Buttons[12+index].ScreenX = -999;
-            interface->Buttons[24+index].ScreenX = -999;
+            interface->Buttons[interface->CodeSelectorButtonsStart+index].ScreenX = -999;
+            interface->Buttons[interface->CodeLineSelectorButtonsStart+index].ScreenX = -999;
         }
     }
 }
@@ -210,6 +209,15 @@ void Logic::SetupClickableButtons(void)
     else
     {
         interface->Buttons[6].BlockPressing = false;
+    }
+
+    if ( ThereIsCodeAfterThisLine(1) == true )
+    {
+        interface->Buttons[7].BlockPressing = false;
+    }
+    else
+    {
+        interface->Buttons[7].BlockPressing = true;
     }
 }
 
@@ -322,13 +330,21 @@ void Logic::CheckForFindButton(void)
         DialogToShow = DialogFindLineNumber;
         DialogToShowOld = DialogToShow;
 
-
         LineNumberArray[0] = 0;
         LineNumberArray[1] = 0;
         LineNumberArray[2] = 0;
 
         screens->LineNumberFoundNew = -1;
         screens->LineNumberFoundOld = screens->LineNumberFoundNew;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForEditButton(void)
+{
+    if (interface->ThisButtonWasPressed == 7)
+    {
+
     }
 }
 
@@ -510,14 +526,14 @@ void Logic::CheckForScrollArrowButtons(void)
 //-------------------------------------------------------------------------------------------------
 void Logic::CheckForCodeSelectButtons(void)
 {
-    for ( int index = 12; index < (12+CodeBoxMaxY); index++ )
+    for ( int index = interface->CodeSelectorButtonsStart; index < (interface->CodeSelectorButtonsStart+CodeBoxMaxY); index++ )
     {
         if (interface->ThisButtonWasPressed == index)
         {
-            if ( CodeSelectedForEdit != CodeDisplayStartIndex+(index-12) )
+            if ( CodeSelectedForEdit != CodeDisplayStartIndex+(index-interface->CodeSelectorButtonsStart) )
             {
-                CodeSelectorSelected = (index-12);
-                CodeSelectedForEdit = CodeDisplayStartIndex+(index-12);
+                CodeSelectorSelected = (index-interface->CodeSelectorButtonsStart);
+                CodeSelectedForEdit = CodeDisplayStartIndex+(index-interface->CodeSelectorButtonsStart);
 
                 screens->ScreenIsDirty = true;
             }
@@ -557,11 +573,11 @@ void Logic::CheckForCodeSelectButtons(void)
 //-------------------------------------------------------------------------------------------------
 void Logic::CheckForCodeLineSelectButtons(void)
 {
-    for ( int index = 24; index < (24+CodeBoxMaxY); index++ )
+    for ( int index = interface->CodeLineSelectorButtonsStart; index < (interface->CodeLineSelectorButtonsStart+CodeBoxMaxY); index++ )
     {
-        if (  interface->ThisButtonWasPressed == index && ThereIsCodeAfterThisLine( CodeDisplayStartIndex+(index-24) + 1 ) == true  )
+        if (  interface->ThisButtonWasPressed == index && ThereIsCodeAfterThisLine( CodeDisplayStartIndex+(index-interface->CodeLineSelectorButtonsStart) + 1 ) == true  )
         {
-            CodeSelectedForLineNumberEdit = CodeDisplayStartIndex+(index-24);
+            CodeSelectedForLineNumberEdit = CodeDisplayStartIndex+(index-interface->CodeLineSelectorButtonsStart);
 
             interface->CurrentInterfaceLevel = 1;
 
@@ -601,6 +617,8 @@ void Logic::RunCodeEditor(void)
     CheckForDeleteButton();
 
     CheckForFindButton();
+
+    CheckForEditButton();
 
     CheckForScrollArrowButtons();
 
