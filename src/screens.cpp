@@ -282,7 +282,7 @@ void Screens::DisplaySDL_Screen(void)
 //-------------------------------------------------------------------------------------------------
 void Screens::MoveSelectArrowsAndButtonsOffScreen(void)
 {
-    for ( int index = (interface->CodeLineSelectorButtonsEnd+1); index < (interface->CodeLineSelectorButtonsEnd+1+12); index++ )
+    for ( int index = (interface->CodeLineSelectorButtonsEnd+2); index < (interface->CodeLineSelectorButtonsEnd+1+12); index++ )
     {
         interface->Buttons[index].ScreenX = -999;
         interface->Buttons[index].ScreenY = -999;
