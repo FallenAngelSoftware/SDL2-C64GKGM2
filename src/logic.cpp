@@ -164,6 +164,23 @@ bool Logic::ThereAreLineNumbers(void)
 }
 
 //-------------------------------------------------------------------------------------------------
+void Logic::ClearAllCodeSelectors(void)
+{
+    for ( int index = 12; index < (12+CodeBoxMaxY); index++ )
+    {
+        interface->Buttons[index].RedHue = 255;
+        interface->Buttons[index].BlueHue = 255;
+    }
+
+    CodeSelectorSelected = -1;
+    CodeSelectedForEdit = -1;
+
+    ShowHideCodeSelectLineNumberBoxes();
+
+    screens->ScreenIsDirty = true;
+}
+
+//-------------------------------------------------------------------------------------------------
 void Logic::SetupClickableButtons(void)
 {
     if ( ThereIsCodeAfterThisLine(1) == true )

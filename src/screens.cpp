@@ -570,6 +570,11 @@ int lineNumberTotal = 0;
 
             LineNumberFoundNew = index;
 
+            logic->ClearAllCodeSelectors();
+
+            logic->CodeSelectorSelected = 0;
+            logic->CodeSelectedForEdit = logic->CodeDisplayStartIndex;
+
             logic->ShowHideCodeSelectLineNumberBoxes();
         }
     }

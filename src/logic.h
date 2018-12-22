@@ -62,6 +62,8 @@ public:
 
     bool ThereAreLineNumbers(void);
 
+    void ClearAllCodeSelectors(void);
+
     void SetupClickableButtons(void);
     void CheckForClearButton(void);
     void CheckForInsertButton(void);
