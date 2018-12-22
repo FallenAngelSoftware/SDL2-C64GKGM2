@@ -102,6 +102,12 @@ int windowHeight;
         ScreenIsDirty = true;
     }
 
+    if (logic->DialogToShow == DialogFindLineNumber && LineNumberFoundNew != LineNumberFoundOld)
+    {
+        ScreenIsDirty = true;
+        LineNumberFoundOld = LineNumberFoundNew;
+    }
+
     interface->ProcessAllButtons();
 
     switch(ScreenToDisplay)
@@ -124,7 +130,7 @@ int windowHeight;
 
     interface->DisplayAllButtonsOnScreenBuffer(0);
 
-    if ( (interface->CurrentInterfaceLevel > 0 && interface->InterfaceLevelBackgroundShown == false) )
+    if ( (interface->CurrentInterfaceLevel == 1 && interface->InterfaceLevelBackgroundShown == false) )
     {
         visuals->Sprites[1].ScreenX = 320;
         visuals->Sprites[1].ScreenY = 240;
@@ -133,16 +139,21 @@ int windowHeight;
         interface->InterfaceLevelBackgroundShown = true;
     }
 
-    if (logic->DialogToShow == LineNumberSelect)
+    if (logic->DialogToShow == DialogLineNumberSelect)
     {
         ShowLineNumberSelectionDialog();
     }
-    else if (logic->DialogToShow == ClearCode)
+    else if (logic->DialogToShow == DialogClearCode)
     {
-        ClearCodeDialog();
+        ShowClearCodeDialog();
+    }
+    else if (logic->DialogToShow == DialogFindLineNumber)
+    {
+        ShowFindLineNumberDialog();
     }
 
     interface->DisplayAllButtonsOnScreenBuffer(1);
+    interface->DisplayAllButtonsOnScreenBuffer(2);
 
     ApplyScreenFadeTransition();
 
@@ -273,7 +284,7 @@ void Screens::MoveSelectArrowsAndButtonsOffScreen(void)
         interface->Buttons[index].ScreenY = -999;
     }
 
-    for (int index = 49; index < 52; index++)
+    for (int index = 49; index < 53; index++)
     {
         interface->Buttons[index].ScreenX = -999;
         interface->Buttons[index].ScreenY = -999;
@@ -308,23 +319,18 @@ int lineNumberTotal = 0;
     interface->Buttons[51].ScreenX = 320;
     interface->Buttons[51].ScreenY = 240+210;
 
-    interface->Buttons[37].ScreenX = 320-105;
-    interface->Buttons[37].ScreenY = (240-20)-75;
+    int buttonScreenX = 320-105;
+    int buttonScreenXoffset = 105;
+    for (int index = 37; index < 43; index+=2)
+    {
+        interface->Buttons[index].ScreenX = buttonScreenX;
+        interface->Buttons[index].ScreenY = (240-20)-75;
 
-    interface->Buttons[38].ScreenX = 320-105;
-    interface->Buttons[38].ScreenY = (240-20)+75;
+        interface->Buttons[index+1].ScreenX = buttonScreenX;
+        interface->Buttons[index+1].ScreenY = (240-20)+75;
 
-    interface->Buttons[39].ScreenX = 320;
-    interface->Buttons[39].ScreenY = (240-20)-75;
-
-    interface->Buttons[40].ScreenX = 320;
-    interface->Buttons[40].ScreenY = (240-20)+75;
-
-    interface->Buttons[41].ScreenX = 320+105;
-    interface->Buttons[41].ScreenY = (240-20)-75;
-
-    interface->Buttons[42].ScreenX = 320+105;
-    interface->Buttons[42].ScreenY = (240-20)+75;
+        buttonScreenX+=buttonScreenXoffset;
+    }
 
     visuals->DrawSentenceOntoScreenBuffer(0, "ENTER NEW LINE NUMBER:", 320, 65, JustifyCenter, 255, 255, 255, 255, 2.5, 5.0);
 
@@ -334,7 +340,7 @@ int lineNumberTotal = 0;
     {
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = Nothing;
+        logic->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
@@ -346,7 +352,7 @@ int lineNumberTotal = 0;
     {
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = Nothing;
+        logic->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
@@ -358,7 +364,7 @@ int lineNumberTotal = 0;
     {
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = Nothing;
+        logic->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
@@ -379,6 +385,8 @@ int lineNumberTotal = 0;
         }
     }
 
+    lineNumberTotal = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
+
     char temp[256];
     int screenX = 320 - (105);
     int offsetX = 105;
@@ -387,8 +395,6 @@ int lineNumberTotal = 0;
     Uint8 blueColor = 0;
     for (int index = 0; index < 3; index++)
     {
-        lineNumberTotal = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
-
         if ( ThisLineNumberIsAvailable(lineNumberTotal) == false )
         {
             redColor = 255;
@@ -403,7 +409,7 @@ int lineNumberTotal = 0;
 }
 
 //-------------------------------------------------------------------------------------------------
-void Screens::ClearCodeDialog(void)
+void Screens::ShowClearCodeDialog(void)
 {
     interface->Buttons[49].ScreenX = 320;
     interface->Buttons[49].ScreenY = 240+130;
@@ -453,7 +459,7 @@ void Screens::ClearCodeDialog(void)
 
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = Nothing;
+        logic->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
@@ -463,11 +469,107 @@ void Screens::ClearCodeDialog(void)
     {
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = Nothing;
+        logic->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
         interface->InterfaceLevelBackgroundShown = false;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+void Screens::ShowFindLineNumberDialog(void)
+{
+int lineNumberTotal = 0;
+
+    interface->Buttons[52].ScreenX = 320;
+    interface->Buttons[52].ScreenY = 50;
+
+    visuals->DrawSentenceOntoScreenBuffer(0, "FIND", 45, 52-15, JustifyLeft, 0, 255, 0, 255, 2.0, 2.0);
+    visuals->DrawSentenceOntoScreenBuffer(0, "LINE", 45, 52+15, JustifyLeft, 0, 255, 0, 255, 2.0, 2.0);
+    visuals->DrawSentenceOntoScreenBuffer(0, "#:", 45+85, 52, JustifyLeft, 0, 255, 0, 255, 4.0, 4.0);
+
+    for (int index = 37; index < 43; index++)
+    {
+        interface->Buttons[index].ScaleX = 0.3;
+        interface->Buttons[index].ScaleY = 0.3;
+        interface->Buttons[index].InterfaceLevel = 2;
+    }
+
+    int buttonScreenX = 200;
+    int buttonScreenXoffset = 30;
+    for (int index = 37; index < 43; index+=2)
+    {
+        interface->Buttons[index].ScreenX = buttonScreenX;
+        interface->Buttons[index].ScreenY = 51-20;
+
+        interface->Buttons[index+1].ScreenX = buttonScreenX;
+        interface->Buttons[index+1].ScreenY = 51+20;
+
+        buttonScreenX+=buttonScreenXoffset;
+    }
+
+    if (interface->ThisButtonWasPressed == 52)
+    {
+        interface->CurrentInterfaceLevel = 0;
+
+        logic->DialogToShow = DialogNothing;
+
+        for (int index = 37; index < 43; index++)
+        {
+            interface->Buttons[index].ScaleX = 1.0;
+            interface->Buttons[index].ScaleY = 1.0;
+            interface->Buttons[index].InterfaceLevel = 1;
+        }
+
+        MoveSelectArrowsAndButtonsOffScreen();
+    }
+
+    for (int index = 0; index < 3; index++)
+    {
+        if ( interface->ThisButtonWasPressed == 37+(2*index) )
+        {
+            if (logic->LineNumberArray[index] < 9)  logic->LineNumberArray[index]++;
+            else  logic->LineNumberArray[index] = 0;
+        }
+        else if ( interface->ThisButtonWasPressed == 38+(2*index) )
+        {
+            if (logic->LineNumberArray[index] > 0)  logic->LineNumberArray[index]--;
+            else  logic->LineNumberArray[index] = 9;
+        }
+    }
+
+    lineNumberTotal = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
+
+    char temp[256];
+    int screenX = 200;
+    int offsetX = 30;
+    Uint8 redColor = 0;
+    Uint8 greenColor = 255;
+    Uint8 blueColor = 0;
+    for (int index = 0; index < 3; index++)
+    {
+        if ( ThisLineNumberIsAvailable(lineNumberTotal) == true )
+        {
+            redColor = 255;
+            greenColor = 0;
+        }
+
+        sprintf(temp, "%i", logic->LineNumberArray[index]);
+        strcpy(visuals->VariableText, temp);
+        visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, screenX, 50, JustifyCenterOnPoint, redColor, greenColor, blueColor, 255, 2.0, 2.0);
+        screenX+=offsetX;
+    }
+
+    for (int index = 0; index < NumberOfCodes; index++)
+    {
+        if (logic->Codes[index].CodeCommandLineNumber == lineNumberTotal)
+        {
+            logic->CodeDisplayStartIndex = index;
+            logic->CodeDisplayEndIndex = logic->CodeDisplayStartIndex+logic->CodeBoxMaxY;
+
+            LineNumberFoundNew = index;
+        }
     }
 }
 
@@ -600,7 +702,9 @@ void Screens::DisplayCodeEditor_Screen(void)
         interface->CreateButtonWithText(1, true, true, "DELETE", 4.0, 2.0, 1200, -999, -999, 255, 255, 100, 255, 1.0, 1.0);
         interface->CreateButtonWithText(1, true, true, "CANCEL", 4.0, 2.0, 1200, -999, -999, 255, 100, 100, 255, 1.0, 1.0);
 
-        logic->DialogToShow = Nothing;
+        interface->CreateButtonWithText(2, true, true, "OK", 8.5, 3.0, 1200, -999, -999, 100, 255, 100, 255, 0.25, 1.25);
+
+        logic->DialogToShow = DialogNothing;
 
         logic->CommandBoxMaxY = 7;
         logic->CodeBoxMaxY = 7;

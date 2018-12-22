@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1544891581 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
+1545450348 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
 	"SDL.h"
 	<stdio.h>
 	"visuals.h"
@@ -357,7 +357,7 @@
 	<cstring>
 	"visuals.h"
 
-1545434567 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1545454759 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -380,7 +380,7 @@
 
 1545338487 c:\users\jlp\desktop\c64gkgm2\src\visuals.h
 
-1545412091 c:\users\jlp\desktop\c64gkgm2\src\screens.h
+1545454712 c:\users\jlp\desktop\c64gkgm2\src\screens.h
 
 1509896994 source:c:\users\jlp\desktop\c64gkgm2\src\resources.rc
 
@@ -403,7 +403,7 @@
 
 1545403716 c:\users\jlp\desktop\c64gkgm2\src\interface.h
 
-1545434727 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
+1545454712 source:c:\users\jlp\desktop\c64gkgm2\src\logic.cpp
 	"SDL.h"
 	"logic.h"
 	"interface.h"
@@ -411,5 +411,5 @@
 	"visuals.h"
 	"screens.h"
 
-1545433795 c:\users\jlp\desktop\c64gkgm2\src\logic.h
+1545447568 c:\users\jlp\desktop\c64gkgm2\src\logic.h
 

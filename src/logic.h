@@ -51,9 +51,10 @@ public:
     bool ThereIsCodeAfterThisLine(int line);
     void ShowHideCodeSelectLineNumberBoxes(void);
 
-    #define Nothing                 0
-    #define LineNumberSelect        1
-    #define ClearCode               2
+    #define DialogNothing               0
+    #define DialogLineNumberSelect      1
+    #define DialogClearCode             2
+    #define DialogFindLineNumber        3
     int DialogToShow;
     int DialogToShowOld;
 
@@ -65,6 +66,7 @@ public:
     void CheckForClearButton(void);
     void CheckForInsertButton(void);
     void CheckForDeleteButton(void);
+    void CheckForFindButton(void);
     void CheckForScrollArrowButtons(void);
     void CheckForCodeSelectButtons(void);
     void CheckForCodeLineSelectButtons(void);

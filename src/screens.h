@@ -34,9 +34,13 @@ public:
     void MoveSelectArrowsAndButtonsOffScreen(void);
 
     bool ThisLineNumberIsAvailable(int lineNumber);
-    void ShowLineNumberSelectionDialog(void);
 
-    void ClearCodeDialog(void);
+    void ShowLineNumberSelectionDialog(void);
+    void ShowClearCodeDialog(void);
+
+    int LineNumberFoundNew;
+    int LineNumberFoundOld;
+    void ShowFindLineNumberDialog(void);
 
     void DisplayCodeEditor_Screen(void);
 

@@ -61,7 +61,7 @@ Codes[10].CodeCommandLineActive = true;
 
     interface->CurrentInterfaceLevel = 0;
 
-    DialogToShow = Nothing;
+    DialogToShow = DialogNothing;
     DialogToShowOld = DialogToShow;
 
     for (int index = 0; index < 3; index++)
@@ -205,8 +205,8 @@ void Logic::CheckForClearButton(void)
         {
             interface->CurrentInterfaceLevel = 1;
 
-            DialogToShow = ClearCode;
-            DialogToShowOld = ClearCode;
+            DialogToShow = DialogClearCode;
+            DialogToShowOld = DialogClearCode;
         }
     }
 }
@@ -292,6 +292,26 @@ void Logic::CheckForDeleteButton(void)
                 screens->ScreenIsDirty = true;
             }
         }
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForFindButton(void)
+{
+    if (interface->ThisButtonWasPressed == 6)
+    {
+        interface->CurrentInterfaceLevel = 2;
+
+        DialogToShow = DialogFindLineNumber;
+        DialogToShowOld = DialogToShow;
+
+
+        LineNumberArray[0] = 0;
+        LineNumberArray[1] = 0;
+        LineNumberArray[2] = 0;
+
+        screens->LineNumberFoundNew = -1;
+        screens->LineNumberFoundOld = screens->LineNumberFoundNew;
     }
 }
 
@@ -528,13 +548,13 @@ void Logic::CheckForCodeLineSelectButtons(void)
 
             interface->CurrentInterfaceLevel = 1;
 
-            DialogToShow = LineNumberSelect;
+            DialogToShow = DialogLineNumberSelect;
             DialogToShowOld = DialogToShow;
 
             LineNumberArray[0] = 0;
             LineNumberArray[1] = 0;
             LineNumberArray[2] = 0;
-            for ( int number = 0; number < Codes[CommandDisplayStartIndex+CodeSelectedForLineNumberEdit].CodeCommandLineNumber; number++ )
+            for ( int number = 0; number < Codes[CodeDisplayStartIndex+CodeSelectedForLineNumberEdit].CodeCommandLineNumber; number++ )
             {
                 LineNumberArray[2]++;
                 if (LineNumberArray[2] > 9)
@@ -562,6 +582,8 @@ void Logic::RunCodeEditor(void)
     CheckForInsertButton();
 
     CheckForDeleteButton();
+
+    CheckForFindButton();
 
     CheckForScrollArrowButtons();
 
