@@ -12,4 +12,4 @@ More to come...
 JeZxLee  
 www.FallenAngelSoftware.com  
 
-![GitHubPromo](GitHubPromo6.png)
+![GitHubPromo](GitHubPromo7.png)
