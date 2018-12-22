@@ -68,30 +68,16 @@ Interface::~Interface(void)
 //-------------------------------------------------------------------------------------------------
 void Interface::SetupCodingWindows(void)
 {
-    logic->CommandDisplayEndIndex = (logic->CommandDisplayStartIndex+logic->CommandBoxMaxY);
-    logic->CodeDisplayEndIndex = (logic->CodeDisplayStartIndex+logic->CodeBoxMaxY);
+    logic->CodeBoxOffsetY = 0 + (18*CodingWindowsValue);
 
-    logic->CodeBoxOffsetY = 0 + (21*CodingWindowsValue);
-
-    Buttons[8].ScreenY = 132 + (CodingWindowsValue * 5);
-    Buttons[8].ScaleY = 1.2 + (CodingWindowsValue * 0.15);
-    Buttons[9].ScreenY = 132+90 + (CodingWindowsValue * 16);
-    Buttons[9].ScaleY = 1.2 + (CodingWindowsValue * 0.15);
-
-    Buttons[10].ScreenY = 132+199 + (CodingWindowsValue * 15);
-    Buttons[10].ScaleY = 1.2 - (CodingWindowsValue * 0.16);
-    Buttons[11].ScreenY = 132+90+199 + (CodingWindowsValue * 4);
-    Buttons[11].ScaleY = 1.2 - (CodingWindowsValue * 0.16);
-
-    logic->CommandBoxMaxY = 7 + (CodingWindowsValue);
+    logic->CommandBoxMaxY = 10 + (CodingWindowsValue);
     logic->CommandDisplayEndIndex = logic->CommandBoxMaxY;
 
-    logic->CodeBoxMaxY = 7 - (CodingWindowsValue);
+    logic->CodeBoxMaxY = 10 - (CodingWindowsValue);
     logic->CodeDisplayEndIndex = logic->CodeBoxMaxY;
 
-    CommandBoxScaleY = 5 + (CodingWindowsValue * 0.61);
-
-    CodeBoxScaleY = 5 + ( (CodingWindowsValue * -1) * 0.54 );
+    logic->CommandDisplayEndIndex = (logic->CommandDisplayStartIndex+logic->CommandBoxMaxY);
+    logic->CodeDisplayEndIndex = (logic->CodeDisplayStartIndex+logic->CodeBoxMaxY);
 
     logic->ShowHideCodeSelectLineNumberBoxes();
     screens->ScreenIsDirty = true;
@@ -260,14 +246,14 @@ void Interface::ProcessAllButtons(void)
                                 }
                                 else if (input->MouseY < EditorResizeButtonOriginalPressY)
                                 {
-                                    if (CodingWindowsValue > -5)
+                                    if (CodingWindowsValue > -7)
                                     {
                                         Buttons[CodeLineSelectorButtonsEnd+1].ScreenY = input->MouseY;
                                         EditorResizeButtonY = input->MouseY;
 
-                                        if ( input->MouseY < (EditorResizeButtonOriginalPressY-21) )
+                                        if ( input->MouseY < (EditorResizeButtonOriginalPressY-9) )
                                         {
-                                            EditorResizeButtonOriginalPressY-=21;
+                                            EditorResizeButtonOriginalPressY-=18;
                                             CodingWindowsValue--;
 
                                             SetupCodingWindows();
@@ -281,9 +267,9 @@ void Interface::ProcessAllButtons(void)
                                         Buttons[CodeLineSelectorButtonsEnd+1].ScreenY = input->MouseY;
                                         EditorResizeButtonY = input->MouseY;
 
-                                        if ( input->MouseY > (EditorResizeButtonOriginalPressY+21) )
+                                        if ( input->MouseY > (EditorResizeButtonOriginalPressY+9) )
                                         {
-                                            EditorResizeButtonOriginalPressY+=21;
+                                            EditorResizeButtonOriginalPressY+=18;
                                             CodingWindowsValue++;
 
                                             SetupCodingWindows();
@@ -304,7 +290,7 @@ void Interface::ProcessAllButtons(void)
                 SetupCodingWindows();
                 Buttons[CodeLineSelectorButtonsEnd+1].ScaleY = 1.0;
                 EditorResizeButtonOriginalPressY = -1;
-                EditorResizeButtonY = (240+36)+(21*CodingWindowsValue);
+                EditorResizeButtonY = (240+36+5)+(18*CodingWindowsValue);
                 EditorResizeButtonYoffset = 0;
                 Buttons[CodeLineSelectorButtonsEnd+1].ScreenY = EditorResizeButtonY;
             }

@@ -610,11 +610,11 @@ void Screens::DisplayCodeEditor_Screen(void)
         buttonScreenY+=buttonOffsetY;
         interface->CreateButtonWithText(0, true, true, "EDIT", 5.0, 2.0, 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
 
-        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1210, 16, 132, 255, 255, 255, 255, 0.35, 1.2);
-        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1215, 16, 132+90, 255, 255, 255, 255, 0.35, 1.2);
+        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1210, 16, 132, 255, 255, 255, 255, 0.35, 0.35);
+        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1215, 16, 132+90, 255, 255, 255, 255, 0.35, 0.35);
 
-        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1211, 16, 132+199, 255, 255, 255, 255, 0.35, 1.2);
-        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1216, 16, 132+90+199, 255, 255, 255, 255, 0.35, 1.2);
+        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1211, 16, 132+199, 255, 255, 255, 255, 0.35, 0.35);
+        interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1216, 16, 132+90+199, 255, 255, 255, 255, 0.35, 0.35);
 
         logic->ScrollNumberMoved = 0;
         logic->ScrollSpeed = 3;
@@ -640,8 +640,8 @@ void Screens::DisplayCodeEditor_Screen(void)
             logic->LineNumberArray[index] = 0;
         }
 
-        int codeEditScreenY = 109+200-2+5;
-        int codeEditOffsetY = 32-10;
+        int codeEditScreenY = 109+200-2+5-10;
+        int codeEditOffsetY = 32-10-4;
         interface->CodeSelectorButtonsStart = interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
         codeEditScreenY+=codeEditOffsetY;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
@@ -667,10 +667,20 @@ void Screens::DisplayCodeEditor_Screen(void)
         codeEditScreenY+=codeEditOffsetY;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
         codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
         interface->CodeSelectorButtonsEnd = interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1220, 43, codeEditScreenY, 255, 255, 255, 255, 0.5, 1.0);
 
-        codeEditScreenY = 109+200-2+5;
-        codeEditOffsetY = 32-10;
+        codeEditScreenY = 109+200-2+5-10;
+        codeEditOffsetY = 32-10-4;
         interface->CodeLineSelectorButtonsStart = interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
         codeEditScreenY+=codeEditOffsetY;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
@@ -696,9 +706,19 @@ void Screens::DisplayCodeEditor_Screen(void)
         codeEditScreenY+=codeEditOffsetY;
         interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
         codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
+        interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
+        codeEditScreenY+=codeEditOffsetY;
         interface->CodeLineSelectorButtonsEnd = interface->CreateButtonWithText(0, true, true, "", 1.0, 1.0, 1221, 73, codeEditScreenY, 255, 255, 255, 127, 1.0, 1.0);
 
-        interface->CreateButtonWithText(0, false, false, "", 1.0, 1.0, 1150, 320-26, 240+36, 255, 255, 255, 255, 1.0, 1.0);
+        interface->CreateButtonWithText(0, false, false, "", 1.0, 1.0, 1150, 320-26, 240+36+5, 255, 255, 255, 255, 1.0, 1.0);
 
         interface->CreateButtonWithText(1, true, false, "", 1.0, 1.0, 1210, -999, -999, 255, 255, 255, 255, 1.0, 1.0);
         interface->CreateButtonWithText(1, true, false, "", 1.0, 1.0, 1215, -999, -999, 255, 255, 255, 255, 1.0, 1.0);
@@ -726,9 +746,6 @@ void Screens::DisplayCodeEditor_Screen(void)
 
         logic->CodeBoxOffsetY = 0;
 
-        interface->CommandBoxScaleY = 5;
-        interface->CodeBoxScaleY = 5;
-
         logic->ShowHideCodeSelectLineNumberBoxes();
 
         interface->SetupCodingWindows();
@@ -752,48 +769,55 @@ void Screens::DisplayCodeEditor_Screen(void)
         visuals->Sprites[1249].ScaleY = 1.8;
         visuals->DrawSpriteOntoScreenBuffer(1249);
 
-        visuals->Sprites[1250].ScreenX = 320-26;
-        visuals->Sprites[1250].ScreenY = 86;
-        visuals->Sprites[1250].ScaleX = 2.1;
-        visuals->Sprites[1250].ScaleY = interface->CommandBoxScaleY;
-        visuals->Sprites[1250].VerticalJustification = VertJustTop;
-        visuals->DrawSpriteOntoScreenBuffer(1250);
-
 visuals->DrawSentenceOntoScreenBuffer(1, "NAME-", 435, 40, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
 visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 640-95, 40, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
 
 visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 435, 40+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
 visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
 
-int commandScreenY = 107;
-int commandOffsetY = 32-10;
+int commandScreenY = 107-10;
+int commandOffsetY = 32-10-4;
 for (int index = logic->CommandDisplayStartIndex; index < logic->CommandDisplayEndIndex; index++)
 {
+    if (index == logic->CommandDisplayStartIndex)
+    {
+        interface->Buttons[8].ScreenY = commandScreenY;
+    }
+
+    visuals->Sprites[1300].ScreenX = 320-26;
+    visuals->Sprites[1300].ScreenY = commandScreenY;
+    visuals->DrawSpriteOntoScreenBuffer(1300);
+
     if (logic->CommandSelectedByMouse == index)
     {
-        if (interface->CurrentInterfaceLevel == 0)  visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 0, 255, 0, 255, 1.6, 2.0);
-        else  visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+        if (interface->CurrentInterfaceLevel == 0)  visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 0, 255, 0, 255, 1.6, 1.6);
+        else  visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 1.6);
     }
     else
     {
-        visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+        visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 1.6);
     }
 
     logic->CommandSelectedByMouseOld = logic->CommandSelectedByMouse;
 
     commandScreenY+=commandOffsetY;
 }
-        visuals->Sprites[1251].ScreenX = 320-26;
-        visuals->Sprites[1251].ScreenY = 473;
-        visuals->Sprites[1251].ScaleX = 2.1;
-        visuals->Sprites[1251].VerticalJustification = VertJustBottom;
-        visuals->Sprites[1251].ScaleY = interface->CodeBoxScaleY;
-        visuals->DrawSpriteOntoScreenBuffer(1251);
+interface->Buttons[9].ScreenY = (commandScreenY-17);
 
-int codeScreenY = 109+200-2+logic->CodeBoxOffsetY + 5;
-int codeOffsetY = 32-10;
+
+int codeScreenY = 109+200-2+logic->CodeBoxOffsetY + 5 - 10;
+int codeOffsetY = 32-10-4;
 for (int index = logic->CodeDisplayStartIndex; index < logic->CodeDisplayEndIndex; index++)
 {
+    if (index == logic->CodeDisplayStartIndex)
+    {
+        interface->Buttons[10].ScreenY = codeScreenY;
+    }
+
+    visuals->Sprites[1310].ScreenX = 320-26;
+    visuals->Sprites[1310].ScreenY = codeScreenY;
+    visuals->DrawSpriteOntoScreenBuffer(1310);
+
     if ( (logic->Codes[index].CodeCommandIndex > -1) || (logic->Codes[index].CodeCommandLineNumber > -1) )
     {
         if (logic->Codes[index].CodeCommandLineNumber > -1)
@@ -801,18 +825,18 @@ for (int index = logic->CodeDisplayStartIndex; index < logic->CodeDisplayEndInde
             char temp[256];
             sprintf(temp, "%i", logic->Codes[index].CodeCommandLineNumber);
             strcpy(visuals->VariableText, temp);
-            visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 90, codeScreenY, JustifyRight, 0, 255, 255, 255, 1.2, 1.5);
+            visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 90, codeScreenY, JustifyRight, 0, 255, 255, 255, 1.2, 1.0);
         }
 
         if (logic->Codes[index].CodeCommandIndex > -1)
         {
             if (logic->CodeSelectedByMouse == index)
             {
-                visuals->DrawSentenceOntoScreenBuffer(0, visuals->Commands[ logic->Codes[index].CodeCommandIndex ].CommandTexts, 65+40, codeScreenY, JustifyLeft, 0, 255, 0, 255, 1.6, 2.0);
+                visuals->DrawSentenceOntoScreenBuffer(0, visuals->Commands[ logic->Codes[index].CodeCommandIndex ].CommandTexts, 65+40, codeScreenY, JustifyLeft, 0, 255, 0, 255, 1.6, 1.6);
             }
             else
             {
-                visuals->DrawSentenceOntoScreenBuffer(0, visuals->Commands[ logic->Codes[index].CodeCommandIndex ].CommandTexts, 65+40, codeScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 2.0);
+                visuals->DrawSentenceOntoScreenBuffer(0, visuals->Commands[ logic->Codes[index].CodeCommandIndex ].CommandTexts, 65+40, codeScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 1.6);
             }
         }
     }
@@ -821,6 +845,8 @@ for (int index = logic->CodeDisplayStartIndex; index < logic->CodeDisplayEndInde
 
     codeScreenY+=codeOffsetY;
 }
+interface->Buttons[11].ScreenY = (codeScreenY-17);
+
     }
 
     if (ScreenTransitionStatus == FadeOut && ScreenFadeTransparency == 255)

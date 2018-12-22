@@ -50,9 +50,6 @@ public:
     int EditorResizeButtonYoffset;
     int CodingWindowsValue;
 
-    float CommandBoxScaleY;
-    float CodeBoxScaleY;
-
     void SetupCodingWindows(void);
 
     int CreateButtonWithText(int level, bool oneClick, bool playSound, const char *textToDisplay, float textScaleX, float textScaleY, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY);

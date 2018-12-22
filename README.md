@@ -10,6 +10,6 @@ STATUS: "Pre-Alpha"
 More to come...  
   
 JeZxLee  
-www.FallenAngelSoftware.com
+www.FallenAngelSoftware.com  
 
-![GitHubPromo](GitHubPromo5.png)
+![GitHubPromo](GitHubPromo6.png)

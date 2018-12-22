@@ -28,7 +28,7 @@ public:
     #define VertJustCentered        0
     #define VertJustBottom          1
 
-    #define NumberOfSprites     1300
+    #define NumberOfSprites     2000
     struct Sprite
     {
         SDL_Texture *Texture;

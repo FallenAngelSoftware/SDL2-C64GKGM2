@@ -15,8 +15,8 @@ extern Screens* screens;
 //-------------------------------------------------------------------------------------------------
 Logic::Logic(void)
 {
-    CommandBoxMaxY = 7;
-    CodeBoxMaxY = 7;
+    CommandBoxMaxY = 10;
+    CodeBoxMaxY = 10;
 
     ScrollNumberMoved = 0;
     ScrollSpeed = 3;
@@ -126,8 +126,8 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
         interface->Buttons[interface->CodeLineSelectorButtonsStart+index].ScreenX = -999;
     }
 
-    int codeEditScreenY = 109+200-2+5;
-    int codeEditOffsetY = 32-10;
+    int codeEditScreenY = 109+200-2+5-10;
+    int codeEditOffsetY = 32-10-4;
     for (int index = 0; index < CodeBoxMaxY; index++)
     {
         if ( (Codes[CodeDisplayStartIndex+index].CodeCommandLineActive == true || ThereIsCodeAfterThisLine(CodeDisplayStartIndex+index) == true) )
@@ -419,12 +419,12 @@ void Logic::CheckForScrollArrowButtons(void)
     if (interface->CurrentInterfaceLevel == 0 && interface->EditorResizeButtonOriginalPressY == -1)
     {
         CommandSelectedByMouse = -1;
-        int commandScreenY = 107;
-        int commandOffsetY = 32-10;
+        int commandScreenY = 107-10;
+        int commandOffsetY = 32-10-4;
         for (int index = 0; index < CommandBoxMaxY; index++)
         {
-            if (  ( input->MouseY > (commandScreenY-17) )
-               && ( input->MouseY < (commandScreenY+17) )
+            if (  ( input->MouseY > (commandScreenY-10) )
+               && ( input->MouseY < (commandScreenY+10) )
                && ( input->MouseX > (320-270) )
                && ( input->MouseX < (320+200) )  )
             {
