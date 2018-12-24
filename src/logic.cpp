@@ -706,7 +706,7 @@ void Logic::CheckForScrollArrowButtons(void)
                     else if (interface->CurrentInterfaceLevel == 2 && interface->EditStatus >= EditStatusLocationMove)
                     {
                         EditLocation = (CodeDisplayStartIndex+index);
-                        if ( (EditLocation >= EditFirstLine && EditLocation <= EditLastLine) || (Codes[EditLocation+1].CodeCommandLineActive == false) )
+                        if ( (EditLocation >= EditFirstLine && EditLocation <= EditLastLine) || (Codes[EditLocation].CodeCommandLineActive == false) )
                         {
                             EditLocation = -1;
                         }
@@ -731,10 +731,6 @@ void Logic::CheckForScrollArrowButtons(void)
                             }
 
                             int sizeOfLines = (EditLastLine-EditFirstLine);
-                            if (EditLocation > EditLastLine)
-                            {
-                                EditLocation-=(sizeOfLines);
-                            }
 
                             if (interface->EditStatus == EditStatusLocationMove)
                             {
@@ -768,6 +764,11 @@ void Logic::CheckForScrollArrowButtons(void)
                                     CodeDisplayStartIndex = 0;
                                 }
 
+                                if (EditLocation > EditLastLine)
+                                {
+                                    EditLocation-=(sizeOfLines);
+                                }
+
                                 for ( int cacheIndex = 0; cacheIndex < (sizeOfLines+1); cacheIndex++ )
                                 {
                                     for ( int index = (NumberOfCodes-1); index > (EditLocation+cacheIndex); index-- )
@@ -780,6 +781,13 @@ void Logic::CheckForScrollArrowButtons(void)
                                     Codes[EditLocation+cacheIndex].CodeCommandIndex = CacheCodes[cacheIndex].CodeCommandIndex;
                                     Codes[EditLocation+cacheIndex].CodeCommandLineActive = true;
                                     Codes[EditLocation+cacheIndex].CodeCommandLineNumber = -1;
+                                }
+
+                                if ( ThereIsCodeAfterThisLine(EditLocation+sizeOfLines+1) == false )
+                                {
+                                    Codes[EditLocation+sizeOfLines+1].CodeCommandIndex = -1;
+                                    Codes[EditLocation+sizeOfLines+1].CodeCommandLineActive = true;
+                                    Codes[EditLocation+sizeOfLines+1].CodeCommandLineNumber = -1;
                                 }
                             }
                             else if (interface->EditStatus == EditStatusLocationCopy)
@@ -796,6 +804,13 @@ void Logic::CheckForScrollArrowButtons(void)
                                     Codes[EditLocation+cacheIndex].CodeCommandIndex = CacheCodes[cacheIndex].CodeCommandIndex;
                                     Codes[EditLocation+cacheIndex].CodeCommandLineActive = true;
                                     Codes[EditLocation+cacheIndex].CodeCommandLineNumber = -1;
+                                }
+
+                                if ( ThereIsCodeAfterThisLine(EditLocation+sizeOfLines+1) == false )
+                                {
+                                    Codes[EditLocation+sizeOfLines+1].CodeCommandIndex = -1;
+                                    Codes[EditLocation+sizeOfLines+1].CodeCommandLineActive = true;
+                                    Codes[EditLocation+sizeOfLines+1].CodeCommandLineNumber = -1;
                                 }
                             }
 
