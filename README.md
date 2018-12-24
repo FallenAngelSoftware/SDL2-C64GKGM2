@@ -8,7 +8,10 @@ Windows®/Linux desktops & notebooks
 STATUS: "Pre-Alpha"  
 
 - Code Editor: 50%+ completed  
-(clear/delete/insert 100% / find 100% / edit delete/move/copy 100%)  
+(clear/delete/insert 100%)  
+(find 100%)  
+(edit delete/move/copy 100%)  
+(code windows resize 100%)  
 - Sprite Editor; 0% completed(started)  
 - Scene Editor: 0% completed(doable)  
 - Sound Editor: 0% completed(no idea)  
