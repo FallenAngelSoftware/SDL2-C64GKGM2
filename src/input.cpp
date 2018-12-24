@@ -4,12 +4,12 @@
 
 #include "screens.h"
 #include "visuals.h"
-#include "logic.h"
+#include "logicCode.h"
 #include "interface.h"
 
 extern Screens* screens;
 extern Visuals* visuals;
-extern Logic* logic;
+extern LogicCode* logicCode;
 extern Interface* interface;
 
 //-------------------------------------------------------------------------------------------------
@@ -129,8 +129,8 @@ void Input::GetAllUserInput(void)
 
     if (MouseButtonsRaw[0] == false)
     {
-        logic->ScrollNumberMoved = 0;
-        logic->ScrollSpeed = 5;
+        logicCode->ScrollNumberMoved = 0;
+        logicCode->ScrollSpeed = 5;
     }
 //------------------------------------------------------------------------
 

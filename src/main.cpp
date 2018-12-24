@@ -20,14 +20,14 @@
 #include "screens.h"
 #include "audio.h"
 #include "interface.h"
-#include "logic.h"
+#include "logicCode.h"
 
 Visuals *visuals;
 Input *input;
 Screens *screens;
 Audio *audio;
 Interface *interface;
-Logic *logic;
+LogicCode *logicCode;
 
 //-------------------------------------------------------------------------------------------------
 int main( int argc, char* args[] )
@@ -53,7 +53,7 @@ int main( int argc, char* args[] )
 
     interface = new Interface();
 
-    logic = new Logic();
+    logicCode = new LogicCode();
 
     screens = new Screens();
 
@@ -67,7 +67,7 @@ int main( int argc, char* args[] )
         visuals->ProcessFramerate();
     }
 
-    delete logic;
+    delete logicCode;
     delete interface;
     delete audio;
     delete screens;

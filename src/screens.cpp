@@ -9,13 +9,13 @@
 #include "input.h"
 #include "audio.h"
 #include "interface.h"
-#include "logic.h"
+#include "logicCode.h"
 
 extern Visuals* visuals;
 extern Input* input;
 extern Audio* audio;
 extern Interface* interface;
-extern Logic* logic;
+extern LogicCode* logicCode;
 
 //-------------------------------------------------------------------------------------------------
 Screens::Screens(void)
@@ -85,14 +85,14 @@ void Screens::ProcessScreenToDisplay(void)
 int windowWidth;
 int windowHeight;
 
-    if (  (ScreenTransitionStatus != FadeNone) || ( logic->DialogToShow == 0 && (logic->DialogToShowOld != logic->DialogToShow) )  )
+    if (  (ScreenTransitionStatus != FadeNone) || ( logicCode->DialogToShow == 0 && (logicCode->DialogToShowOld != logicCode->DialogToShow) )  )
     {
         ScreenIsDirty = true;
-        logic->DialogToShowOld = logic->DialogToShow;
+        logicCode->DialogToShowOld = logicCode->DialogToShow;
     }
 
-    if (logic->CommandSelectedByMouseOld != logic->CommandSelectedByMouse)  ScreenIsDirty = true;
-    if (logic->CodeSelectedByMouseOld != logic->CodeSelectedByMouse)  ScreenIsDirty = true;
+    if (logicCode->CommandSelectedByMouseOld != logicCode->CommandSelectedByMouse)  ScreenIsDirty = true;
+    if (logicCode->CodeSelectedByMouseOld != logicCode->CodeSelectedByMouse)  ScreenIsDirty = true;
 
     SDL_GetWindowSize(visuals->Window, &windowWidth, &windowHeight);
     if (windowWidth != visuals->WindowWidthCurrent || windowHeight != visuals->WindowHeightCurrent)
@@ -103,7 +103,7 @@ int windowHeight;
         ScreenIsDirty = true;
     }
 
-    if (logic->DialogToShow == DialogFindLineNumber && LineNumberFoundNew != LineNumberFoundOld)
+    if (logicCode->DialogToShow == DialogFindLineNumber && LineNumberFoundNew != LineNumberFoundOld)
     {
         ScreenIsDirty = true;
         LineNumberFoundOld = LineNumberFoundNew;
@@ -140,19 +140,19 @@ int windowHeight;
         interface->InterfaceLevelBackgroundShown = true;
     }
 
-    if (logic->DialogToShow == DialogLineNumberSelect)
+    if (logicCode->DialogToShow == DialogLineNumberSelect)
     {
         ShowLineNumberSelectionDialog();
     }
-    else if (logic->DialogToShow == DialogClearCode)
+    else if (logicCode->DialogToShow == DialogClearCode)
     {
         ShowClearCodeDialog();
     }
-    else if (logic->DialogToShow == DialogFindLineNumber)
+    else if (logicCode->DialogToShow == DialogFindLineNumber)
     {
         ShowFindLineNumberDialog();
     }
-    else if (logic->DialogToShow == DialogEdit)
+    else if (logicCode->DialogToShow == DialogEdit)
     {
         ShowEditDialog();
     }
@@ -181,19 +181,19 @@ int windowHeight;
         strcat(visuals->VariableText, "/60");
 
         strcat(visuals->VariableText, " SELECT=");
-        sprintf(temp, "%d", logic->CodeSelectorSelected);
+        sprintf(temp, "%d", logicCode->CodeSelectorSelected);
         strcat(visuals->VariableText, temp);
 
         strcat(visuals->VariableText, " EDIT=");
-        sprintf(temp, "%d", logic->CodeSelectedForEdit);
+        sprintf(temp, "%d", logicCode->CodeSelectedForEdit);
         strcat(visuals->VariableText, temp);
 
         strcat(visuals->VariableText, " LAST=");
-        sprintf(temp, "%d", logic->CodeLastLine);
+        sprintf(temp, "%d", logicCode->CodeLastLine);
         strcat(visuals->VariableText, temp);
 
         strcat(visuals->VariableText, " EDITLOC=");
-        sprintf(temp, "%d", logic->EditLocation);
+        sprintf(temp, "%d", logicCode->EditLocation);
         strcat(visuals->VariableText, temp);
 
         visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 8, 8, JustifyLeft, 255, 255, 255, 255, 1, 1);
@@ -301,7 +301,7 @@ bool Screens::ThisLineNumberIsAvailable(int lineNumber)
 {
     for (int index = 0; index < NumberOfCodes; index++)
     {
-        if (lineNumber == logic->Codes[index].CodeCommandLineNumber)  return(false);
+        if (lineNumber == logicCode->Codes[index].CodeCommandLineNumber)  return(false);
     }
 
     return(true);
@@ -315,7 +315,7 @@ int lineNumberTotal = 0;
     interface->Buttons[interface->CodeLineSelectorButtonsEnd+14].ScreenX = 320;
     interface->Buttons[interface->CodeLineSelectorButtonsEnd+14].ScreenY = 240+130;
 
-    if (logic->Codes[logic->CommandDisplayStartIndex+logic->CodeSelectedForLineNumberEdit].CodeCommandLineNumber > -1)
+    if (logicCode->Codes[logicCode->CommandDisplayStartIndex+logicCode->CodeSelectedForLineNumberEdit].CodeCommandLineNumber > -1)
     {
         interface->Buttons[interface->CodeLineSelectorButtonsEnd+15].ScreenX = 320;
         interface->Buttons[interface->CodeLineSelectorButtonsEnd+15].ScreenY = 240+170;
@@ -339,37 +339,37 @@ int lineNumberTotal = 0;
 
     visuals->DrawSentenceOntoScreenBuffer(0, "ENTER NEW LINE NUMBER:", 320, 65, JustifyCenter, 255, 255, 255, 255, 2.5, 5.0);
 
-    lineNumberTotal = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
+    lineNumberTotal = ( (logicCode->LineNumberArray[0]*100)+(logicCode->LineNumberArray[1]*10)+logicCode->LineNumberArray[2] );
 
     if ( interface->ThisButtonWasPressed == (interface->CodeLineSelectorButtonsEnd+14) && ThisLineNumberIsAvailable(lineNumberTotal) == true )
     {
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = DialogNothing;
+        logicCode->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
         interface->InterfaceLevelBackgroundShown = false;
 
-        logic->Codes[logic->CommandDisplayStartIndex+logic->CodeSelectedForLineNumberEdit].CodeCommandLineNumber = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
+        logicCode->Codes[logicCode->CommandDisplayStartIndex+logicCode->CodeSelectedForLineNumberEdit].CodeCommandLineNumber = ( (logicCode->LineNumberArray[0]*100)+(logicCode->LineNumberArray[1]*10)+logicCode->LineNumberArray[2] );
     }
     else if ( interface->ThisButtonWasPressed == (interface->CodeLineSelectorButtonsEnd+15) )
     {
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = DialogNothing;
+        logicCode->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
         interface->InterfaceLevelBackgroundShown = false;
 
-        logic->Codes[logic->CodeSelectedForLineNumberEdit].CodeCommandLineNumber = -1;
+        logicCode->Codes[logicCode->CodeSelectedForLineNumberEdit].CodeCommandLineNumber = -1;
     }
     else if ( interface->ThisButtonWasPressed == (interface->CodeLineSelectorButtonsEnd+16) )
     {
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = DialogNothing;
+        logicCode->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
@@ -380,17 +380,17 @@ int lineNumberTotal = 0;
     {
         if ( interface->ThisButtonWasPressed == (interface->CodeLineSelectorButtonsEnd+2)+(2*index) )
         {
-            if (logic->LineNumberArray[index] < 9)  logic->LineNumberArray[index]++;
-            else  logic->LineNumberArray[index] = 0;
+            if (logicCode->LineNumberArray[index] < 9)  logicCode->LineNumberArray[index]++;
+            else  logicCode->LineNumberArray[index] = 0;
         }
         else if ( interface->ThisButtonWasPressed == (interface->CodeLineSelectorButtonsEnd+3)+(2*index) )
         {
-            if (logic->LineNumberArray[index] > 0)  logic->LineNumberArray[index]--;
-            else  logic->LineNumberArray[index] = 9;
+            if (logicCode->LineNumberArray[index] > 0)  logicCode->LineNumberArray[index]--;
+            else  logicCode->LineNumberArray[index] = 9;
         }
     }
 
-    lineNumberTotal = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
+    lineNumberTotal = ( (logicCode->LineNumberArray[0]*100)+(logicCode->LineNumberArray[1]*10)+logicCode->LineNumberArray[2] );
 
     char temp[256];
     int screenX = 320 - (105);
@@ -406,7 +406,7 @@ int lineNumberTotal = 0;
             greenColor = 0;
         }
 
-        sprintf(temp, "%i", logic->LineNumberArray[index]);
+        sprintf(temp, "%i", logicCode->LineNumberArray[index]);
         strcpy(visuals->VariableText, temp);
         visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, screenX, 240-20, JustifyCenterOnPoint, redColor, greenColor, blueColor, 255, 7.0, 7.0);
         screenX+=offsetX;
@@ -439,34 +439,34 @@ void Screens::ShowClearCodeDialog(void)
     {
         for (int index = 0; index < NumberOfCodes; index++)
         {
-            logic->Codes[index].CodeCommandLineNumber = -1;
-            logic->Codes[index].CodeCommandIndex = -1;
-            logic->Codes[index].CodeCommandLineActive = false;
+            logicCode->Codes[index].CodeCommandLineNumber = -1;
+            logicCode->Codes[index].CodeCommandIndex = -1;
+            logicCode->Codes[index].CodeCommandLineActive = false;
         }
-        logic->Codes[0].CodeCommandLineActive = true;
+        logicCode->Codes[0].CodeCommandLineActive = true;
 
-        logic->CurrentCodeLine = 0;
+        logicCode->CurrentCodeLine = 0;
 
-        logic->CodeDisplayStartIndex = 0;
-        logic->CodeDisplayEndIndex = 5;
+        logicCode->CodeDisplayStartIndex = 0;
+        logicCode->CodeDisplayEndIndex = 5;
 
-        logic->CodeSelectedByMouseOld = -1;
-        logic->CodeSelectedByMouse = -1;
+        logicCode->CodeSelectedByMouseOld = -1;
+        logicCode->CodeSelectedByMouse = -1;
 
-        logic->CodeSelectedForEdit = -1;
-        logic->CodeSelectorSelected = -1;
+        logicCode->CodeSelectedForEdit = -1;
+        logicCode->CodeSelectorSelected = -1;
 
-        logic->CodeSelectedForLineNumberEdit = -1;
+        logicCode->CodeSelectedForLineNumberEdit = -1;
 
-        logic->CalculateCodeLastLine();
+        logicCode->CalculateCodeLastLine();
 
         interface->SetupCodingWindows();
 
-        logic->ShowHideCodeSelectLineNumberBoxes();
+        logicCode->ShowHideCodeSelectLineNumberBoxes();
 
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = DialogNothing;
+        logicCode->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
@@ -476,7 +476,7 @@ void Screens::ShowClearCodeDialog(void)
     {
         MoveSelectArrowsAndButtonsOffScreen();
 
-        logic->DialogToShow = DialogNothing;
+        logicCode->DialogToShow = DialogNothing;
 
         interface->CurrentInterfaceLevel = 0;
 
@@ -520,7 +520,7 @@ int lineNumberTotal = 0;
     {
         interface->CurrentInterfaceLevel = 0;
 
-        logic->DialogToShow = DialogNothing;
+        logicCode->DialogToShow = DialogNothing;
 
         for ( int index = (interface->CodeLineSelectorButtonsEnd+2); index < (interface->CodeLineSelectorButtonsEnd+8); index++ )
         {
@@ -536,17 +536,17 @@ int lineNumberTotal = 0;
     {
         if ( interface->ThisButtonWasPressed == (interface->CodeLineSelectorButtonsEnd+2)+(2*index) )
         {
-            if (logic->LineNumberArray[index] < 9)  logic->LineNumberArray[index]++;
-            else  logic->LineNumberArray[index] = 0;
+            if (logicCode->LineNumberArray[index] < 9)  logicCode->LineNumberArray[index]++;
+            else  logicCode->LineNumberArray[index] = 0;
         }
         else if ( interface->ThisButtonWasPressed == (interface->CodeLineSelectorButtonsEnd+3)+(2*index) )
         {
-            if (logic->LineNumberArray[index] > 0)  logic->LineNumberArray[index]--;
-            else  logic->LineNumberArray[index] = 9;
+            if (logicCode->LineNumberArray[index] > 0)  logicCode->LineNumberArray[index]--;
+            else  logicCode->LineNumberArray[index] = 9;
         }
     }
 
-    lineNumberTotal = ( (logic->LineNumberArray[0]*100)+(logic->LineNumberArray[1]*10)+logic->LineNumberArray[2] );
+    lineNumberTotal = ( (logicCode->LineNumberArray[0]*100)+(logicCode->LineNumberArray[1]*10)+logicCode->LineNumberArray[2] );
 
     char temp[256];
     int screenX = 200;
@@ -562,7 +562,7 @@ int lineNumberTotal = 0;
             greenColor = 0;
         }
 
-        sprintf(temp, "%i", logic->LineNumberArray[index]);
+        sprintf(temp, "%i", logicCode->LineNumberArray[index]);
         strcpy(visuals->VariableText, temp);
         visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, screenX, 50, JustifyCenterOnPoint, redColor, greenColor, blueColor, 255, 2.0, 2.0);
         screenX+=offsetX;
@@ -570,19 +570,19 @@ int lineNumberTotal = 0;
 
     for (int index = 0; index < NumberOfCodes; index++)
     {
-        if (logic->Codes[index].CodeCommandLineNumber == lineNumberTotal)
+        if (logicCode->Codes[index].CodeCommandLineNumber == lineNumberTotal)
         {
-            logic->CodeDisplayStartIndex = index;
-            logic->CodeDisplayEndIndex = logic->CodeDisplayStartIndex+logic->CodeBoxMaxY;
+            logicCode->CodeDisplayStartIndex = index;
+            logicCode->CodeDisplayEndIndex = logicCode->CodeDisplayStartIndex+logicCode->CodeBoxMaxY;
 
             LineNumberFoundNew = index;
 
-            logic->ClearAllCodeSelectors();
+            logicCode->ClearAllCodeSelectors();
 
-            logic->CodeSelectorSelected = 0;
-            logic->CodeSelectedForEdit = logic->CodeDisplayStartIndex;
+            logicCode->CodeSelectorSelected = 0;
+            logicCode->CodeSelectedForEdit = logicCode->CodeDisplayStartIndex;
 
-            logic->ShowHideCodeSelectLineNumberBoxes();
+            logicCode->ShowHideCodeSelectLineNumberBoxes();
         }
     }
 }
@@ -640,28 +640,28 @@ void Screens::DisplayCodeEditor_Screen(void)
         interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1211, 16, 132+199, 255, 255, 255, 255, 0.35, 0.35);
         interface->CreateButtonWithText(0, false, true, "", 1.0, 1.0, 1216, 16, 132+90+199, 255, 255, 255, 255, 0.35, 0.35);
 
-        logic->ScrollNumberMoved = 0;
-        logic->ScrollSpeed = 3;
+        logicCode->ScrollNumberMoved = 0;
+        logicCode->ScrollSpeed = 3;
 
-        logic->CommandDisplayStartIndex = 0;
-        logic->CommandDisplayEndIndex = 5;
+        logicCode->CommandDisplayStartIndex = 0;
+        logicCode->CommandDisplayEndIndex = 5;
 
-        logic->CodeSelectedByMouseOld = -1;
-        logic->CodeSelectedByMouse = -1;
+        logicCode->CodeSelectedByMouseOld = -1;
+        logicCode->CodeSelectedByMouse = -1;
 
-        logic->CodeDisplayStartIndex = 0;
-        logic->CodeDisplayEndIndex = 5;
+        logicCode->CodeDisplayStartIndex = 0;
+        logicCode->CodeDisplayEndIndex = 5;
 
-        logic->CodeSelectedByMouseOld = -1;
-        logic->CodeSelectedByMouse = -1;
+        logicCode->CodeSelectedByMouseOld = -1;
+        logicCode->CodeSelectedByMouse = -1;
 
-        logic->CodeSelectedForEdit = -1;
+        logicCode->CodeSelectedForEdit = -1;
 
-        logic->CodeSelectedForLineNumberEdit = -1;
+        logicCode->CodeSelectedForLineNumberEdit = -1;
 
         for (int index = 0; index < 3; index++)
         {
-            logic->LineNumberArray[index] = 0;
+            logicCode->LineNumberArray[index] = 0;
         }
 
         int codeEditScreenY = 109+200-2+5-10;
@@ -763,21 +763,21 @@ void Screens::DisplayCodeEditor_Screen(void)
 
         interface->CreateButtonWithText(2, true, true, "OK", 8.5, 3.0, 1200, -999, -999, 100, 255, 100, 255, 0.25, 1.25);
 
-        logic->DialogToShow = DialogNothing;
+        logicCode->DialogToShow = DialogNothing;
 
-        logic->CommandBoxMaxY = 7;
-        logic->CodeBoxMaxY = 7;
+        logicCode->CommandBoxMaxY = 7;
+        logicCode->CodeBoxMaxY = 7;
 
-        logic->CodeBoxOffsetY = 0;
+        logicCode->CodeBoxOffsetY = 0;
 
-        logic->ShowHideCodeSelectLineNumberBoxes();
+        logicCode->ShowHideCodeSelectLineNumberBoxes();
 
         interface->SetupCodingWindows();
 
         ScreenTransitionStatus = FadeIn;
     }
 
-    logic->RunCodeEditor();
+    logicCode->RunCodeEditor();
 
     if (ScreenIsDirty == true)
     {
@@ -801,9 +801,9 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
 
         int commandScreenY = 107-10;
         int commandOffsetY = 32-10-4;
-        for (int index = logic->CommandDisplayStartIndex; index < logic->CommandDisplayEndIndex; index++)
+        for (int index = logicCode->CommandDisplayStartIndex; index < logicCode->CommandDisplayEndIndex; index++)
         {
-            if (index == logic->CommandDisplayStartIndex)
+            if (index == logicCode->CommandDisplayStartIndex)
             {
                 interface->Buttons[8].ScreenY = commandScreenY;
             }
@@ -815,7 +815,7 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
             visuals->Sprites[1300].BlueHue = 255;
             visuals->DrawSpriteOntoScreenBuffer(1300);
 
-            if (logic->CommandSelectedByMouse == index)
+            if (logicCode->CommandSelectedByMouse == index)
             {
                 if (interface->CurrentInterfaceLevel == 0)  visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 0, 255, 0, 255, 1.6, 1.6);
                 else  visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 1.6);
@@ -825,18 +825,18 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
                 visuals->DrawSentenceOntoScreenBuffer(1, visuals->Commands[index].CommandTexts, 65, commandScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 1.6);
             }
 
-            logic->CommandSelectedByMouseOld = logic->CommandSelectedByMouse;
+            logicCode->CommandSelectedByMouseOld = logicCode->CommandSelectedByMouse;
 
             commandScreenY+=commandOffsetY;
         }
         interface->Buttons[9].ScreenY = (commandScreenY-17);
 
 
-        int codeScreenY = 109+200-2+logic->CodeBoxOffsetY + 5 - 10;
+        int codeScreenY = 109+200-2+logicCode->CodeBoxOffsetY + 5 - 10;
         int codeOffsetY = 32-10-4;
-        for (int index = logic->CodeDisplayStartIndex; index < logic->CodeDisplayEndIndex; index++)
+        for (int index = logicCode->CodeDisplayStartIndex; index < logicCode->CodeDisplayEndIndex; index++)
         {
-            if (index == logic->CodeDisplayStartIndex)
+            if (index == logicCode->CodeDisplayStartIndex)
             {
                 interface->Buttons[10].ScreenY = codeScreenY;
             }
@@ -847,7 +847,7 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
 
             if (interface->EditStatus == EditStatusLast)
             {
-                if (index == logic->EditLineSelectedByMouse)
+                if (index == logicCode->EditLineSelectedByMouse)
                 {
                     visuals->Sprites[1300].ScreenX = 320-26;
                     visuals->Sprites[1300].ScreenY = codeScreenY;
@@ -857,9 +857,9 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
                     visuals->DrawSpriteOntoScreenBuffer(1300);
                 }
 
-                if ( (logic->EditLineSelectedByMouse > -1) && (logic->EditFirstLine < logic->EditLineSelectedByMouse) )
+                if ( (logicCode->EditLineSelectedByMouse > -1) && (logicCode->EditFirstLine < logicCode->EditLineSelectedByMouse) )
                 {
-                    if (index >= logic->EditFirstLine && index <= logic->EditLineSelectedByMouse)
+                    if (index >= logicCode->EditFirstLine && index <= logicCode->EditLineSelectedByMouse)
                     {
                         visuals->Sprites[1300].ScreenX = 320-26;
                         visuals->Sprites[1300].ScreenY = codeScreenY;
@@ -869,9 +869,9 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
                         visuals->DrawSpriteOntoScreenBuffer(1300);
                     }
                 }
-                if ( (logic->EditLineSelectedByMouse > -1) && (logic->EditFirstLine > logic->EditLineSelectedByMouse) )
+                if ( (logicCode->EditLineSelectedByMouse > -1) && (logicCode->EditFirstLine > logicCode->EditLineSelectedByMouse) )
                 {
-                    if (index <= logic->EditFirstLine && index >= logic->EditLineSelectedByMouse)
+                    if (index <= logicCode->EditFirstLine && index >= logicCode->EditLineSelectedByMouse)
                     {
                         visuals->Sprites[1300].ScreenX = 320-26;
                         visuals->Sprites[1300].ScreenY = codeScreenY;
@@ -884,7 +884,7 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
             }
             else if (interface->EditStatus == EditStatusCommand || interface->EditStatus >= EditStatusLocationMove)
             {
-                if ( (logic->EditFirstLine <= logic->EditLastLine) && (index >= logic->EditFirstLine && index <= logic->EditLastLine) )
+                if ( (logicCode->EditFirstLine <= logicCode->EditLastLine) && (index >= logicCode->EditFirstLine && index <= logicCode->EditLastLine) )
                 {
                     visuals->Sprites[1300].ScreenX = 320-26;
                     visuals->Sprites[1300].ScreenY = codeScreenY;
@@ -893,7 +893,7 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
                     visuals->Sprites[1300].BlueHue = 100;
                     visuals->DrawSpriteOntoScreenBuffer(1300);
                 }
-                else if ( (logic->EditFirstLine >= logic->EditLastLine) && (index <= logic->EditFirstLine && index >= logic->EditLastLine) )
+                else if ( (logicCode->EditFirstLine >= logicCode->EditLastLine) && (index <= logicCode->EditFirstLine && index >= logicCode->EditLastLine) )
                 {
                     visuals->Sprites[1300].ScreenX = 320-26;
                     visuals->Sprites[1300].ScreenY = codeScreenY;
@@ -904,30 +904,30 @@ visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 25
                 }
             }
 
-            if ( (logic->Codes[index].CodeCommandIndex > -1) || (logic->Codes[index].CodeCommandLineNumber > -1) )
+            if ( (logicCode->Codes[index].CodeCommandIndex > -1) || (logicCode->Codes[index].CodeCommandLineNumber > -1) )
             {
-                if (logic->Codes[index].CodeCommandLineNumber > -1)
+                if (logicCode->Codes[index].CodeCommandLineNumber > -1)
                 {
                     char temp[256];
-                    sprintf(temp, "%i", logic->Codes[index].CodeCommandLineNumber);
+                    sprintf(temp, "%i", logicCode->Codes[index].CodeCommandLineNumber);
                     strcpy(visuals->VariableText, temp);
                     visuals->DrawSentenceOntoScreenBuffer(0, visuals->VariableText, 90, codeScreenY, JustifyRight, 0, 255, 255, 255, 1.2, 1.0);
                 }
 
-                if (logic->Codes[index].CodeCommandIndex > -1)
+                if (logicCode->Codes[index].CodeCommandIndex > -1)
                 {
-                    if (logic->CodeSelectedByMouse == index)
+                    if (logicCode->CodeSelectedByMouse == index)
                     {
-                        visuals->DrawSentenceOntoScreenBuffer(0, visuals->Commands[ logic->Codes[index].CodeCommandIndex ].CommandTexts, 65+40, codeScreenY, JustifyLeft, 0, 255, 0, 255, 1.6, 1.6);
+                        visuals->DrawSentenceOntoScreenBuffer(0, visuals->Commands[ logicCode->Codes[index].CodeCommandIndex ].CommandTexts, 65+40, codeScreenY, JustifyLeft, 0, 255, 0, 255, 1.6, 1.6);
                     }
                     else
                     {
-                        visuals->DrawSentenceOntoScreenBuffer(0, visuals->Commands[ logic->Codes[index].CodeCommandIndex ].CommandTexts, 65+40, codeScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 1.6);
+                        visuals->DrawSentenceOntoScreenBuffer(0, visuals->Commands[ logicCode->Codes[index].CodeCommandIndex ].CommandTexts, 65+40, codeScreenY, JustifyLeft, 255, 255, 255, 255, 1.6, 1.6);
                     }
                 }
             }
 
-            logic->CodeSelectedByMouseOld = logic->CodeSelectedByMouse;
+            logicCode->CodeSelectedByMouseOld = logicCode->CodeSelectedByMouse;
 
             codeScreenY+=codeOffsetY;
         }

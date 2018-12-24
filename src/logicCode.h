@@ -1,12 +1,12 @@
-#ifndef LOGIC
-#define LOGIC
+#ifndef LOGICCODE
+#define LOGICCODE
 
-class Logic
+class LogicCode
 {
 public:
 
-	Logic(void);
-	virtual ~Logic(void);
+	LogicCode(void);
+	virtual ~LogicCode(void);
 
     int ScrollNumberMoved;
     int ScrollSpeed;

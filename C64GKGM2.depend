@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1545450348 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
+1545672377 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
 	"SDL.h"
 	<stdio.h>
 	"visuals.h"
@@ -7,7 +7,7 @@
 	"screens.h"
 	"audio.h"
 	"interface.h"
-	"logic.h"
+	"logicCode.h"
 
 1540998544 c:\users\jlp\desktop\c64gkgm2\sdl2-2.0.9\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -357,7 +357,7 @@
 	<cstring>
 	"visuals.h"
 
-1545619542 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
+1545672438 source:c:\users\jlp\desktop\c64gkgm2\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -366,14 +366,14 @@
 	"input.h"
 	"audio.h"
 	"interface.h"
-	"logic.h"
+	"logicCode.h"
 
-1544551532 source:c:\users\jlp\desktop\c64gkgm2\src\input.cpp
+1545672417 source:c:\users\jlp\desktop\c64gkgm2\src\input.cpp
 	"SDL.h"
 	"input.h"
 	"screens.h"
 	"visuals.h"
-	"logic.h"
+	"logicCode.h"
 	"interface.h"
 
 1544495492 c:\users\jlp\desktop\c64gkgm2\src\input.h
@@ -392,13 +392,13 @@
 
 1544282470 c:\users\jlp\desktop\c64gkgm2\src\audio.h
 
-1545581833 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
+1545672429 source:c:\users\jlp\desktop\c64gkgm2\src\interface.cpp
 	"SDL.h"
 	"interface.h"
 	"visuals.h"
 	"input.h"
 	"audio.h"
-	"logic.h"
+	"logicCode.h"
 	"screens.h"
 
 1545598986 c:\users\jlp\desktop\c64gkgm2\src\interface.h
@@ -413,4 +413,15 @@
 	"screens.h"
 
 1545611527 c:\users\jlp\desktop\c64gkgm2\src\logic.h
+
+1545672405 source:c:\users\jlp\desktop\c64gkgm2\src\logiccode.cpp
+	"SDL.h"
+	<stdio.h>
+	"logicCode.h"
+	"interface.h"
+	"input.h"
+	"visuals.h"
+	"screens.h"
+
+1545672211 c:\users\jlp\desktop\c64gkgm2\src\logiccode.h
 

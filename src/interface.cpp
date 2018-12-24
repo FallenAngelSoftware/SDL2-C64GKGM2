@@ -5,13 +5,13 @@
 #include "visuals.h"
 #include "input.h"
 #include "audio.h"
-#include "logic.h"
+#include "logicCode.h"
 #include "screens.h"
 
 extern Visuals* visuals;
 extern Input* input;
 extern Audio* audio;
-extern Logic* logic;
+extern LogicCode* logicCode;
 extern Screens* screens;
 
 //            TM
@@ -70,18 +70,18 @@ Interface::~Interface(void)
 //-------------------------------------------------------------------------------------------------
 void Interface::SetupCodingWindows(void)
 {
-    logic->CodeBoxOffsetY = 0 + (18*CodingWindowsValue);
+    logicCode->CodeBoxOffsetY = 0 + (18*CodingWindowsValue);
 
-    logic->CommandBoxMaxY = 10 + (CodingWindowsValue);
-    logic->CommandDisplayEndIndex = logic->CommandBoxMaxY;
+    logicCode->CommandBoxMaxY = 10 + (CodingWindowsValue);
+    logicCode->CommandDisplayEndIndex = logicCode->CommandBoxMaxY;
 
-    logic->CodeBoxMaxY = 10 - (CodingWindowsValue);
-    logic->CodeDisplayEndIndex = logic->CodeBoxMaxY;
+    logicCode->CodeBoxMaxY = 10 - (CodingWindowsValue);
+    logicCode->CodeDisplayEndIndex = logicCode->CodeBoxMaxY;
 
-    logic->CommandDisplayEndIndex = (logic->CommandDisplayStartIndex+logic->CommandBoxMaxY);
-    logic->CodeDisplayEndIndex = (logic->CodeDisplayStartIndex+logic->CodeBoxMaxY);
+    logicCode->CommandDisplayEndIndex = (logicCode->CommandDisplayStartIndex+logicCode->CommandBoxMaxY);
+    logicCode->CodeDisplayEndIndex = (logicCode->CodeDisplayStartIndex+logicCode->CodeBoxMaxY);
 
-    logic->ShowHideCodeSelectLineNumberBoxes();
+    logicCode->ShowHideCodeSelectLineNumberBoxes();
     screens->ScreenIsDirty = true;
 }
 
@@ -189,29 +189,29 @@ void Interface::ProcessAllButtons(void)
                                 ThisButtonWasPressed = Buttons[index].ScreenIndex;
                                 Buttons[index].AnimationTimer+=1;
 
-                                if (logic->ScrollNumberMoved > 5 && logic->ScrollNumberMoved < 10)
+                                if (logicCode->ScrollNumberMoved > 5 && logicCode->ScrollNumberMoved < 10)
                                 {
-                                    logic->ScrollSpeed = 4;
+                                    logicCode->ScrollSpeed = 4;
                                 }
-                                else if (logic->ScrollNumberMoved > 9 && logic->ScrollNumberMoved < 13)
+                                else if (logicCode->ScrollNumberMoved > 9 && logicCode->ScrollNumberMoved < 13)
                                 {
-                                    logic->ScrollSpeed = 3;
+                                    logicCode->ScrollSpeed = 3;
                                 }
-                                else if (logic->ScrollNumberMoved > 12 && logic->ScrollNumberMoved < 15)
+                                else if (logicCode->ScrollNumberMoved > 12 && logicCode->ScrollNumberMoved < 15)
                                 {
-                                    logic->ScrollSpeed = 2;
+                                    logicCode->ScrollSpeed = 2;
                                 }
-                                else if (logic->ScrollNumberMoved > 14 && logic->ScrollNumberMoved < 16)
+                                else if (logicCode->ScrollNumberMoved > 14 && logicCode->ScrollNumberMoved < 16)
                                 {
-                                    logic->ScrollSpeed = 1;
+                                    logicCode->ScrollSpeed = 1;
                                 }
-                                else if (logic->ScrollNumberMoved > 15)
+                                else if (logicCode->ScrollNumberMoved > 15)
                                 {
-                                    logic->ScrollSpeed = 0;
+                                    logicCode->ScrollSpeed = 0;
                                 }
 
-                                input->DelayAllUserInput = logic->ScrollSpeed;
-                                logic->ScrollNumberMoved++;
+                                input->DelayAllUserInput = logicCode->ScrollSpeed;
+                                logicCode->ScrollNumberMoved++;
                             }
                             else
                             {

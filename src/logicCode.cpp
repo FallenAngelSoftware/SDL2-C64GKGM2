@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#include "logic.h"
+#include "logicCode.h"
 
 #include "interface.h"
 #include "input.h"
@@ -15,7 +15,7 @@ extern Visuals* visuals;
 extern Screens* screens;
 
 //-------------------------------------------------------------------------------------------------
-Logic::Logic(void)
+LogicCode::LogicCode(void)
 {
     CommandBoxMaxY = 10;
     CodeBoxMaxY = 10;
@@ -77,13 +77,13 @@ Codes[10].CodeCommandLineActive = true;
 }
 
 //-------------------------------------------------------------------------------------------------
-Logic::~Logic(void)
+LogicCode::~LogicCode(void)
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CalculateCodeLastLine(void)
+void LogicCode::CalculateCodeLastLine(void)
 {
     CodeLastLine = 0;
     for (int index = 0; index < NumberOfCodes; index++)
@@ -96,7 +96,7 @@ void Logic::CalculateCodeLastLine(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-bool Logic::ThereIsCodeAfterThisLine(int line)
+bool LogicCode::ThereIsCodeAfterThisLine(int line)
 {
     for (int index = line; index < NumberOfCodes; index++)
     {
@@ -111,7 +111,7 @@ bool Logic::ThereIsCodeAfterThisLine(int line)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::ShowHideCodeSelectLineNumberBoxes(void)
+void LogicCode::ShowHideCodeSelectLineNumberBoxes(void)
 {
     for (int index = 0; index < CodeBoxMaxY; index++)
     {
@@ -156,7 +156,7 @@ void Logic::ShowHideCodeSelectLineNumberBoxes(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-bool Logic::ThereAreLineNumbers(void)
+bool LogicCode::ThereAreLineNumbers(void)
 {
     for (int index = 0; index < NumberOfCodes; index++)
     {
@@ -170,7 +170,7 @@ bool Logic::ThereAreLineNumbers(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::ClearAllCodeSelectors(void)
+void LogicCode::ClearAllCodeSelectors(void)
 {
     for ( int index = 12; index < (12+CodeBoxMaxY); index++ )
     {
@@ -187,7 +187,7 @@ void Logic::ClearAllCodeSelectors(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::SetupClickableButtons(void)
+void LogicCode::SetupClickableButtons(void)
 {
     if ( ThereIsCodeAfterThisLine(1) == true )
     {
@@ -229,7 +229,7 @@ void Logic::SetupClickableButtons(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForClearButton(void)
+void LogicCode::CheckForClearButton(void)
 {
     if (interface->ThisButtonWasPressed == 2)
     {
@@ -244,7 +244,7 @@ void Logic::CheckForClearButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForInsertButton(void)
+void LogicCode::CheckForInsertButton(void)
 {
     if (interface->ThisButtonWasPressed == 4 && CodeSelectedForEdit > -1)
     {
@@ -276,7 +276,7 @@ void Logic::CheckForInsertButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForDeleteButton(void)
+void LogicCode::CheckForDeleteButton(void)
 {
     if (interface->ThisButtonWasPressed == 5 && CodeSelectedForEdit > -1)
     {
@@ -328,7 +328,7 @@ void Logic::CheckForDeleteButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForFindButton(void)
+void LogicCode::CheckForFindButton(void)
 {
     if (interface->ThisButtonWasPressed == 6)
     {
@@ -347,7 +347,7 @@ void Logic::CheckForFindButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForEditButton(void)
+void LogicCode::CheckForEditButton(void)
 {
     if (interface->ThisButtonWasPressed == 7)
     {
@@ -395,7 +395,7 @@ void Logic::CheckForEditButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForEditQuitButton(void)
+void LogicCode::CheckForEditQuitButton(void)
 {
     if (interface->CurrentInterfaceLevel == 2 && DialogToShow == DialogEdit)
     {
@@ -451,7 +451,7 @@ void Logic::CheckForEditQuitButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForEditDelButton(void)
+void LogicCode::CheckForEditDelButton(void)
 {
     if (interface->CurrentInterfaceLevel == 2 && DialogToShow == DialogEdit)
     {
@@ -542,7 +542,7 @@ void Logic::CheckForEditDelButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForEditMoveButton(void)
+void LogicCode::CheckForEditMoveButton(void)
 {
     if (interface->CurrentInterfaceLevel == 2 && DialogToShow == DialogEdit)
     {
@@ -558,7 +558,7 @@ void Logic::CheckForEditMoveButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForEditCopyButton(void)
+void LogicCode::CheckForEditCopyButton(void)
 {
     if (interface->CurrentInterfaceLevel == 2 && DialogToShow == DialogEdit)
     {
@@ -574,7 +574,7 @@ void Logic::CheckForEditCopyButton(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForScrollArrowButtons(void)
+void LogicCode::CheckForScrollArrowButtons(void)
 {
     if (interface->CurrentInterfaceLevel == 0)
     {
@@ -962,7 +962,7 @@ void Logic::CheckForScrollArrowButtons(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForCodeSelectButtons(void)
+void LogicCode::CheckForCodeSelectButtons(void)
 {
     for ( int index = interface->CodeSelectorButtonsStart; index < (interface->CodeSelectorButtonsStart+CodeBoxMaxY); index++ )
     {
@@ -1009,7 +1009,7 @@ void Logic::CheckForCodeSelectButtons(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::CheckForCodeLineSelectButtons(void)
+void LogicCode::CheckForCodeLineSelectButtons(void)
 {
     for ( int index = interface->CodeLineSelectorButtonsStart; index < (interface->CodeLineSelectorButtonsStart+CodeBoxMaxY); index++ )
     {
@@ -1044,7 +1044,7 @@ void Logic::CheckForCodeLineSelectButtons(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-void Logic::RunCodeEditor(void)
+void LogicCode::RunCodeEditor(void)
 {
     SetupClickableButtons();
 

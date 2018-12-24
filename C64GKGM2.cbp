@@ -45,8 +45,8 @@
 		<Unit filename="src/input.h" />
 		<Unit filename="src/interface.cpp" />
 		<Unit filename="src/interface.h" />
-		<Unit filename="src/logic.cpp" />
-		<Unit filename="src/logic.h" />
+		<Unit filename="src/logicCode.cpp" />
+		<Unit filename="src/logicCode.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/resources.rc">
 			<Option compilerVar="WINDRES" />
