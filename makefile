@@ -17,6 +17,7 @@ OBJECTS = src/main.o \
           src/input.o \
           src/interface.o \
           src/logicCode.o \
+          src/logicSprite.o \
           src/screens.o \
           src/visuals.o
 
@@ -25,6 +26,7 @@ SOURCES = src/main.cpp \
           src/input.cpp \
           src/interface.cpp \
           src/logicCode.cpp \
+          src/logicSprite \
           src/screens.cpp \
           src/visuals.cpp
 
@@ -32,6 +34,7 @@ HEADERS = src/audio.h \
           src/input.h \
           src/interface.h \
           src/logicCode \
+          src/logicSprite \
           src/screens.h \
           src/visuals.h
 

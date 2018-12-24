@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1545672377 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
+1545673746 source:c:\users\jlp\desktop\c64gkgm2\src\main.cpp
 	"SDL.h"
 	<stdio.h>
 	"visuals.h"
@@ -8,6 +8,7 @@
 	"audio.h"
 	"interface.h"
 	"logicCode.h"
+	"logicSprite.h"
 
 1540998544 c:\users\jlp\desktop\c64gkgm2\sdl2-2.0.9\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -424,4 +425,10 @@
 	"screens.h"
 
 1545672211 c:\users\jlp\desktop\c64gkgm2\src\logiccode.h
+
+1545673680 source:c:\users\jlp\desktop\c64gkgm2\src\logicsprite.cpp
+	"SDL.h"
+	"logicSprite.h"
+
+1545673680 c:\users\jlp\desktop\c64gkgm2\src\logicsprite.h
 

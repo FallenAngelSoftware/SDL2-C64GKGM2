@@ -47,6 +47,8 @@
 		<Unit filename="src/interface.h" />
 		<Unit filename="src/logicCode.cpp" />
 		<Unit filename="src/logicCode.h" />
+		<Unit filename="src/logicSprite.cpp" />
+		<Unit filename="src/logicSprite.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/resources.rc">
 			<Option compilerVar="WINDRES" />

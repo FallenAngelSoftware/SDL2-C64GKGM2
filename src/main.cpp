@@ -21,6 +21,7 @@
 #include "audio.h"
 #include "interface.h"
 #include "logicCode.h"
+#include "logicSprite.h"
 
 Visuals *visuals;
 Input *input;
@@ -28,6 +29,7 @@ Screens *screens;
 Audio *audio;
 Interface *interface;
 LogicCode *logicCode;
+LogicSprite *logicSprite;
 
 //-------------------------------------------------------------------------------------------------
 int main( int argc, char* args[] )
@@ -55,10 +57,13 @@ int main( int argc, char* args[] )
 
     logicCode = new LogicCode();
 
+    logicSprite = new LogicSprite();
+
     screens = new Screens();
 
     audio = new Audio();
     if (audio->SetupAudio() != true)  visuals->CoreFailure = true;
+
     while (input->EXIT_Game == false && visuals->CoreFailure == false)
     {
         input->GetAllUserInput();
@@ -67,10 +72,11 @@ int main( int argc, char* args[] )
         visuals->ProcessFramerate();
     }
 
-    delete logicCode;
-    delete interface;
     delete audio;
     delete screens;
+    delete logicSprite;
+    delete logicCode;
+    delete interface;
     delete input;
     delete visuals;
 
