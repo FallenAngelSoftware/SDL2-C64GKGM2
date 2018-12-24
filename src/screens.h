@@ -42,6 +42,8 @@ public:
     int LineNumberFoundOld;
     void ShowFindLineNumberDialog(void);
 
+    void ShowEditDialog(void);
+
     void DisplayCodeEditor_Screen(void);
 
 };

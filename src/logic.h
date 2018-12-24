@@ -26,6 +26,14 @@ public:
 
     } Codes[NumberOfCodes];
 
+    struct CacheCode
+    {
+        int CodeCommandLineNumber;
+        int CodeCommandIndex;
+        bool CodeCommandLineActive;
+
+    } CacheCodes[NumberOfCodes];
+
     int CurrentCodeLine;
 
     int CodeLastLine;
@@ -46,6 +54,11 @@ public:
 
     int CodeBoxOffsetY;
 
+    int EditLineSelectedByMouse;
+    int EditFirstLine;
+    int EditLastLine;
+    int EditLocation;
+
     void CalculateCodeLastLine(void);
 
     bool ThereIsCodeAfterThisLine(int line);
@@ -55,6 +68,7 @@ public:
     #define DialogLineNumberSelect      1
     #define DialogClearCode             2
     #define DialogFindLineNumber        3
+    #define DialogEdit                  4
     int DialogToShow;
     int DialogToShowOld;
 
@@ -69,7 +83,13 @@ public:
     void CheckForInsertButton(void);
     void CheckForDeleteButton(void);
     void CheckForFindButton(void);
+
     void CheckForEditButton(void);
+    void CheckForEditQuitButton(void);
+    void CheckForEditDelButton(void);
+    void CheckForEditMoveButton(void);
+    void CheckForEditCopyButton(void);
+
     void CheckForScrollArrowButtons(void);
     void CheckForCodeSelectButtons(void);
     void CheckForCodeLineSelectButtons(void);

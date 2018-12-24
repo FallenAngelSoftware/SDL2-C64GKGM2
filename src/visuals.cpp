@@ -261,7 +261,6 @@ int textureHeight;
 
         SDL_FreeSurface(boxTemp);
 
-
         srcRect.y = 11;
 
         boxTemp = SDL_LoadBMP("data/font/CharTemp.bmp");

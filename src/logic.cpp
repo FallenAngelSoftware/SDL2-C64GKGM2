@@ -1,5 +1,7 @@
 #include "SDL.h"
 
+#include <stdio.h>
+
 #include "logic.h"
 
 #include "interface.h"
@@ -55,6 +57,11 @@ Codes[10].CodeCommandLineActive = true;
     CodeSelectedForLineNumberEdit = -1;
 
     CodeBoxOffsetY = 0;
+
+    EditLineSelectedByMouse = -1;
+    EditFirstLine = -1;
+    EditLastLine = -1;
+    EditLocation = -1;
 
     CalculateCodeLastLine();
 
@@ -344,7 +351,225 @@ void Logic::CheckForEditButton(void)
 {
     if (interface->ThisButtonWasPressed == 7)
     {
+        interface->CurrentInterfaceLevel = 2;
 
+        for (int index = 0; index < 8; index++)
+        {
+            interface->Buttons[index].ScreenX = -999;
+        }
+
+        interface->Buttons[8].ScreenX = -999;
+        interface->Buttons[9].ScreenX = -999;
+
+        interface->Buttons[10].InterfaceLevel = 2;
+        interface->Buttons[11].InterfaceLevel = 2;
+
+        int buttonScreenX = 595+4;
+        int buttonOffsetY = 57;
+        int buttonScreenY = 40+(buttonOffsetY*4);
+        interface->EditQuitButtonIndex = interface->CreateButtonWithText(2, true, true, "QUIT", 5.0, 2.0, 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->EditDelButtonIndex = interface->CreateButtonWithText(2, true, true, "DEL", 5.0, 2.0, 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->EditMoveButtonIndex = interface->CreateButtonWithText(2, true, true, "MOVE", 5.0, 2.0, 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+        buttonScreenY+=buttonOffsetY;
+        interface->EditCopyButtonIndex = interface->CreateButtonWithText(2, true, true, "COPY", 5.0, 2.0, 1200, buttonScreenX, buttonScreenY, 255, 255, 255, 255, 0.3, 1.0);
+
+        interface->EditStatus = EditStatusFirst;
+
+        interface->Buttons[interface->EditDelButtonIndex].BlockPressing = true;
+        interface->Buttons[interface->EditMoveButtonIndex].BlockPressing = true;
+        interface->Buttons[interface->EditCopyButtonIndex].BlockPressing = true;
+
+        EditLineSelectedByMouse = -1;
+        EditFirstLine = -1;
+        EditLastLine = -1;
+        EditLocation = -1;
+
+        DialogToShow = DialogEdit;
+        DialogToShowOld = DialogToShow;
+
+        CodeSelectorSelected = -1;
+        ShowHideCodeSelectLineNumberBoxes();
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForEditQuitButton(void)
+{
+    if (interface->CurrentInterfaceLevel == 2 && DialogToShow == DialogEdit)
+    {
+        if (interface->ThisButtonWasPressed == interface->EditQuitButtonIndex)
+        {
+            interface->CurrentInterfaceLevel = 0;
+
+            for (int index = 0; index < 8; index++)
+            {
+                interface->Buttons[index].ScreenX = (595+4);
+            }
+
+            interface->Buttons[8].ScreenX = 16;
+            interface->Buttons[9].ScreenX = 16;
+
+            interface->Buttons[10].InterfaceLevel = 0;
+            interface->Buttons[11].InterfaceLevel = 0;
+
+            for ( int index = interface->EditQuitButtonIndex; index < (interface->EditCopyButtonIndex+1); index++ )
+            {
+                interface->Buttons[index].OneClick = true;
+                interface->Buttons[index].SpriteIndex = -1;
+                interface->Buttons[index].Text = " ";
+                interface->Buttons[index].TextScaleX = 1.0;
+                interface->Buttons[index].TextScaleY = 1.0;
+                interface->Buttons[index].ScreenIndex = -1;
+                interface->Buttons[index].ScreenX = 320;
+                interface->Buttons[index].ScreenY = 240;
+                interface->Buttons[index].RedHue = 255;
+                interface->Buttons[index].GreenHue = 255;
+                interface->Buttons[index].BlueHue = 255;
+                interface->Buttons[index].Transparency = 255;
+                interface->Buttons[index].ScaleX = 1.0;
+                interface->Buttons[index].ScaleY = 1.0;
+                interface->Buttons[index].AnimationScale = 1.0;
+                interface->Buttons[index].AnimationTimer = -1;
+                interface->Buttons[index].BlockPressing = false;
+                interface->Buttons[index].InterfaceLevel = 0;
+                interface->Buttons[index].PlaySound = true;
+            }
+
+            interface->EditStatus = EditStatusOff;
+
+            EditLineSelectedByMouse = -1;
+            EditFirstLine = -1;
+            EditLastLine = -1;
+            EditLocation = -1;
+
+            DialogToShow = DialogNothing;
+            DialogToShowOld = DialogToShow;
+        }
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForEditDelButton(void)
+{
+    if (interface->CurrentInterfaceLevel == 2 && DialogToShow == DialogEdit)
+    {
+        if (interface->ThisButtonWasPressed == interface->EditDelButtonIndex && interface->EditStatus < EditStatusLocationMove)
+        {
+            interface->CurrentInterfaceLevel = 0;
+
+            for (int index = 0; index < 8; index++)
+            {
+                interface->Buttons[index].ScreenX = (595+4);
+            }
+
+            interface->Buttons[8].ScreenX = 16;
+            interface->Buttons[9].ScreenX = 16;
+
+            interface->Buttons[10].InterfaceLevel = 0;
+            interface->Buttons[11].InterfaceLevel = 0;
+
+            for ( int index = interface->EditQuitButtonIndex; index < (interface->EditCopyButtonIndex+1); index++ )
+            {
+                interface->Buttons[index].OneClick = true;
+                interface->Buttons[index].SpriteIndex = -1;
+                interface->Buttons[index].Text = " ";
+                interface->Buttons[index].TextScaleX = 1.0;
+                interface->Buttons[index].TextScaleY = 1.0;
+                interface->Buttons[index].ScreenIndex = -1;
+                interface->Buttons[index].ScreenX = 320;
+                interface->Buttons[index].ScreenY = 240;
+                interface->Buttons[index].RedHue = 255;
+                interface->Buttons[index].GreenHue = 255;
+                interface->Buttons[index].BlueHue = 255;
+                interface->Buttons[index].Transparency = 255;
+                interface->Buttons[index].ScaleX = 1.0;
+                interface->Buttons[index].ScaleY = 1.0;
+                interface->Buttons[index].AnimationScale = 1.0;
+                interface->Buttons[index].AnimationTimer = -1;
+                interface->Buttons[index].BlockPressing = false;
+                interface->Buttons[index].InterfaceLevel = 0;
+                interface->Buttons[index].PlaySound = true;
+            }
+
+            for ( int index = EditFirstLine; index < EditLastLine+1; index++)
+            {
+                Codes[index].CodeCommandIndex = -1;
+                Codes[index].CodeCommandLineActive = false;
+                Codes[index].CodeCommandLineNumber = -2;
+            }
+
+            while (Codes[EditFirstLine].CodeCommandLineNumber == -2)
+            {
+                for (int index = EditFirstLine; index < NumberOfCodes; index++)
+                {
+                    Codes[index].CodeCommandIndex = Codes[index+1].CodeCommandIndex;
+                    Codes[index].CodeCommandLineActive = Codes[index+1].CodeCommandLineActive;
+                    Codes[index].CodeCommandLineNumber = Codes[index+1].CodeCommandLineNumber;
+                }
+
+                Codes[NumberOfCodes-1].CodeCommandIndex = -1;
+                Codes[NumberOfCodes-1].CodeCommandLineActive = false;
+                Codes[NumberOfCodes-1].CodeCommandLineNumber = -1;
+            }
+
+            if (Codes[1].CodeCommandLineActive == false)
+            {
+                Codes[0].CodeCommandIndex = -1;
+                Codes[0].CodeCommandLineActive = true;
+                Codes[0].CodeCommandLineNumber = -1;
+
+                CodeDisplayStartIndex = 0;
+            }
+
+            interface->SetupCodingWindows();
+            ShowHideCodeSelectLineNumberBoxes();
+
+            interface->EditStatus = EditStatusOff;
+
+            EditLineSelectedByMouse = -1;
+            EditFirstLine = -1;
+            EditLastLine = -1;
+            EditLocation = -1;
+
+            DialogToShow = DialogNothing;
+            DialogToShowOld = DialogToShow;
+        }
+
+    }
+
+}
+
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForEditMoveButton(void)
+{
+    if (interface->CurrentInterfaceLevel == 2 && DialogToShow == DialogEdit)
+    {
+        if (interface->ThisButtonWasPressed == interface->EditMoveButtonIndex && interface->EditStatus == EditStatusCommand)
+        {
+            interface->EditStatus = EditStatusLocationMove;
+
+            interface->Buttons[interface->EditDelButtonIndex].BlockPressing = true;
+            interface->Buttons[interface->EditMoveButtonIndex].BlockPressing = true;
+            interface->Buttons[interface->EditCopyButtonIndex].BlockPressing = true;
+        }
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+void Logic::CheckForEditCopyButton(void)
+{
+    if (interface->CurrentInterfaceLevel == 2 && DialogToShow == DialogEdit)
+    {
+        if (interface->ThisButtonWasPressed == interface->EditCopyButtonIndex && interface->EditStatus == EditStatusCommand)
+        {
+            interface->EditStatus = EditStatusLocationCopy;
+
+            interface->Buttons[interface->EditDelButtonIndex].BlockPressing = true;
+            interface->Buttons[interface->EditMoveButtonIndex].BlockPressing = true;
+            interface->Buttons[interface->EditCopyButtonIndex].BlockPressing = true;
+        }
     }
 }
 
@@ -416,7 +641,7 @@ void Logic::CheckForScrollArrowButtons(void)
         }
     }
 
-    if (interface->CurrentInterfaceLevel == 0 && interface->EditorResizeButtonOriginalPressY == -1)
+    if ( (interface->CurrentInterfaceLevel == 0 && interface->EditorResizeButtonOriginalPressY == -1) )// || (interface->CurrentInterfaceLevel == 2 && interface->EditStatus != EditStatusOff) )
     {
         CommandSelectedByMouse = -1;
         int commandScreenY = 107-10;
@@ -435,7 +660,205 @@ void Logic::CheckForScrollArrowButtons(void)
         }
     }
 
-    if (interface->CurrentInterfaceLevel == 0)
+    if ( (interface->CurrentInterfaceLevel == 0 && interface->EditorResizeButtonOriginalPressY == -1) || (interface->CurrentInterfaceLevel == 2 && interface->EditStatus != EditStatusOff) )
+    {
+        CodeSelectedByMouse = -1;
+        EditLineSelectedByMouse = -1;
+        int codeScreenY = 109+200-2+CodeBoxOffsetY + 5 - 10;
+        int codeOffsetY = 32-10-4;
+        for (int index = 0; index < CodeBoxMaxY; index++)
+        {
+            if (  ( input->MouseY > (codeScreenY-10) )
+               && ( input->MouseY < (codeScreenY+10) )
+               && ( input->MouseX > (320-220) )
+               && ( input->MouseX < (320+200) )  )
+            {
+                CodeSelectedByMouse = (CodeDisplayStartIndex+index);
+                EditLineSelectedByMouse = (CodeDisplayStartIndex+index);
+
+                if (input->MouseButtonPressed[0] == true)
+                {
+                    if (interface->CurrentInterfaceLevel == 2 && interface->EditStatus == EditStatusFirst)
+                    {
+                        EditFirstLine = (CodeDisplayStartIndex+index);
+                        interface->EditStatus = EditStatusLast;
+
+                        screens->ScreenIsDirty = true;
+                    }
+                    else if (interface->CurrentInterfaceLevel == 2 && interface->EditStatus == EditStatusLast && Codes[CodeDisplayStartIndex+index+1].CodeCommandLineActive == true)
+                    {
+                        EditLastLine = (CodeDisplayStartIndex+index);
+                        interface->EditStatus = EditStatusCommand;
+
+                        if (EditLastLine < EditFirstLine)
+                        {
+                            int temp = EditFirstLine;
+                            EditFirstLine = EditLastLine;
+                            EditLastLine = temp;
+                        }
+
+                        interface->Buttons[interface->EditDelButtonIndex].BlockPressing = false;
+                        interface->Buttons[interface->EditMoveButtonIndex].BlockPressing = false;
+                        interface->Buttons[interface->EditCopyButtonIndex].BlockPressing = false;
+
+                        screens->ScreenIsDirty = true;
+                    }
+                    else if (interface->CurrentInterfaceLevel == 2 && interface->EditStatus >= EditStatusLocationMove)
+                    {
+                        EditLocation = (CodeDisplayStartIndex+index);
+                        if ( (EditLocation >= EditFirstLine && EditLocation <= EditLastLine) || (Codes[EditLocation+1].CodeCommandLineActive == false) )
+                        {
+                            EditLocation = -1;
+                        }
+
+                        if (EditLocation > -1)
+                        {
+                            for (int index = 0; index < NumberOfCodes; index++)
+                            {
+                                CacheCodes[index].CodeCommandIndex = -1;
+                                CacheCodes[index].CodeCommandLineActive = false;
+                                CacheCodes[index].CodeCommandLineNumber = -1;
+                            }
+
+                            int cacheIndex = 0;
+                            for ( int index = EditFirstLine; index < (EditLastLine+1); index++)
+                            {
+                                CacheCodes[cacheIndex].CodeCommandIndex = Codes[index].CodeCommandIndex;
+                                CacheCodes[cacheIndex].CodeCommandLineActive = Codes[index].CodeCommandLineActive;
+                                CacheCodes[cacheIndex].CodeCommandLineNumber = Codes[index].CodeCommandLineNumber;
+
+                                cacheIndex++;
+                            }
+
+                            int sizeOfLines = (EditLastLine-EditFirstLine);
+                            if (EditLocation > EditLastLine)
+                            {
+                                EditLocation-=(sizeOfLines);
+                            }
+
+                            if (interface->EditStatus == EditStatusLocationMove)
+                            {
+                                for ( int index = EditFirstLine; index < (EditLastLine+1); index++)
+                                {
+                                    Codes[index].CodeCommandIndex = -1;
+                                    Codes[index].CodeCommandLineActive = false;
+                                    Codes[index].CodeCommandLineNumber = -2;
+                                }
+
+                                while (Codes[EditFirstLine].CodeCommandLineNumber == -2)
+                                {
+                                    for (int index = EditFirstLine; index < NumberOfCodes; index++)
+                                    {
+                                        Codes[index].CodeCommandIndex = Codes[index+1].CodeCommandIndex;
+                                        Codes[index].CodeCommandLineActive = Codes[index+1].CodeCommandLineActive;
+                                        Codes[index].CodeCommandLineNumber = Codes[index+1].CodeCommandLineNumber;
+                                    }
+
+                                    Codes[NumberOfCodes-1].CodeCommandIndex = -1;
+                                    Codes[NumberOfCodes-1].CodeCommandLineActive = false;
+                                    Codes[NumberOfCodes-1].CodeCommandLineNumber = -1;
+                                }
+
+                                if (Codes[0].CodeCommandLineActive == false)
+                                {
+                                    Codes[0].CodeCommandIndex = -1;
+                                    Codes[0].CodeCommandLineActive = true;
+                                    Codes[0].CodeCommandLineNumber = -1;
+
+                                    CodeDisplayStartIndex = 0;
+                                }
+
+                                for ( int cacheIndex = 0; cacheIndex < (sizeOfLines+1); cacheIndex++ )
+                                {
+                                    for ( int index = (NumberOfCodes-1); index > (EditLocation+cacheIndex); index-- )
+                                    {
+                                        Codes[index].CodeCommandIndex = Codes[index-1].CodeCommandIndex;
+                                        Codes[index].CodeCommandLineActive = Codes[index-1].CodeCommandLineActive;
+                                        Codes[index].CodeCommandLineNumber = Codes[index-1].CodeCommandLineNumber;
+                                    }
+
+                                    Codes[EditLocation+cacheIndex].CodeCommandIndex = CacheCodes[cacheIndex].CodeCommandIndex;
+                                    Codes[EditLocation+cacheIndex].CodeCommandLineActive = true;
+                                    Codes[EditLocation+cacheIndex].CodeCommandLineNumber = -1;
+                                }
+                            }
+                            else if (interface->EditStatus == EditStatusLocationCopy)
+                            {
+                                for ( int cacheIndex = 0; cacheIndex < (sizeOfLines+1); cacheIndex++ )
+                                {
+                                    for ( int index = (NumberOfCodes-1); index > (EditLocation+cacheIndex); index-- )
+                                    {
+                                        Codes[index].CodeCommandIndex = Codes[index-1].CodeCommandIndex;
+                                        Codes[index].CodeCommandLineActive = Codes[index-1].CodeCommandLineActive;
+                                        Codes[index].CodeCommandLineNumber = Codes[index-1].CodeCommandLineNumber;
+                                    }
+
+                                    Codes[EditLocation+cacheIndex].CodeCommandIndex = CacheCodes[cacheIndex].CodeCommandIndex;
+                                    Codes[EditLocation+cacheIndex].CodeCommandLineActive = true;
+                                    Codes[EditLocation+cacheIndex].CodeCommandLineNumber = -1;
+                                }
+                            }
+
+                            interface->CurrentInterfaceLevel = 0;
+
+                            for (int index = 0; index < 8; index++)
+                            {
+                                interface->Buttons[index].ScreenX = (595+4);
+                            }
+
+                            interface->Buttons[8].ScreenX = 16;
+                            interface->Buttons[9].ScreenX = 16;
+
+                            interface->Buttons[10].InterfaceLevel = 0;
+                            interface->Buttons[11].InterfaceLevel = 0;
+
+                            for ( int index = interface->EditQuitButtonIndex; index < (interface->EditCopyButtonIndex+1); index++ )
+                            {
+                                interface->Buttons[index].OneClick = true;
+                                interface->Buttons[index].SpriteIndex = -1;
+                                interface->Buttons[index].Text = " ";
+                                interface->Buttons[index].TextScaleX = 1.0;
+                                interface->Buttons[index].TextScaleY = 1.0;
+                                interface->Buttons[index].ScreenIndex = -1;
+                                interface->Buttons[index].ScreenX = 320;
+                                interface->Buttons[index].ScreenY = 240;
+                                interface->Buttons[index].RedHue = 255;
+                                interface->Buttons[index].GreenHue = 255;
+                                interface->Buttons[index].BlueHue = 255;
+                                interface->Buttons[index].Transparency = 255;
+                                interface->Buttons[index].ScaleX = 1.0;
+                                interface->Buttons[index].ScaleY = 1.0;
+                                interface->Buttons[index].AnimationScale = 1.0;
+                                interface->Buttons[index].AnimationTimer = -1;
+                                interface->Buttons[index].BlockPressing = false;
+                                interface->Buttons[index].InterfaceLevel = 0;
+                                interface->Buttons[index].PlaySound = true;
+                            }
+
+                            interface->SetupCodingWindows();
+                            ShowHideCodeSelectLineNumberBoxes();
+
+                            interface->EditStatus = EditStatusOff;
+
+                            EditLineSelectedByMouse = -1;
+                            EditFirstLine = -1;
+                            EditLastLine = -1;
+                            EditLocation = -1;
+
+                            DialogToShow = DialogNothing;
+                            DialogToShowOld = DialogToShow;
+
+                            screens->ScreenIsDirty = true;
+                        }
+                    }
+                }
+            }
+
+            codeScreenY+=codeOffsetY;
+        }
+    }
+
+    if ( (interface->CurrentInterfaceLevel == 0) || (interface->CurrentInterfaceLevel == 2 && interface->EditStatus != EditStatusOff) )
     {
         if (input->MouseWheelStatus == MouseWheelUp)
         {
@@ -619,6 +1042,10 @@ void Logic::RunCodeEditor(void)
     CheckForFindButton();
 
     CheckForEditButton();
+    CheckForEditQuitButton();
+    CheckForEditDelButton();
+    CheckForEditMoveButton();
+    CheckForEditCopyButton();
 
     CheckForScrollArrowButtons();
 

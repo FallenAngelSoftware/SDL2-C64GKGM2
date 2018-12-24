@@ -57,6 +57,8 @@ Interface::Interface(void)
     EditorResizeButtonYoffset = 0;
     CodingWindowsValue = 0;
 
+    EditStatus = EditStatusOff;
+
 }
 
 //-------------------------------------------------------------------------------------------------

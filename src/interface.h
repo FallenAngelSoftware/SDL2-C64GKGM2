@@ -50,6 +50,19 @@ public:
     int EditorResizeButtonYoffset;
     int CodingWindowsValue;
 
+    int EditQuitButtonIndex;
+    int EditDelButtonIndex;
+    int EditMoveButtonIndex;
+    int EditCopyButtonIndex;
+
+    #define EditStatusOff               -1
+    #define EditStatusFirst             0
+    #define EditStatusLast              1
+    #define EditStatusCommand           2
+    #define EditStatusLocationMove      3
+    #define EditStatusLocationCopy      4
+    int EditStatus;
+
     void SetupCodingWindows(void);
 
     int CreateButtonWithText(int level, bool oneClick, bool playSound, const char *textToDisplay, float textScaleX, float textScaleY, Uint16 spriteIndex, int screenX, int screenY, Uint8 red, Uint8 green, Uint8 blue, Uint8 transparency, float scaleX, float scaleY);
