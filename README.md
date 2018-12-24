@@ -10,7 +10,7 @@ STATUS: "Pre-Alpha"
 - Code Editor: 50%+ completed  
 (clear/delete/insert 100% / find 100% / edit delete/move/copy 100%)  
 - Sprite Editor; 0% completed(started)  
-- Screen Editor: 0% completed(doable)  
+- Scene Editor: 0% completed(doable)  
 - Sound Editor: 0% completed(no idea)  
 - Song Editor: 0 % completed(no idea)  
   
