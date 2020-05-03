@@ -213,6 +213,9 @@ void Screens::DisplayFAS_Screen(void)
     {
         ScreenDisplayTimer = 370;
         ScreenTransitionStatus = FadeIn;
+
+        audio->music = audio->createAudio("data/audio/BGM-IDE1.wav", 1, SDL_MIX_MAXVOLUME);
+        audio->playMusicFromMemory(audio->music, SDL_MIX_MAXVOLUME);
     }
 
     if (input->MouseButtonPressed[0] == true
@@ -221,7 +224,6 @@ void Screens::DisplayFAS_Screen(void)
     {
         ScreenDisplayTimer = 0;
         input->DelayAllUserInput = 20;
-        audio->PlayAudio(0);
     }
 
     if (ScreenDisplayTimer > 0)  ScreenDisplayTimer--;
@@ -258,7 +260,6 @@ void Screens::DisplaySDL_Screen(void)
     {
         ScreenDisplayTimer = 0;
         input->DelayAllUserInput = 20;
-        audio->PlayAudio(0);
     }
 
     if (ScreenDisplayTimer > 0)  ScreenDisplayTimer--;
@@ -793,11 +794,11 @@ void Screens::DisplayCodeEditor_Screen(void)
         visuals->Sprites[1249].ScaleY = 1.8;
         visuals->DrawSpriteOntoScreenBuffer(1249);
 
-visuals->DrawSentenceOntoScreenBuffer(1, "NAME-", 435, 40, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
-visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 640-95, 40, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
+        visuals->DrawSentenceOntoScreenBuffer(1, "NAME-", 435, 40, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
+        visuals->DrawSentenceOntoScreenBuffer(1, "INTRO", 640-95, 40, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
 
-visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 435, 40+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
-visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
+        visuals->DrawSentenceOntoScreenBuffer(1, "FREE-", 435, 40+23, JustifyLeft, 255, 255, 255, 255, 1.0, 2.0);
+        visuals->DrawSentenceOntoScreenBuffer(1, "1999", 640-95, 40+23, JustifyRight, 255, 255, 255, 255, 1.0, 2.0);
 
         int commandScreenY = 107-10;
         int commandOffsetY = 32-10-4;

@@ -178,7 +178,7 @@ void Interface::ProcessAllButtons(void)
 
                     if (Buttons[index].OneClick == true)
                     {
-                        if (Buttons[index].PlaySound == true)  audio->PlayAudio(0);
+
                     }
                     else
                     {

@@ -19,8 +19,9 @@
 			<Target title="Release">
 				<Option output="C64GKGM2" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-lmingw32 -lSDL2main -lSDL2" />
@@ -32,14 +33,18 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="SDL2-2.0.9/i686-w64-mingw32/include/SDL2" />
+			<Add option="-m64" />
+			<Add directory="SDL2-2.0.12/x86_64-w64-mingw32/include/SDL2" />
 		</Compiler>
 		<Linker>
+			<Add option="-m64" />
 			<Add option="-lmingw32 -lSDL2main -lSDL2" />
-			<Add directory="SDL2-2.0.9/i686-w64-mingw32/lib" />
+			<Add directory="SDL2-2.0.12/x86_64-w64-mingw32/lib" />
 		</Linker>
 		<Unit filename="src/Icon.ico" />
-		<Unit filename="src/audio.cpp" />
+		<Unit filename="src/audio.cpp">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/audio.h" />
 		<Unit filename="src/input.cpp" />
 		<Unit filename="src/input.h" />
@@ -58,9 +63,6 @@
 		<Unit filename="src/visuals.cpp" />
 		<Unit filename="src/visuals.h" />
 		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>

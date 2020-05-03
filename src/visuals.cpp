@@ -251,8 +251,6 @@ int textureHeight;
 
         SDL_BlitSurface(spriteSheet, &srcRect, boxTemp, &dstRect);
 
-//        srcRect.x+=(FontBMPsCharWidth+1);
-
         FontChars[index].Texture[0] = SDL_CreateTextureFromSurface(Renderer, boxTemp);
 
         SDL_QueryTexture(FontChars[index].Texture[0], &textureFormat, &textureAccess, &textureWidth, &textureHeight);

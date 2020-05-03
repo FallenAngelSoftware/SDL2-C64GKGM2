@@ -641,7 +641,7 @@ void LogicCode::CheckForScrollArrowButtons(void)
         }
     }
 
-    if ( (interface->CurrentInterfaceLevel == 0 && interface->EditorResizeButtonOriginalPressY == -1) )// || (interface->CurrentInterfaceLevel == 2 && interface->EditStatus != EditStatusOff) )
+    if ( (interface->CurrentInterfaceLevel == 0 && interface->EditorResizeButtonOriginalPressY == -1) )
     {
         CommandSelectedByMouse = -1;
         int commandScreenY = 107-10;

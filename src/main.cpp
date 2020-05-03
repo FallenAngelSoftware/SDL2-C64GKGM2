@@ -62,7 +62,8 @@ int main( int argc, char* args[] )
     screens = new Screens();
 
     audio = new Audio();
-    if (audio->SetupAudio() != true)  visuals->CoreFailure = true;
+
+    audio->initAudio();
 
     while (input->EXIT_Game == false && visuals->CoreFailure == false)
     {
@@ -73,6 +74,9 @@ int main( int argc, char* args[] )
     }
 
     delete audio;
+
+    audio->endAudio();
+
     delete screens;
     delete logicSprite;
     delete logicCode;
