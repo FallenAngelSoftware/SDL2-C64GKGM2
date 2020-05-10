@@ -14,6 +14,8 @@
 #include "SDL.h"
 
 #include <stdio.h>
+#include <iostream>
+using namespace std;
 
 #include "visuals.h"
 #include "input.h"
@@ -26,7 +28,6 @@
 Visuals *visuals;
 Input *input;
 Screens *screens;
-Audio *audio;
 Interface *interface;
 LogicCode *logicCode;
 LogicSprite *logicSprite;
@@ -41,8 +42,6 @@ int main( int argc, char* args[] )
         printf( "Unable to initialize SDL2: %s\n", SDL_GetError() );
         return(1);
     }
-
-//    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
 
     visuals = new Visuals();
     if ( visuals->InitializeWindow() != true ) visuals->CoreFailure = true;
@@ -61,9 +60,13 @@ int main( int argc, char* args[] )
 
     screens = new Screens();
 
-    audio = new Audio();
+    initAudio();
 
-    audio->initAudio();
+    Audio * sound = createAudio("data/audio/SFX-MenuMove.wav", 0, SDL_MIX_MAXVOLUME / 2);
+    playSoundFromMemory(sound, SDL_MIX_MAXVOLUME);
+
+    Audio * music = createAudio("data/audio/BGM-IDE1.wav", 1, SDL_MIX_MAXVOLUME);
+    playMusicFromMemory(music, SDL_MIX_MAXVOLUME);
 
     while (input->EXIT_Game == false && visuals->CoreFailure == false)
     {
@@ -73,9 +76,9 @@ int main( int argc, char* args[] )
         visuals->ProcessFramerate();
     }
 
-    delete audio;
-
-    audio->endAudio();
+    endAudio();
+    freeAudio(sound);
+    freeAudio(music);
 
     delete screens;
     delete logicSprite;

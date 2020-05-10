@@ -1562,10 +1562,8 @@
 	"begin_code.h"
 	"close_code.h"
 
-1588529815 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\audio.cpp
-	<stdint.h>
-	<stdio.h>
-	<stdlib.h>
+1589127605 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\audio.cpp
+	<iostream>
 	<SDL.h>
 	"audio.h"
 
@@ -1923,7 +1921,8 @@
 	"begin_code.h"
 	"close_code.h"
 
-1588525845 c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\audio.h
+1589134841 c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\audio.h
+	<SDL.h>
 
 1545682789 c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\visuals.h
 
@@ -1967,9 +1966,10 @@
 
 1545682789 c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\logicsprite.h
 
-1588525845 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\main.cpp
+1589134841 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\main.cpp
 	"SDL.h"
 	<stdio.h>
+	<iostream>
 	"visuals.h"
 	"input.h"
 	"screens.h"
@@ -1980,7 +1980,7 @@
 
 1545682789 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\resources.rc
 
-1588529867 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\screens.cpp
+1589134851 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\screens.cpp
 	"SDL.h"
 	<stdio.h>
 	<cstring>
@@ -1997,13 +1997,10 @@
 	<cstring>
 	"visuals.h"
 
-1588466398 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\audio.c
+1589134841 source:c:\users\jlp\google drive\sdl2-c64gkgm2-master\src\audio.c
 	<stdint.h>
 	<stdio.h>
 	<stdlib.h>
 	<SDL.h>
 	"audio.h"
-	<stdio.h>
-	"audio.h"
-	"visuals.h"
 

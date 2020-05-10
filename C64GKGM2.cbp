@@ -42,7 +42,7 @@
 			<Add directory="SDL2-2.0.12/x86_64-w64-mingw32/lib" />
 		</Linker>
 		<Unit filename="src/Icon.ico" />
-		<Unit filename="src/audio.cpp">
+		<Unit filename="src/audio.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/audio.h" />

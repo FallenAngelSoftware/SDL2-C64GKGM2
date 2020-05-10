@@ -213,9 +213,6 @@ void Screens::DisplayFAS_Screen(void)
     {
         ScreenDisplayTimer = 370;
         ScreenTransitionStatus = FadeIn;
-
-        audio->music = audio->createAudio("data/audio/BGM-IDE1.wav", 1, SDL_MIX_MAXVOLUME);
-        audio->playMusicFromMemory(audio->music, SDL_MIX_MAXVOLUME);
     }
 
     if (input->MouseButtonPressed[0] == true

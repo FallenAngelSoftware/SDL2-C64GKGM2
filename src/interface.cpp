@@ -115,7 +115,7 @@ int freeButton = 0;
     Buttons[freeButton].ScaleY = scaleY;
     Buttons[freeButton].AnimationScale = 1.0;
     Buttons[freeButton].AnimationTimer = -1;
-//    Buttons[freeButton].BlockPressing = false;
+    Buttons[freeButton].BlockPressing = false;
     Buttons[freeButton].InterfaceLevel = level;
     Buttons[freeButton].PlaySound = playSound;
 

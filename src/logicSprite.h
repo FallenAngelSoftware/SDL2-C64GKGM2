@@ -8,7 +8,6 @@ public:
 	LogicSprite(void);
 	virtual ~LogicSprite(void);
 
-
 };
 
 #endif
