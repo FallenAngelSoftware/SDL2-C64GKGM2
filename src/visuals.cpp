@@ -492,7 +492,7 @@ bool Visuals::InitializeWindow(void)
 SDL_Surface* windowIcon = SDL_LoadBMP("data/visuals/icon.bmp");
 
     Window = NULL;
-    Window = SDL_CreateWindow("''C64GKGM2'' - (C)2019 By Team www.FallenAngelSoftware.com"
+    Window = SDL_CreateWindow("''C64GKGM2'' - (C)2020 By Team www.FallenAngelSoftware.com"
                                  , SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_RESIZABLE);
 
     if (Window == NULL)

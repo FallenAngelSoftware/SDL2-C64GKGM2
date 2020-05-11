@@ -15,7 +15,7 @@ STATUS: "Pre-Alpha"
 - Sprite Editor; 0% completed(started)  
 - Scene Editor: 0% completed(doable)  
 - Sound Editor: 0% completed(no idea)  
-- Song Editor: 0 % completed(no idea)  
+- Song Editor: 0% completed(no idea)  
   
 More to come...  
   

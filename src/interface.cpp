@@ -174,6 +174,8 @@ void Interface::ProcessAllButtons(void)
 
                     screens->ScreenIsDirty = true;
 
+                    audio->PlaySoundEffect(0);
+
                     if (CurrentInterfaceLevel == 1)  InterfaceLevelBackgroundShown = false;
 
                     if (Buttons[index].OneClick == true)

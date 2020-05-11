@@ -8,7 +8,7 @@
    \ `.___.'\| (____) |    _| |_ \ `.___]  |_| |  \ \_\ `.___]  |_| |_\/_| |_ / /_____
     `.____ .''.______.'   |_____| `._____.'|____||____|`._____.'|_____||_____||_______|
 
-                       (C)2019 By Team www.FallenAngelSoftware.com
+                       (C)2020 By Team www.FallenAngelSoftware.com
 */
 
 #include "SDL.h"
@@ -28,6 +28,7 @@ using namespace std;
 Visuals *visuals;
 Input *input;
 Screens *screens;
+Audio *audio;
 Interface *interface;
 LogicCode *logicCode;
 LogicSprite *logicSprite;
@@ -60,13 +61,8 @@ int main( int argc, char* args[] )
 
     screens = new Screens();
 
-    initAudio();
-
-    Audio * sound = createAudio("data/audio/SFX-MenuMove.wav", 0, SDL_MIX_MAXVOLUME / 2);
-    playSoundFromMemory(sound, SDL_MIX_MAXVOLUME);
-
-    Audio * music = createAudio("data/audio/BGM-IDE1.wav", 1, SDL_MIX_MAXVOLUME);
-    playMusicFromMemory(music, SDL_MIX_MAXVOLUME);
+    audio = new Audio();
+    audio->PlayMusic(0);
 
     while (input->EXIT_Game == false && visuals->CoreFailure == false)
     {
@@ -76,10 +72,7 @@ int main( int argc, char* args[] )
         visuals->ProcessFramerate();
     }
 
-    endAudio();
-    freeAudio(sound);
-    freeAudio(music);
-
+    delete audio;
     delete screens;
     delete logicSprite;
     delete logicCode;
