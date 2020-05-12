@@ -174,13 +174,11 @@ void Interface::ProcessAllButtons(void)
 
                     screens->ScreenIsDirty = true;
 
-                    audio->PlaySoundEffect(0);
-
                     if (CurrentInterfaceLevel == 1)  InterfaceLevelBackgroundShown = false;
 
                     if (Buttons[index].OneClick == true)
                     {
-
+                        audio->PlaySoundEffect(0);
                     }
                     else
                     {
@@ -236,6 +234,8 @@ void Interface::ProcessAllButtons(void)
                                 {
                                     EditorResizeButtonOriginalPressY = input->MouseY;
                                     EditorResizeButtonY = (240+36);
+
+                                    if (Buttons[CodeLineSelectorButtonsEnd+1].ScaleY != 2.5)  audio->PlaySoundEffect(0);
 
                                     Buttons[CodeLineSelectorButtonsEnd+1].ScaleY = 2.5;
 

@@ -31,10 +31,16 @@ Audio::~Audio(void)
 void Audio::PlayMusic(int musicIndex)
 {
     AudioDeviceID = SDL_OpenAudioDevice(NULL, 0, &MusicSpec[musicIndex], NULL, 0);
+    if (AudioDeviceID == 0)
+    {
+        printf( "Failed to open audio device: %s\n", SDL_GetError() );
+    }
+
     SDL_QueueAudio(AudioDeviceID, MusicBuffer[musicIndex], MusicLength[musicIndex]);
     SDL_PauseAudioDevice(AudioDeviceID, 0);
 
     MusicCurrentlyPlaying = musicIndex;
+
 }
 
 //-------------------------------------------------------------------------------------------------

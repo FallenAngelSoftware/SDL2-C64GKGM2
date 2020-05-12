@@ -221,6 +221,8 @@ void Screens::DisplayFAS_Screen(void)
     {
         ScreenDisplayTimer = 0;
         input->DelayAllUserInput = 20;
+
+        audio->PlaySoundEffect(0);
     }
 
     if (ScreenDisplayTimer > 0)  ScreenDisplayTimer--;
@@ -257,6 +259,8 @@ void Screens::DisplaySDL_Screen(void)
     {
         ScreenDisplayTimer = 0;
         input->DelayAllUserInput = 20;
+
+        audio->PlaySoundEffect(0);
     }
 
     if (ScreenDisplayTimer > 0)  ScreenDisplayTimer--;
