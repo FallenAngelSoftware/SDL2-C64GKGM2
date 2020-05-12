@@ -24,6 +24,7 @@ Audio::~Audio(void)
     SDL_FreeWAV(MusicBuffer[0]);
 
     SDL_FreeWAV(SoundEffectBuffer[0]);
+    SDL_FreeWAV(SoundEffectBuffer[1]);
 
 }
 
